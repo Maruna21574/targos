@@ -16,10 +16,10 @@ const Hero: React.FC<HeroProps> = ({ setActivePage }) => {
           loop 
           playsInline 
           className="w-full h-full object-cover opacity-60 grayscale-[40%] contrast-110"
-          poster="https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=1920"
+          poster="/images/video_hp_poster.jpg"
         >
           <source 
-            src="https://player.vimeo.com/external/451000958.hd.mp4?s=34a5806637b4c6e913a48e789d3d4b655f585645&profile_id=172&oauth2_token_id=57447761" 
+            src="/images/video_hp.mp4"
             type="video/mp4" 
           />
           Your browser does not support the video tag.
@@ -41,7 +41,7 @@ const Hero: React.FC<HeroProps> = ({ setActivePage }) => {
           </div>
           
           <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.95] mb-8 tracking-tighter animate-in fade-in slide-in-from-bottom duration-1000">
-            STAVIAMEY <br />
+            STAVIAME <br />
             <span className="text-gradient-orange">VAŠE SNY.</span>
           </h1>
           

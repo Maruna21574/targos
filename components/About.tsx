@@ -9,7 +9,7 @@ const About: React.FC = () => {
           <div className="relative">
             <div className="aspect-[4/5] rounded-sm overflow-hidden shadow-2xl border border-zinc-800 transform rotate-2">
               <img 
-                src="https://images.unsplash.com/photo-1503387762-592dee58c460?auto=format&fit=crop&q=80&w=800" 
+                src="/images/targos_praca_hp.jpg"
                 alt="Práca TARGOŠ" 
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
               />
@@ -25,7 +25,7 @@ const About: React.FC = () => {
             <div>
               <h2 className="text-orange-500 font-black uppercase tracking-[0.3em] text-xs mb-4">O Našej Firme</h2>
               <h3 className="text-5xl md:text-6xl font-black text-white leading-none tracking-tighter">
-                SILA TRADÍCIE, <br /> KVALITA DNEŠKA.
+                SILA TRADÍCIE, <br /> KVALITA BUDÚCNOSTI.
               </h3>
             </div>
             

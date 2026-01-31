@@ -7,7 +7,7 @@ const Services: React.FC = () => {
   const serviceCategories = [
     {
       title: "Stavebné práce",
-      image: "https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=600",
+      image: "/images/stavebne_prace.jpg",
       desc: "Základ pre váš domov postavený na pevných základoch.",
       longDesc: "Realizujeme široké spektrum stavebných prác od základov až po strechu. Špecializujeme sa na novostavby rodinných domov, prístavby a nadstavby. Naše skúsenosti zaručujú statickú stabilitu a technologickú precíznosť každého metra štvorcového.",
       items: [
@@ -21,7 +21,7 @@ const Services: React.FC = () => {
     },
     {
       title: "Interiér & Dokončovanie",
-      image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=600",
+      image: "/images/interier_a_dokoncovanie.jpg",
       desc: "Estetika a detail, ktorý tvorí atmosféru bývania.",
       longDesc: "Interiér je to, čo robí dom domovom. Zameriavame sa na detailné remeselné spracovanie. Či už ide o luxusné obklady alebo zložité sadrokartónové stropy, náš tím doručí výsledok, ktorý predčí vaše očakávania.",
       items: [
@@ -35,7 +35,7 @@ const Services: React.FC = () => {
     },
     {
       title: "Technické Inštalácie",
-      image: "https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&q=80&w=600",
+      image: "/images/technicke_instalacie.jpg",
       desc: "Inteligentné rozvody a bezpečnosť pod omietkou.",
       longDesc: "Kvalitná elektroinštalácia a vodoinštalácia je srdcom každej stavby. Naši certifikovaní technici zabezpečia bezpečnosť, efektivitu a pripravenosť na moderné inteligentné technológie.",
       items: [
@@ -111,9 +111,9 @@ const Services: React.FC = () => {
           <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-12 rounded-sm max-w-2xl w-full relative max-h-[90vh] overflow-y-auto shadow-2xl">
             <button 
               onClick={() => setSelectedService(null)}
-              className="absolute top-6 right-6 text-zinc-500 hover:text-white transition-colors"
+              className="absolute top-4 right-4 text-orange-500 hover:text-orange-700 transition-colors"
             >
-              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>

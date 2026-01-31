@@ -81,8 +81,14 @@ const App: React.FC = () => {
             <Contact prefilledMessage={prefilledMessage} />
           </div>
         );
+      case 'about':
+        return <About />;
+      case 'ai':
+        return <ProjectConsultant setActivePage={setActivePage} setPrefilledMessage={setPrefilledMessage} />;
       case 'admin':
         return <Admin projects={projects} setProjects={updateProjectsInState} defaultProjects={DEFAULT_PROJECTS} />;
+      case 'services':
+        return <Services />;
       case 'portfolio':
         return <div className="pt-20"><Portfolio projects={projects} setActivePage={setActivePage} /><Contact prefilledMessage={prefilledMessage} /></div>;
       case 'contact':
