@@ -15,6 +15,7 @@ interface Project {
   year: string;
   scope: string;
   process: string;
+  materials: string;
 }
 
 interface AdminProps {
@@ -30,7 +31,7 @@ const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [newProject, setNewProject] = useState<Partial<Project>>({
     title: '', loc: '', img: '', desc: '', cost: '', duration: '', year: new Date().getFullYear().toString(), 
-    gallery: [], scope: '', process: ''
+    gallery: [], scope: '', process: '', materials: ''
   });
   const [galleryText, setGalleryText] = useState('');
 
@@ -281,6 +282,9 @@ const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
               </div>
             </div>
             <textarea required value={newProject.desc} onChange={e => setNewProject({...newProject, desc: e.target.value})} className="md:col-span-2 bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" rows={2} placeholder="Stručný popis" />
+            <textarea value={newProject.process} onChange={e => setNewProject({...newProject, process: e.target.value})} className="md:col-span-2 bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" rows={2} placeholder="Proces realizácie (napr. príprava, výstavba, dokončenie)" />
+            <textarea value={newProject.scope} onChange={e => setNewProject({...newProject, scope: e.target.value})} className="md:col-span-2 bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" rows={2} placeholder="Rozsah prác (napr. rekonštrukcia strechy, zateplenie, výmena okien...)" />
+            <textarea value={newProject.materials} onChange={e => setNewProject({...newProject, materials: e.target.value})} className="md:col-span-2 bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" rows={2} placeholder="Použité materiály/technológie (napr. Ytong, Baumit, zateplenie EPS, atď.)" />
             <input value={newProject.cost} onChange={e => setNewProject({...newProject, cost: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Cena" />
             <input value={newProject.duration} onChange={e => setNewProject({...newProject, duration: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Trvanie" />
             
@@ -307,6 +311,9 @@ const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
                   <div>
                     <h3 className="text-white font-bold text-sm uppercase tracking-tight">{p.title}</h3>
                     <p className="text-zinc-500 text-[10px] uppercase font-bold mt-1 tracking-widest">{p.loc} • {p.year}</p>
+                    {p.process && <p className="text-zinc-400 text-xs mt-1"><b>Proces:</b> {p.process}</p>}
+                    {p.scope && <p className="text-zinc-400 text-xs mt-1"><b>Rozsah:</b> {p.scope}</p>}
+                    {p.materials && <p className="text-zinc-400 text-xs mt-1"><b>Materiály/technológie:</b> {p.materials}</p>}
                   </div>
                 </div>
                 <div className="flex gap-6">

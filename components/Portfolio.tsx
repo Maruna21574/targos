@@ -211,6 +211,19 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects, setActivePage }) => {
                   </div>
                 )}
 
+                {projects[selectedProject].materials && (
+                  <div className="mb-12 text-left">
+                    <h5 className="text-white font-black text-xs uppercase tracking-[0.3em] mb-6">Použité materiály / technológie</h5>
+                    <div className="flex flex-wrap gap-2">
+                      {projects[selectedProject].materials.split(',').map((m, i) => (
+                        <span key={i} className="bg-zinc-900 border border-zinc-800 px-4 py-2 text-[10px] font-bold text-orange-300 uppercase tracking-widest rounded-full">
+                          {m.trim()}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 <div className="mt-auto pt-12">
                    {/* This button only handles navigation, stops propagation to prevent triggering image-based logic if any */}
                    <button 
