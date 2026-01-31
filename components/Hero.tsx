@@ -1,0 +1,81 @@
+
+import React from 'react';
+
+interface HeroProps {
+  setActivePage: (page: string) => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ setActivePage }) => {
+  return (
+    <div className="relative h-screen flex items-center overflow-hidden bg-black">
+      {/* Video Background Container */}
+      <div className="absolute inset-0 z-0">
+        <video 
+          autoPlay 
+          muted 
+          loop 
+          playsInline 
+          className="w-full h-full object-cover opacity-60 grayscale-[40%] contrast-110"
+          poster="https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=1920"
+        >
+          <source 
+            src="https://player.vimeo.com/external/451000958.hd.mp4?s=34a5806637b4c6e913a48e789d3d4b655f585645&profile_id=172&oauth2_token_id=57447761" 
+            type="video/mp4" 
+          />
+          Your browser does not support the video tag.
+        </video>
+        
+        {/* Layered Overlays for Depth */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40"></div>
+        
+        {/* Animated Glow Accent */}
+        <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-orange-600/10 blur-[150px] rounded-full animate-pulse"></div>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+        <div className="max-w-3xl">
+          <div className="inline-flex items-center space-x-3 px-4 py-1.5 rounded-full bg-orange-600/20 border border-orange-500/30 mb-8 animate-in fade-in slide-in-from-left duration-700">
+            <span className="flex h-2 w-2 rounded-full bg-orange-500 animate-pulse"></span>
+            <span className="text-orange-500 font-black text-[10px] uppercase tracking-[0.3em]">Tradícia od roku 1994</span>
+          </div>
+          
+          <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.95] mb-8 tracking-tighter animate-in fade-in slide-in-from-bottom duration-1000">
+            STAVIAMEY <br />
+            <span className="text-gradient-orange">VAŠE SNY.</span>
+          </h1>
+          
+          <p className="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed font-light max-w-xl animate-in fade-in slide-in-from-bottom duration-1000 delay-200">
+            Kompletné rekonštrukcie, novostavby a technické inštalácie. <br />
+            <span className="text-white font-medium">TARGOŠ</span> – Kvalita potvrdená časom.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-6 animate-in fade-in slide-in-from-bottom duration-1000 delay-500">
+            <button 
+              onClick={() => setActivePage('contact')}
+              className="bg-orange-600 hover:bg-orange-700 text-white px-10 py-5 rounded-sm font-black text-xs uppercase tracking-widest transition-all transform hover:-translate-y-1 shadow-2xl shadow-orange-600/40"
+            >
+              Nezáväzná kalkulácia
+            </button>
+            <button 
+              onClick={() => setActivePage('services')}
+              className="bg-white/5 backdrop-blur-md hover:bg-white/10 text-white px-10 py-5 rounded-sm font-black text-xs uppercase tracking-widest transition-all border border-white/10 flex items-center justify-center space-x-3"
+            >
+              <span>Naše služby</span>
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll indicator with orange glow */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center space-y-4 opacity-60">
+        <div className="w-px h-16 bg-gradient-to-b from-orange-500 to-transparent"></div>
+      </div>
+    </div>
+  );
+};
+
+export default Hero;
