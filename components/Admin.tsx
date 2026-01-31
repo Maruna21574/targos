@@ -225,14 +225,22 @@ const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
             </div>
             <div className="md:col-span-2 flex gap-4 items-center">
               <input required value={newProject.img} onChange={e => setNewProject({...newProject, img: e.target.value})} className="flex-grow bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Hlavná fotka (URL)" />
-              <div
-                onDrop={handleImgUpload}
-                onDragOver={e => e.preventDefault()}
-                className="flex items-center justify-center w-20 h-20 border-2 border-dashed border-orange-600 rounded cursor-pointer bg-black/30 hover:bg-black/50 transition"
-                title="Pretiahni obrázok alebo klikni"
-              >
-                <input type="file" accept="image/*" onChange={handleImgUpload} className="absolute opacity-0 w-20 h-20 cursor-pointer" style={{left:0,top:0}} title="Nahrať obrázok" />
-                <span className="text-xs text-orange-400">Drop/Click</span>
+              <div className="relative flex flex-col items-center">
+                <button
+                  type="button"
+                  className="bg-orange-600 text-white px-3 py-1 rounded font-bold text-xs mb-1 hover:bg-orange-700 transition"
+                  onClick={() => document.getElementById('main-photo-input')?.click()}
+                >
+                  Nahrať HLAVNÚ fotku
+                </button>
+                <input
+                  id="main-photo-input"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImgUpload}
+                  style={{ display: 'none' }}
+                  title="Nahrať hlavnú fotku"
+                />
               </div>
               {newProject.img && (
                 <img src={newProject.img} alt="Náhľad" className="w-16 h-16 object-cover rounded border border-zinc-800 ml-2" />
@@ -241,13 +249,24 @@ const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
             <div className="md:col-span-2 flex gap-4 items-start">
               <div className="flex-grow">
                 <textarea value={galleryText} onChange={e => setGalleryText(e.target.value)} className="w-full bg-black border border-zinc-800 p-4 text-white font-mono text-xs outline-none focus:border-orange-600" rows={3} placeholder="Ďalšie fotky (URL, jedna na riadok)" />
-                {/* Náhľady galérie */}
-                <div
-                  onDrop={handleGalleryUpload}
-                  onDragOver={e => e.preventDefault()}
-                  className="flex flex-wrap gap-2 mt-2 min-h-[40px] border-2 border-dashed border-orange-600 rounded p-1 bg-black/30 hover:bg-black/50 transition"
-                  title="Pretiahni obrázky sem"
+                <button
+                  type="button"
+                  className="bg-orange-600 text-white px-3 py-1 rounded font-bold text-xs mb-2 hover:bg-orange-700 transition"
+                  onClick={() => document.getElementById('gallery-photo-input')?.click()}
                 >
+                  Nahrať ĎALŠIE fotky
+                </button>
+                <input
+                  id="gallery-photo-input"
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={handleGalleryUpload}
+                  style={{ display: 'none' }}
+                  title="Nahrať ďalšie fotky"
+                />
+                {/* Náhľady galérie */}
+                <div className="flex flex-wrap gap-2 mt-2 min-h-[40px]">
                   {galleryText.split('\n').filter(Boolean).map((url, i, arr) => (
                     <div key={i} className="relative group flex flex-col items-center">
                       <img src={url} alt="Galéria" className="w-16 h-16 object-cover rounded border border-zinc-800" />
@@ -258,7 +277,6 @@ const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
                       </div>
                     </div>
                   ))}
-                  <input type="file" accept="image/*" multiple onChange={handleGalleryUpload} className="absolute opacity-0 w-1 h-1" style={{left:0,top:0}} title="Nahrať viac obrázkov" />
                 </div>
               </div>
             </div>
