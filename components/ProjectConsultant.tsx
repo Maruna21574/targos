@@ -123,6 +123,37 @@ const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, se
 
           {result && (
             <div className="animate-in fade-in slide-in-from-bottom-10 duration-1000 text-left">
+              {/* PRINT-ONLY WRAPPER: len výsledok analýzy */}
+              <div className="print:block hidden" id="ai-print-result">
+                <h3 className="text-black font-black text-2xl uppercase tracking-tighter mb-6">AI Analýza projektu</h3>
+                <div className="mb-4">
+                  <strong>Zadanie:</strong> {query}
+                </div>
+                <div className="mb-4">
+                  <strong>Kategória:</strong> {result.narocnost}
+                </div>
+                <div className="mb-4">
+                  <strong>Technické zhodnotenie:</strong>
+                  <div>{result.analyza}</div>
+                </div>
+                <div className="mb-4">
+                  <strong>Harmonogram prác:</strong>
+                  <ul>
+                    {result.postup.map((step: string, i: number) => (
+                      <li key={i}>{step}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="mb-4">
+                  <strong>Materiály:</strong> {result.materialy}
+                </div>
+                <div className="mb-4">
+                  <strong>Odhad:</strong> {result.odhad}
+                </div>
+                <div className="mb-4">
+                  <strong>Riziká:</strong> {result.rizika}
+                </div>
+              </div>
               
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6 border-b border-zinc-800 pb-10 print:border-black">
                 <div className="max-w-xl">
