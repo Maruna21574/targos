@@ -1,3 +1,18 @@
+// Upload obrázka do Supabase Storage
+export const uploadImage = async (file: File) => {
+  const fileExt = file.name.split('.').pop();
+  const fileName = `${Date.now()}.${fileExt}`;
+  const { data, error } = await supabase.storage.from('images').upload(fileName, file, {
+    cacheControl: '3600',
+    upsert: false
+  });
+  if (error) {
+    throw error;
+  }
+  // Vytvor URL na obrázok
+  const url = supabase.storage.from('images').getPublicUrl(fileName).data.publicUrl;
+  return url;
+};
 
 import { createClient } from '@supabase/supabase-js';
 

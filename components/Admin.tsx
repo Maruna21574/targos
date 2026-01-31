@@ -1,6 +1,121 @@
 
 import React, { useState, useEffect } from 'react';
-import { saveProject, deleteProject, getProjects } from '../services/supabaseService';;
+import { saveProject, deleteProject, getProjects, uploadImage } from '../services/supabaseService';
+// ...existing code...
+
+interface Project {
+  id: number;
+  title: string;
+  loc: string;
+  img: string;
+  gallery: string[];
+  desc: string;
+  cost: string;
+  duration: string;
+  year: string;
+  scope: string;
+  process: string;
+}
+
+interface AdminProps {
+  projects: Project[];
+  setProjects: (projects: Project[]) => void;
+  defaultProjects: Project[];
+}
+
+const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loginForm, setLoginForm] = useState({ user: '', pass: '' });
+  const [isSaving, setIsSaving] = useState(false);
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [newProject, setNewProject] = useState<Partial<Project>>({
+    title: '', loc: '', img: '', desc: '', cost: '', duration: '', year: new Date().getFullYear().toString(), 
+    gallery: [], scope: '', process: ''
+  });
+  const [galleryText, setGalleryText] = useState('');
+
+  // Upload hlavného obrázka s validáciou, náhľadom a drag&drop
+  const handleImgUpload = async (e: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement>) => {
+    let file: File | null = null;
+    if ('dataTransfer' in e) {
+      // Drag&drop
+      e.preventDefault();
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        file = e.dataTransfer.files[0];
+      }
+    } else if (e.target && (e.target as HTMLInputElement).files && (e.target as HTMLInputElement).files![0]) {
+      file = (e.target as HTMLInputElement).files![0];
+    }
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        alert('Súbor nie je obrázok!');
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Obrázok je príliš veľký (max 5MB).');
+        return;
+      }
+      try {
+        const url = await uploadImage(file);
+        setNewProject((prev) => ({ ...prev, img: url }));
+      } catch (err) {
+        alert('Chyba pri nahrávaní obrázka: ' + (err as any).message);
+      }
+    }
+  };
+
+  // Upload obrázkov do galérie (viacero naraz) s validáciou, náhľadom a drag&drop
+  const handleGalleryUpload = async (e: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement>) => {
+    let files: FileList | File[] | null = null;
+    if ('dataTransfer' in e) {
+      // Drag&drop
+      e.preventDefault();
+      files = e.dataTransfer.files;
+    } else if (e.target && (e.target as HTMLInputElement).files && (e.target as HTMLInputElement).files!.length > 0) {
+      files = (e.target as HTMLInputElement).files;
+    }
+    if (files && files.length > 0) {
+      const urls = [];
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        if (!file.type.startsWith('image/')) {
+          alert('Súbor nie je obrázok!');
+          continue;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          alert('Obrázok je príliš veľký (max 5MB).');
+          continue;
+        }
+        try {
+          const url = await uploadImage(file);
+          urls.push(url);
+        } catch (err) {
+          alert('Chyba pri nahrávaní obrázka: ' + (err as any).message);
+        }
+      }
+      if (urls.length > 0) {
+        setGalleryText((prev) => (prev ? prev + '\n' : '') + urls.join('\n'));
+      }
+    }
+  };
+
+  // Odstrániť obrázok z galérie
+  const handleRemoveGalleryImg = (url: string) => {
+    setGalleryText((prev) => prev.split('\n').filter((u) => u !== url).join('\n'));
+  };
+
+  // Posunúť obrázok v galérii vľavo/vpravo
+  const handleMoveGalleryImg = (index: number, direction: -1 | 1) => {
+    setGalleryText((prev) => {
+      const arr = prev.split('\n').filter(Boolean);
+      const newIndex = index + direction;
+      if (newIndex < 0 || newIndex >= arr.length) return prev;
+      const tmp = arr[index];
+      arr[index] = arr[newIndex];
+      arr[newIndex] = tmp;
+      return arr.join('\n');
+    });
+  };
 
 interface Project {
   id: number;
@@ -139,8 +254,45 @@ const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
               <input required value={newProject.loc} onChange={e => setNewProject({...newProject, loc: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Lokalita" />
               <input required value={newProject.year} onChange={e => setNewProject({...newProject, year: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Rok" />
             </div>
-            <input required value={newProject.img} onChange={e => setNewProject({...newProject, img: e.target.value})} className="md:col-span-2 bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Hlavná fotka (URL)" />
-            <textarea value={galleryText} onChange={e => setGalleryText(e.target.value)} className="md:col-span-2 bg-black border border-zinc-800 p-4 text-white font-mono text-xs outline-none focus:border-orange-600" rows={3} placeholder="Ďalšie fotky (URL, jedna na riadok)" />
+            <div className="md:col-span-2 flex gap-4 items-center">
+              <input required value={newProject.img} onChange={e => setNewProject({...newProject, img: e.target.value})} className="flex-grow bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Hlavná fotka (URL)" />
+              <div
+                onDrop={handleImgUpload}
+                onDragOver={e => e.preventDefault()}
+                className="flex items-center justify-center w-20 h-20 border-2 border-dashed border-orange-600 rounded cursor-pointer bg-black/30 hover:bg-black/50 transition"
+                title="Pretiahni obrázok alebo klikni"
+              >
+                <input type="file" accept="image/*" onChange={handleImgUpload} className="absolute opacity-0 w-20 h-20 cursor-pointer" style={{left:0,top:0}} title="Nahrať obrázok" />
+                <span className="text-xs text-orange-400">Drop/Click</span>
+              </div>
+              {newProject.img && (
+                <img src={newProject.img} alt="Náhľad" className="w-16 h-16 object-cover rounded border border-zinc-800 ml-2" />
+              )}
+            </div>
+            <div className="md:col-span-2 flex gap-4 items-start">
+              <div className="flex-grow">
+                <textarea value={galleryText} onChange={e => setGalleryText(e.target.value)} className="w-full bg-black border border-zinc-800 p-4 text-white font-mono text-xs outline-none focus:border-orange-600" rows={3} placeholder="Ďalšie fotky (URL, jedna na riadok)" />
+                {/* Náhľady galérie */}
+                <div
+                  onDrop={handleGalleryUpload}
+                  onDragOver={e => e.preventDefault()}
+                  className="flex flex-wrap gap-2 mt-2 min-h-[40px] border-2 border-dashed border-orange-600 rounded p-1 bg-black/30 hover:bg-black/50 transition"
+                  title="Pretiahni obrázky sem"
+                >
+                  {galleryText.split('\n').filter(Boolean).map((url, i, arr) => (
+                    <div key={i} className="relative group flex flex-col items-center">
+                      <img src={url} alt="Galéria" className="w-16 h-16 object-cover rounded border border-zinc-800" />
+                      <div className="flex gap-1 mt-1">
+                        <button type="button" onClick={() => handleMoveGalleryImg(i, -1)} disabled={i === 0} className="bg-zinc-800 text-white text-xs rounded px-1 disabled:opacity-30">←</button>
+                        <button type="button" onClick={() => handleMoveGalleryImg(i, 1)} disabled={i === arr.length - 1} className="bg-zinc-800 text-white text-xs rounded px-1 disabled:opacity-30">→</button>
+                        <button type="button" onClick={() => handleRemoveGalleryImg(url)} className="bg-black/70 text-white text-xs rounded-full px-1 opacity-80 hover:bg-red-600">×</button>
+                      </div>
+                    </div>
+                  ))}
+                  <input type="file" accept="image/*" multiple onChange={handleGalleryUpload} className="absolute opacity-0 w-1 h-1" style={{left:0,top:0}} title="Nahrať viac obrázkov" />
+                </div>
+              </div>
+            </div>
             <textarea required value={newProject.desc} onChange={e => setNewProject({...newProject, desc: e.target.value})} className="md:col-span-2 bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" rows={2} placeholder="Stručný popis" />
             <input value={newProject.cost} onChange={e => setNewProject({...newProject, cost: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Cena" />
             <input value={newProject.duration} onChange={e => setNewProject({...newProject, duration: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Trvanie" />
