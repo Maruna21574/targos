@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
@@ -33,8 +34,8 @@ const DEFAULT_PROJECTS = [
   }
 ];
 
+
 const App: React.FC = () => {
-  const [activePage, setActivePage] = useState('home');
   const [projects, setProjects] = useState<any[]>(DEFAULT_PROJECTS);
   const [scrolled, setScrolled] = useState(false);
   const [prefilledMessage, setPrefilledMessage] = useState('');
@@ -44,7 +45,6 @@ const App: React.FC = () => {
     const loadData = async () => {
       const dbProjects = await getProjects();
       if (dbProjects && dbProjects.length > 0) {
-        // Mapovanie desc_text späť na desc pre zvyšok aplikácie
         const mapped = dbProjects.map(p => ({
           ...p,
           desc: p.desc_text
@@ -53,9 +53,7 @@ const App: React.FC = () => {
       }
       setDbLoading(false);
     };
-
     loadData();
-
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -65,53 +63,44 @@ const App: React.FC = () => {
     setProjects(newProjects);
   };
 
-  const renderContent = () => {
-    switch(activePage) {
-      case 'home':
-        return (
-          <div className="animate-in fade-in duration-700">
-            <Hero setActivePage={setActivePage} />
-            <TrustLogos />
-            <About />
-            <Services />
-            <Portfolio projects={projects} setActivePage={setActivePage} />
-            <Testimonials />
-            <ProjectConsultant setActivePage={setActivePage} setPrefilledMessage={setPrefilledMessage} />
-            <FAQ />
-            <Contact prefilledMessage={prefilledMessage} />
-          </div>
-        );
-      case 'about':
-        return <About />;
-      case 'ai':
-        return <ProjectConsultant setActivePage={setActivePage} setPrefilledMessage={setPrefilledMessage} />;
-      case 'admin':
-        return <Admin projects={projects} setProjects={updateProjectsInState} defaultProjects={DEFAULT_PROJECTS} />;
-      case 'services':
-        return <Services />;
-      case 'portfolio':
-        return <div className="pt-20"><Portfolio projects={projects} setActivePage={setActivePage} /><Contact prefilledMessage={prefilledMessage} /></div>;
-      case 'contact':
-        return <div className="pt-20"><Contact prefilledMessage={prefilledMessage} /></div>;
-      case 'gdpr':
-      case 'cookies':
-        return <div className="pt-20"><Legal type={activePage as 'gdpr' | 'cookies'} /></div>;
-      default:
-        return <div className="pt-20 text-center text-white">Sekcia sa pripravuje...</div>;
-    }
-  };
-
   return (
-    <div className="min-h-screen flex flex-col bg-[#0A0A0A]">
-      <Navbar scrolled={scrolled} activePage={activePage} setActivePage={setActivePage} />
-      {dbLoading && activePage === 'home' && (
-        <div className="fixed bottom-4 right-4 bg-orange-600 text-white p-2 rounded-full animate-pulse z-50">
-           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-        </div>
-      )}
-      <main className="flex-grow">{renderContent()}</main>
-      <Footer setActivePage={setActivePage} />
-    </div>
+    <Router>
+      <div className="min-h-screen flex flex-col bg-[#0A0A0A]">
+        <Navbar scrolled={scrolled} />
+        {dbLoading && (
+          <div className="fixed bottom-4 right-4 bg-orange-600 text-white p-2 rounded-full animate-pulse z-50">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+          </div>
+        )}
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={
+              <div className="animate-in fade-in duration-700">
+                <Hero />
+                <TrustLogos />
+                <About />
+                <Services />
+                <Portfolio projects={projects} />
+                <Testimonials />
+                <ProjectConsultant setPrefilledMessage={setPrefilledMessage} />
+                <FAQ />
+                <Contact prefilledMessage={prefilledMessage} />
+              </div>
+            } />
+            <Route path="/o-nas" element={<About />} />
+            <Route path="/ai" element={<ProjectConsultant setPrefilledMessage={setPrefilledMessage} />} />
+            <Route path="/admin" element={<Admin projects={projects} setProjects={updateProjectsInState} defaultProjects={DEFAULT_PROJECTS} />} />
+            <Route path="/sluzby" element={<Services />} />
+            <Route path="/realizacie" element={<div className="pt-20"><Portfolio projects={projects} /><Contact prefilledMessage={prefilledMessage} /></div>} />
+            <Route path="/kontakt" element={<div className="pt-20"><Contact prefilledMessage={prefilledMessage} /></div>} />
+            <Route path="/gdpr" element={<div className="pt-20"><Legal type="gdpr" /></div>} />
+            <Route path="/cookies" element={<div className="pt-20"><Legal type="cookies" /></div>} />
+            <Route path="*" element={<div className="pt-20 text-center text-white">Sekcia sa pripravuje...</div>} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 };
 

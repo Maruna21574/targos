@@ -1,0 +1,17 @@
+Subject: Ďakujeme za váš dopyt | TARGOŠ
+
+Dobrý deň {{name}},
+
+Ďakujeme za zaslanie nezáväzného dopytu cez náš web. Vaša požiadavka bola úspešne prijatá a náš tím vás bude kontaktovať v priebehu 24 hodín s prvotným vyjadrením a návrhom termínu obhliadky.
+
+Zhrnutie vášho dopytu:
+---
+Typ projektu: {{interest}}
+Vaša správa: {{message}}
+---
+
+Ak ste zadali nesprávne kontaktné údaje, kontaktujte nás na info@targos.sk alebo na tel. čísle +421 908 949 117.
+
+S pozdravom,
+TARGOŠ stavebné práce
+www.targos.sk

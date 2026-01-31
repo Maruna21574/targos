@@ -219,13 +219,13 @@ const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
           </h2>
           
           <form onSubmit={handleSave} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <input required value={newProject.title} onChange={e => setNewProject({...newProject, title: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Názov projektu" />
+            <input required value={newProject.title} onChange={e => setNewProject({...newProject, title: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Názov projektu" style={{padding: '10px'}} />
             <div className="grid grid-cols-2 gap-4">
-              <input required value={newProject.loc} onChange={e => setNewProject({...newProject, loc: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Lokalita" />
-              <input required value={newProject.year} onChange={e => setNewProject({...newProject, year: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Rok" />
+              <input required value={newProject.loc} onChange={e => setNewProject({...newProject, loc: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Lokalita" style={{padding: '10px'}} />
+              <input required value={newProject.year} onChange={e => setNewProject({...newProject, year: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Rok" style={{padding: '10px'}} />
             </div>
             <div className="md:col-span-2 flex gap-4 items-center">
-              <input required value={newProject.img} onChange={e => setNewProject({...newProject, img: e.target.value})} className="flex-grow bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Hlavná fotka (URL)" />
+              <input required value={newProject.img} onChange={e => setNewProject({...newProject, img: e.target.value})} className="flex-grow bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Hlavná fotka (URL)" style={{padding: '10px'}} />
               <div className="relative flex flex-col items-center">
                 <button
                   type="button"
@@ -249,7 +249,7 @@ const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
             </div>
             <div className="md:col-span-2 flex gap-4 items-start">
               <div className="flex-grow">
-                <textarea value={galleryText} onChange={e => setGalleryText(e.target.value)} className="w-full bg-black border border-zinc-800 p-4 text-white font-mono text-xs outline-none focus:border-orange-600" rows={3} placeholder="Ďalšie fotky (URL, jedna na riadok)" />
+                <textarea value={galleryText} onChange={e => setGalleryText(e.target.value)} className="w-full bg-black border border-zinc-800 p-4 text-white font-mono text-xs outline-none focus:border-orange-600" rows={3} placeholder="Ďalšie fotky (URL, jedna na riadok)" style={{padding: '10px'}} />
                 <button
                   type="button"
                   className="bg-orange-600 text-white px-3 py-1 rounded font-bold text-xs mb-2 hover:bg-orange-700 transition"
@@ -281,12 +281,12 @@ const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
                 </div>
               </div>
             </div>
-            <textarea required value={newProject.desc} onChange={e => setNewProject({...newProject, desc: e.target.value})} className="md:col-span-2 bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" rows={2} placeholder="Stručný popis" />
-            <textarea value={newProject.process} onChange={e => setNewProject({...newProject, process: e.target.value})} className="md:col-span-2 bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" rows={2} placeholder="Proces realizácie (napr. príprava, výstavba, dokončenie)" />
-            <textarea value={newProject.scope} onChange={e => setNewProject({...newProject, scope: e.target.value})} className="md:col-span-2 bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" rows={2} placeholder="Rozsah prác (napr. rekonštrukcia strechy, zateplenie, výmena okien...)" />
-            <textarea value={newProject.materials} onChange={e => setNewProject({...newProject, materials: e.target.value})} className="md:col-span-2 bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" rows={2} placeholder="Použité materiály/technológie (napr. Ytong, Baumit, zateplenie EPS, atď.)" />
-            <input value={newProject.cost} onChange={e => setNewProject({...newProject, cost: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Cena" />
-            <input value={newProject.duration} onChange={e => setNewProject({...newProject, duration: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Trvanie" />
+            <textarea required value={newProject.desc} onChange={e => setNewProject({...newProject, desc: e.target.value})} className="md:col-span-2 bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" rows={2} placeholder="Stručný popis" style={{padding: '10px'}} />
+            <textarea value={newProject.process} onChange={e => setNewProject({...newProject, process: e.target.value})} className="md:col-span-2 bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" rows={2} placeholder="Proces realizácie (napr. príprava, výstavba, dokončenie)" style={{padding: '10px'}} />
+            <textarea value={newProject.scope} onChange={e => setNewProject({...newProject, scope: e.target.value})} className="md:col-span-2 bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" rows={2} placeholder="Rozsah prác (napr. rekonštrukcia strechy, zateplenie, výmena okien...)" style={{padding: '10px'}} />
+            <textarea value={newProject.materials} onChange={e => setNewProject({...newProject, materials: e.target.value})} className="md:col-span-2 bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" rows={2} placeholder="Použité materiály/technológie (napr. Ytong, Baumit, zateplenie EPS, atď.)" style={{padding: '10px'}} />
+            <input value={newProject.cost} onChange={e => setNewProject({...newProject, cost: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Cena" style={{padding: '10px'}} />
+            <input value={newProject.duration} onChange={e => setNewProject({...newProject, duration: e.target.value})} className="bg-black border border-zinc-800 p-4 text-white outline-none focus:border-orange-600" placeholder="Trvanie" style={{padding: '10px'}} />
             
             <div className="md:col-span-2 flex gap-4">
               <button type="submit" disabled={isSaving} className="flex-grow bg-orange-600 text-white font-black py-5 uppercase text-xs tracking-widest shadow-xl transition-all active:scale-95 disabled:opacity-50">

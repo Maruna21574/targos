@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface ContactProps {
   prefilledMessage?: string;
@@ -12,6 +13,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     interest: 'Kompletná rekonštrukcia',
     message: prefilledMessage
   });
@@ -21,21 +23,35 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
     setFormData(prev => ({ ...prev, message: prefilledMessage }));
   }, [prefilledMessage]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulating API call to a backend that would send email to info@targos.sk
-    setTimeout(() => {
-      console.log("ODOSIELANIE EMAILU NA info@targos.sk", {
-        to: "info@targos.sk",
-        subject: `Nový dopyt: ${formData.interest} - ${formData.name}`,
-        data: formData
+    // Vlastná šablóna e-mailu
+    const emailBody = `\nMeno: ${formData.name}\nE-mail: ${formData.email}\nTelefón: ${formData.phone}\nTyp projektu: ${formData.interest}\nSpráva: ${formData.message}`;
+    try {
+      const response = await fetch('https://formspree.io/f/mzdvpbvz', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          interest: formData.interest,
+          message: formData.message,
+          _subject: `Nový dopyt z webu TARGOŠ: ${formData.interest}`,
+          _format: 'plain',
+          _replyto: formData.email,
+          _body: emailBody
+        })
       });
+      if (!response.ok) throw new Error('Chyba pri odosielaní dopytu.');
       setIsSubmitting(false);
       setSubmitted(true);
       if (setPrefilledMessage) setPrefilledMessage('');
-    }, 2000);
+    } catch (err) {
+      setIsSubmitting(false);
+      alert((err as any).message || 'Chyba pri odosielaní.');
+    }
   };
 
   const handlePrintInquiry = () => {
@@ -62,7 +78,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                 </div>
                 <div>
                   <h4 className="text-white font-black text-sm uppercase tracking-widest mb-1">Telefónny kontakt</h4>
-                  <p className="text-orange-500 text-xl font-black tracking-tight">+421 915 234 567</p>
+                  <a href="tel:+421908949117" className="text-orange-500 text-xl font-black tracking-tight hover:underline">+421&nbsp;&nbsp;908&nbsp;&nbsp;949&nbsp;&nbsp;117</a>
                   <p className="text-zinc-600 text-[10px] mt-1 font-bold uppercase">Po - Pia: 08:00 - 17:00</p>
                 </div>
               </div>
@@ -147,7 +163,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-8 print:hidden">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">Vaše meno</label>
                       <input 
@@ -155,7 +171,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                         type="text" 
                         value={formData.name}
                         onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        className="w-full bg-black/50 border-b-2 border-zinc-800 focus:border-orange-500 text-white px-0 py-3 outline-none transition-colors" 
+                        className="w-full bg-black/50 border-b-2 border-zinc-800 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors" 
                       />
                     </div>
                     <div className="space-y-2">
@@ -165,7 +181,17 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                         type="email" 
                         value={formData.email}
                         onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        className="w-full bg-black/50 border-b-2 border-zinc-800 focus:border-orange-500 text-white px-0 py-3 outline-none transition-colors" 
+                        className="w-full bg-black/50 border-b-2 border-zinc-800 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors" 
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">Telefón</label>
+                      <input 
+                        type="tel" 
+                        value={formData.phone}
+                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                        className="w-full bg-black/50 border-b-2 border-zinc-800 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors" 
+                        placeholder="+421 908 949 117"
                       />
                     </div>
                   </div>
@@ -174,7 +200,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                     <select 
                       value={formData.interest}
                       onChange={(e) => setFormData({...formData, interest: e.target.value})}
-                      className="w-full bg-black/50 border-b-2 border-zinc-800 focus:border-orange-500 text-white px-0 py-3 outline-none transition-colors appearance-none"
+                      className="w-full bg-black/50 border-b-2 border-zinc-800 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors appearance-none"
                     >
                       <option>Kompletná rekonštrukcia</option>
                       <option>Novostavba rodinného domu</option>
@@ -189,12 +215,12 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                       value={formData.message}
                       onChange={(e) => setFormData({...formData, message: e.target.value})}
                       placeholder="Popíšte nám vašu predstavu..."
-                      className="w-full bg-black/50 border-b-2 border-zinc-800 focus:border-orange-500 text-white px-0 py-3 outline-none transition-colors resize-none"
+                      className="w-full bg-black/50 border-b-2 border-zinc-800 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors resize-none"
                     ></textarea>
                   </div>
                   <div className="flex items-center space-x-3 mb-8">
                     <input type="checkbox" required className="accent-orange-600 w-4 h-4" />
-                    <span className="text-zinc-500 text-xs font-light">Súhlasím so spracovaním <span className="text-orange-500 font-bold cursor-pointer hover:underline">osobných údajov</span>.</span>
+                    <span className="text-zinc-500 text-xs font-light">Súhlasím so spracovaním <Link to="/gdpr" className="text-orange-500 font-bold cursor-pointer hover:underline">osobných údajov</Link>.</span>
                   </div>
                   <button 
                     type="submit"
