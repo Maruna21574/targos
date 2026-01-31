@@ -29,8 +29,8 @@ const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, se
       }
     } catch (err: any) {
       console.error(err);
-      if (err.message === "API_KEY_MISSING") {
-        setError("Chyba konfigurácie: API kľúč nie je nastavený. Prosím, nastavte environmentálnu premennú API_KEY.");
+      if (err.message === "GEMINI_API_KEY_MISSING") {
+        setError("Chyba konfigurácie: API kľúč nie je nastavený. Prosím, nastavte environmentálnu premennú GEMINI_API_KEY.");
       } else {
         setError("Momentálne sa nepodarilo spojiť s AI poradcom. Skontrolujte prosím pripojenie alebo skúste neskôr.");
       }

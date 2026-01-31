@@ -2,10 +2,10 @@
 import { GoogleGenAI, Type } from "@google/genai";
 
 export const getAIPonsultation = async (projectDescription: string) => {
-  const apiKey = process.env.API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   
   if (!apiKey || apiKey === 'undefined' || apiKey === '') {
-    throw new Error("API_KEY_MISSING");
+    throw new Error("GEMINI_API_KEY_MISSING");
   }
 
   const ai = new GoogleGenAI({ apiKey });
