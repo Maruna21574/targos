@@ -10,49 +10,44 @@ interface ProjectConsultantProps {
 const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, setPrefilledMessage }) => {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
-  const [parsedResult, setParsedResult] = useState<{ [key: string]: string }>({});
-
-  const parseAIResponse = (text: string) => {
-    const sections: { [key: string]: string } = {};
-    // Split by # followed by a word and colon to find sections
-    const parts = text.split('# ');
-    
-    parts.forEach(part => {
-      if (!part.trim()) return;
-      const lines = part.split('\n');
-      const firstLine = lines[0];
-      const colonIndex = firstLine.indexOf(':');
-      
-      if (colonIndex !== -1) {
-        const header = firstLine.substring(0, colonIndex).trim().toUpperCase();
-        const firstLineContent = firstLine.substring(colonIndex + 1).trim();
-        const remainingContent = lines.slice(1).join('\n').trim();
-        
-        sections[header] = (firstLineContent + (remainingContent ? '\n' + remainingContent : '')).trim();
-      }
-    });
-    return sections;
-  };
+  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<any | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!query.trim()) return;
 
     setLoading(true);
-    setParsedResult({});
-    const advice = await getAIPonsultation(query);
-    setParsedResult(parseAIResponse(advice));
-    setLoading(false);
+    setError(null);
+    setResult(null);
+
+    try {
+      const adviceJson = await getAIPonsultation(query);
+      if (adviceJson) {
+        const parsed = JSON.parse(adviceJson);
+        setResult(parsed);
+      }
+    } catch (err: any) {
+      console.error(err);
+      if (err.message === "API_KEY_MISSING") {
+        setError("Chyba konfigurácie: API kľúč nie je nastavený. Prosím, nastavte environmentálnu premennú API_KEY.");
+      } else {
+        setError("Momentálne sa nepodarilo spojiť s AI poradcom. Skontrolujte prosím pripojenie alebo skúste neskôr.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleQuoteClick = () => {
-    if (setPrefilledMessage) {
-      setPrefilledMessage(`Dopyt: ${query}\n\nAI analýza TARGOŠ:\nNáročnosť: ${parsedResult['NÁROČNOSŤ']}\nOdhad: ${parsedResult['ODHAD']}`);
+    if (setPrefilledMessage && result) {
+      setPrefilledMessage(`Dopyt: ${query}\n\nAI analýza TARGOŠ:\nNáročnosť: ${result.narocnost}\nOdhad: ${result.odhad}`);
     }
     if (setActivePage) {
       setActivePage('contact');
       setTimeout(() => {
-        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+        const el = document.getElementById('contact');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
       }, 100);
     }
   };
@@ -68,15 +63,13 @@ const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, se
     return 'text-green-500';
   };
 
-  const currentDiff = parsedResult['NÁROČNOSŤ'] || '';
-
   return (
     <section id="ai-poradca" className="py-24 bg-zinc-950 relative overflow-hidden print:bg-white print:p-0">
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-orange-600/5 blur-[150px] -z-10 rounded-full print:hidden"></div>
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="print-header hidden">
-          <div className="flex justify-between items-end border-b-2 border-black pb-6 mb-8">
+          <div className="flex justify-between items-end border-b-2 border-black pb-6 mb-8 text-left">
             <div>
               <h1 className="text-3xl font-black text-black">TARGOŠ STAVEBNÉ PRÁCE</h1>
               <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Profesionálna technická analýza projektu</p>
@@ -95,12 +88,12 @@ const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, se
             PROJEKTOVÝ <span className="text-orange-600">PORADCA</span>
           </h2>
           <p className="text-zinc-500 text-sm font-light max-w-xl mx-auto">
-            Náš inteligentný systém vyhodnotí váš stavebný zámer a pripraví vám kompletný technický pas na stiahnutie.
+            Náš inteligentný systém vyhodnotí váš stavebný zámer a pripraví vám kompletný technický pas.
           </p>
         </div>
 
         <div className="bg-zinc-900/50 border border-zinc-800 rounded-sm p-8 md:p-12 shadow-2xl relative backdrop-blur-sm print:bg-white print:border-none print:shadow-none print:p-0">
-          <form onSubmit={handleSubmit} className="mb-16 print:hidden">
+          <form onSubmit={handleSubmit} className="mb-10 print:hidden">
             <div className="flex flex-col md:flex-row gap-4">
               <input
                 type="text"
@@ -114,13 +107,22 @@ const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, se
                 disabled={loading}
                 className="bg-orange-600 hover:bg-orange-700 disabled:bg-zinc-800 text-white px-12 py-5 rounded-sm font-black transition-all flex items-center justify-center space-x-3 uppercase text-xs tracking-widest"
               >
-                {loading ? "Generujem..." : "Analyzovať"}
+                {loading ? (
+                  <div className="flex items-center space-x-2">
+                    <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Generujem...</span>
+                  </div>
+                ) : "Analyzovať"}
               </button>
             </div>
+            {error && <p className="text-red-500 text-xs mt-4 text-left font-bold uppercase tracking-widest">{error}</p>}
           </form>
 
-          {Object.keys(parsedResult).length > 1 && (
-            <div className="animate-in fade-in slide-in-from-bottom-10 duration-1000">
+          {result && (
+            <div className="animate-in fade-in slide-in-from-bottom-10 duration-1000 text-left">
               
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6 border-b border-zinc-800 pb-10 print:border-black">
                 <div className="max-w-xl">
@@ -129,15 +131,15 @@ const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, se
                       <div className="flex space-x-1">
                         {[1, 2, 3].map((i) => (
                           <div key={i} className={`w-2 h-6 rounded-full ${
-                            (currentDiff.includes('NÍZKA') && i === 1) ||
-                            (currentDiff.includes('STREDNÁ') && i <= 2) ||
-                            (currentDiff.includes('VYSOKÁ') && i <= 3)
+                            (result.narocnost.includes('NÍZKA') && i === 1) ||
+                            (result.narocnost.includes('STREDNÁ') && i <= 2) ||
+                            (result.narocnost.includes('VYSOKÁ') && i <= 3)
                             ? 'bg-orange-600' : 'bg-zinc-800 print:bg-gray-200'
                           }`}></div>
                         ))}
                       </div>
-                      <span className={`text-xs font-black uppercase tracking-widest ${getDifficultyColor(currentDiff)}`}>
-                        KATEGÓRIA: {currentDiff || 'Analýza prebieha...'}
+                      <span className={`text-xs font-black uppercase tracking-widest ${getDifficultyColor(result.narocnost)}`}>
+                        KATEGÓRIA: {result.narocnost}
                       </span>
                    </div>
                 </div>
@@ -154,16 +156,16 @@ const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, se
                 <div className="md:col-span-2 space-y-8">
                   <div className="bg-black/30 border border-zinc-800 p-8 rounded-sm print:border-black print:p-4">
                     <h4 className="text-white font-black text-xs uppercase tracking-widest mb-4 print:text-black">Technické zhodnotenie</h4>
-                    <p className="text-zinc-400 text-sm leading-relaxed whitespace-pre-line print:text-black">{parsedResult['ANALÝZA']}</p>
+                    <p className="text-zinc-400 text-sm leading-relaxed print:text-black">{result.analyza}</p>
                   </div>
 
                   <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-sm print:border-black print:p-4">
                     <h4 className="text-white font-black text-xs uppercase tracking-widest mb-6 print:text-black">Harmonogram prác</h4>
                     <div className="space-y-4">
-                      {parsedResult['POSTUP']?.split('\n').filter(l => l.trim()).map((step, i) => (
+                      {result.postup.map((step: string, i: number) => (
                         <div key={i} className="flex items-start space-x-4">
                           <span className="text-orange-500 font-black text-xs mt-1">{i + 1}.</span>
-                          <p className="text-zinc-400 text-sm print:text-black">{step.trim()}</p>
+                          <p className="text-zinc-400 text-sm print:text-black">{step}</p>
                         </div>
                       ))}
                     </div>
@@ -173,17 +175,17 @@ const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, se
                 <div className="space-y-8">
                   <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-sm print:border-black print:p-4">
                     <h4 className="text-white font-black text-xs uppercase tracking-widest mb-4 print:text-black">Materiály</h4>
-                    <p className="text-zinc-500 text-xs leading-relaxed print:text-black">{parsedResult['MATERIÁLY']}</p>
+                    <p className="text-zinc-500 text-xs leading-relaxed print:text-black">{result.materialy}</p>
                   </div>
 
                   <div className="bg-orange-600 p-8 rounded-sm print:bg-white print:border-2 print:border-orange-600">
                     <h4 className="text-white font-black text-xs uppercase tracking-widest mb-4 print:text-orange-600">Orientačný odhad</h4>
-                    <p className="text-white text-2xl font-black print:text-black">{parsedResult['ODHAD']}</p>
+                    <p className="text-white text-2xl font-black print:text-black">{result.odhad}</p>
                   </div>
 
                   <div className="bg-red-950/20 border border-red-900/50 p-6 rounded-sm print:bg-white print:border-black">
                     <h4 className="text-red-500 font-black text-[10px] uppercase tracking-widest mb-2">Riziká</h4>
-                    <p className="text-zinc-500 text-[10px] leading-tight print:text-black">{parsedResult['RIZIKÁ']}</p>
+                    <p className="text-zinc-500 text-[10px] leading-tight print:text-black">{result.rizika}</p>
                   </div>
                 </div>
               </div>
