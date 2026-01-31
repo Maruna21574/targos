@@ -26,8 +26,26 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Vlastná šablóna e-mailu
-    const emailBody = `\nMeno: ${formData.name}\nE-mail: ${formData.email}\nTelefón: ${formData.phone}\nTyp projektu: ${formData.interest}\nSpráva: ${formData.message}`;
+    // Vylepšená HTML šablóna e-mailu
+    const emailBody = `
+      <div style="max-width:500px;margin:0 auto;font-family:Arial,sans-serif;background:#fafafa;padding:32px 24px;border-radius:12px;border:1px solid #eee;box-shadow:0 2px 12px #0001;">
+        <div style="text-align:center;margin-bottom:24px;">
+          <img src='https://www.targos.sk/images/logo.png' alt='TARGOŠ logo' style='height:48px;margin-bottom:8px;' />
+          <h2 style="color:#f97316;font-size:22px;margin:0 0 8px 0;letter-spacing:2px;">TARGOŠ STAVEBNÉ PRÁCE</h2>
+          <div style="color:#888;font-size:13px;letter-spacing:1px;">Nový dopyt z webu</div>
+        </div>
+        <div style="background:#fff;border-radius:8px;padding:20px 16px;border:1px solid #f97316;">
+          <table style="width:100%;font-size:15px;color:#222;">
+            <tr><td style="font-weight:bold;padding:6px 0;width:120px;">Meno:</td><td>${formData.name}</td></tr>
+            <tr><td style="font-weight:bold;padding:6px 0;">E-mail:</td><td>${formData.email}</td></tr>
+            <tr><td style="font-weight:bold;padding:6px 0;">Telefón:</td><td>${formData.phone}</td></tr>
+            <tr><td style="font-weight:bold;padding:6px 0;">Typ projektu:</td><td>${formData.interest}</td></tr>
+            <tr><td style="font-weight:bold;padding:6px 0;vertical-align:top;">Správa:</td><td style="white-space:pre-line;">${formData.message}</td></tr>
+          </table>
+        </div>
+        <div style="text-align:center;color:#aaa;font-size:11px;margin-top:32px;">&copy; ${new Date().getFullYear()} TARGOŠ s.r.o. | www.targos.sk</div>
+      </div>
+    `;
     try {
       const response = await fetch('https://formspree.io/f/mzdvpbvz', {
         method: 'POST',
@@ -39,7 +57,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
           interest: formData.interest,
           message: formData.message,
           _subject: `Nový dopyt z webu TARGOŠ: ${formData.interest}`,
-          _format: 'plain',
+          _format: 'html',
           _replyto: formData.email,
           _body: emailBody
         })
