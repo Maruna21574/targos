@@ -16,7 +16,7 @@ const Hero: React.FC<HeroProps> = ({ setActivePage }) => {
           loop 
           playsInline 
           className="w-full h-full object-cover opacity-60 grayscale-[40%] contrast-110"
-          poster="/images/video_hp_poster.jpg"
+          poster="/images/video_hp.jpg"
         >
           <source 
             src="/images/video_hp.mp4"
