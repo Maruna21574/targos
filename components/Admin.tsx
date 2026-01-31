@@ -1,7 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { saveProject, deleteProject, getProjects, uploadImage } from '../services/supabaseService';
-// ...existing code...
+
+// --- REMOVE DUPLICATES BELOW ---
 
 interface Project {
   id: number;
@@ -116,37 +116,6 @@ const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
       return arr.join('\n');
     });
   };
-
-interface Project {
-  id: number;
-  title: string;
-  loc: string;
-  img: string;
-  gallery: string[];
-  desc: string;
-  cost: string;
-  duration: string;
-  year: string;
-  scope: string;
-  process: string;
-}
-
-interface AdminProps {
-  projects: Project[];
-  setProjects: (projects: Project[]) => void;
-  defaultProjects: Project[];
-}
-
-const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loginForm, setLoginForm] = useState({ user: '', pass: '' });
-  const [isSaving, setIsSaving] = useState(false);
-  const [editingId, setEditingId] = useState<number | null>(null);
-  const [newProject, setNewProject] = useState<Partial<Project>>({
-    title: '', loc: '', img: '', desc: '', cost: '', duration: '', year: new Date().getFullYear().toString(), 
-    gallery: [], scope: '', process: ''
-  });
-  const [galleryText, setGalleryText] = useState('');
 
   useEffect(() => {
     const authStatus = sessionStorage.getItem('targos_auth');

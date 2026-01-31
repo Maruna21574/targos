@@ -38,17 +38,17 @@ const Footer: React.FC<FooterProps> = ({ setActivePage }) => {
           <div className="text-left">
             <h4 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-8">Navigácia</h4>
             <ul className="space-y-4 text-sm text-gray-500">
-              <li><button onClick={() => handleLinkClick('about')} className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold">O nás</button></li>
-              <li><button onClick={() => handleLinkClick('services')} className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold">Služby</button></li>
-              <li><button onClick={() => handleLinkClick('portfolio')} className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold">Realizácie</button></li>
-              <li><button onClick={() => handleLinkClick('contact')} className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold">Kontakt</button></li>
+              <li><button type="button" onClick={() => handleLinkClick('about')} className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold">O nás</button></li>
+              <li><button type="button" onClick={() => handleLinkClick('services')} className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold">Služby</button></li>
+              <li><button type="button" onClick={() => handleLinkClick('portfolio')} className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold">Realizácie</button></li>
+              <li><button type="button" onClick={() => handleLinkClick('contact')} className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold">Kontakt</button></li>
             </ul>
           </div>
           
           <div className="text-left">
             <h4 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-8">Interné</h4>
             <ul className="space-y-4 text-sm text-gray-500">
-              <li><button onClick={() => handleLinkClick('admin')} className="text-zinc-800 hover:text-orange-600 transition-colors uppercase tracking-widest text-[9px] font-black">Správa obsahu</button></li>
+              <li><button type="button" onClick={() => handleLinkClick('admin')} className="text-zinc-800 hover:text-orange-600 transition-colors uppercase tracking-widest text-[9px] font-black">Správa obsahu</button></li>
             </ul>
           </div>
         </div>
@@ -56,8 +56,8 @@ const Footer: React.FC<FooterProps> = ({ setActivePage }) => {
         <div className="pt-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold text-gray-700 uppercase tracking-widest">
           <p>&copy; {new Date().getFullYear()} TARGOŠ s.r.o.</p>
           <div className="flex space-x-8">
-            <button onClick={() => handleLinkClick('gdpr')} className="hover:text-orange-500 transition-colors">GDPR</button>
-            <button onClick={() => handleLinkClick('cookies')} className="hover:text-orange-500 transition-colors">Cookies</button>
+            <button type="button" onClick={() => handleLinkClick('gdpr')} className="hover:text-orange-500 transition-colors">GDPR</button>
+            <button type="button" onClick={() => handleLinkClick('cookies')} className="hover:text-orange-500 transition-colors">Cookies</button>
           </div>
         </div>
       </div>
