@@ -12,6 +12,30 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// Test SMTP spojenia pri štarte servera
+function testSmtpConnection() {
+  const testTransporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST || 'smtp.m1.websupport.sk',
+    port: smtpPort,
+    secure: smtpSecure,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+  });
+  testTransporter.verify(function(error, success) {
+    if (error) {
+      console.error('SMTP TEST ERROR:', error);
+    } else {
+      console.log('SMTP TEST SUCCESS: Server is ready to take messages');
+    }
+  });
+}
+testSmtpConnection();
+
 // Nastavenie SMTP pre Websupport
 const smtpPort = Number(process.env.SMTP_PORT) || 587;
 const smtpSecure = process.env.SMTP_SECURE === 'true';
