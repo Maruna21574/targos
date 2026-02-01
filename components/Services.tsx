@@ -1,10 +1,8 @@
 
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const Services: React.FC = () => {
-  const [selectedService, setSelectedService] = useState<number | null>(null);
-
-  const serviceCategories = [
+const serviceCategories = [
     {
       title: "Stavebné práce",
       image: "/images/stavebne_prace.jpg",
@@ -48,6 +46,8 @@ const Services: React.FC = () => {
     }
   ];
 
+const Services: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <section id="services" className="py-32 bg-black border-y border-zinc-900 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,13 +58,11 @@ const Services: React.FC = () => {
             Sme vaším jediným partnerom od výkopu až po kolaudáciu. Ponúkame realizácie na kľúč pre súkromný aj firemný sektor.
           </p>
         </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {serviceCategories.map((cat, idx) => (
             <div key={idx} className="relative group">
                <div className="absolute inset-0 bg-orange-600 opacity-0 group-hover:opacity-5 blur-3xl transition-opacity duration-500"></div>
                <div className="relative z-10 bg-zinc-900/40 border border-zinc-800 rounded-sm h-full flex flex-col hover:border-orange-500/30 transition-all duration-500 overflow-hidden">
-                  
                   {/* Category Image */}
                   <div className="h-48 overflow-hidden relative">
                     <img 
@@ -74,7 +72,6 @@ const Services: React.FC = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
                   </div>
-
                   <div className="p-10 flex flex-col flex-grow">
                     <div className="mb-8">
                       <span className="text-orange-500 text-4xl font-black opacity-20">0{idx + 1}</span>
@@ -90,7 +87,17 @@ const Services: React.FC = () => {
                       ))}
                     </ul>
                     <button 
-                      onClick={() => setSelectedService(idx)}
+                      onClick={() => {
+                        const slug = cat.title
+                          .toString()
+                          .normalize('NFD')
+                          .replace(/\p{Diacritic}/gu, '')
+                          .toLowerCase()
+                          .replace(/[^a-z0-9]+/g, '-')
+                          .replace(/^-+|-+$/g, '')
+                          .replace(/-+/g, '-');
+                        navigate(`/sluzby/${slug}`);
+                      }}
                       className="mt-10 pt-6 border-t border-zinc-800 flex justify-between items-center w-full group/btn"
                     >
                        <span className="text-[10px] font-black uppercase tracking-widest text-orange-500 group-hover/btn:underline">Viac detailov</span>
@@ -104,52 +111,6 @@ const Services: React.FC = () => {
           ))}
         </div>
       </div>
-
-      {/* Service Detail Modal */}
-      {selectedService !== null && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl animate-in fade-in duration-300">
-          <div className="bg-zinc-900 border border-zinc-800 p-8 md:p-12 rounded-sm max-w-2xl w-full relative max-h-[90vh] overflow-y-auto shadow-2xl">
-            <button 
-              onClick={() => setSelectedService(null)}
-              className="absolute top-4 right-4 text-orange-500 hover:text-orange-700 transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            
-            <div className="mb-8 rounded-sm overflow-hidden h-64">
-              <img 
-                src={serviceCategories[selectedService].image} 
-                className="w-full h-full object-cover" 
-                alt={serviceCategories[selectedService].title} 
-              />
-            </div>
-
-            <h4 className="text-3xl font-black text-white mb-4 tracking-tighter uppercase">
-              {serviceCategories[selectedService].title}
-            </h4>
-            <p className="text-orange-500 font-bold mb-8 uppercase tracking-widest text-[10px]">Detailný rozsah prác</p>
-            <p className="text-zinc-300 mb-10 leading-relaxed font-light">
-              {serviceCategories[selectedService].longDesc}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
-              {serviceCategories[selectedService].items.map((item, i) => (
-                <div key={i} className="flex items-center space-x-3 text-zinc-400 text-xs">
-                  <div className="w-1.5 h-1.5 bg-orange-600 rounded-full"></div>
-                  <span>{item}</span>
-                </div>
-              ))}
-            </div>
-            <button 
-              onClick={() => setSelectedService(null)}
-              className="w-full bg-orange-600 text-white px-8 py-5 font-black text-xs uppercase tracking-widest hover:bg-orange-700 transition-colors shadow-xl"
-            >
-              Zavrieť detail
-            </button>
-          </div>
-        </div>
-      )}
     </section>
   );
 };

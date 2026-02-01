@@ -39,31 +39,60 @@ app.post('/api/send-inquiry', async (req, res) => {
     return res.status(400).json({ error: 'Chýbajú povinné údaje.' });
   }
   try {
-    // Priprav dáta pre šablóny
-    const templateData = { name, email, phone: phone || '', interest, message };
-    // Admin notifikácia
-    const adminMail = renderTemplate(
-      path.join(__dirname, '../email-templates/admin-notification.txt'),
-      templateData
-    );
-    // Klientské potvrdenie
-    const clientMail = renderTemplate(
-      path.join(__dirname, '../email-templates/client-confirmation.txt'),
-      templateData
-    );
+    // HTML šablóna pre admina
+    const adminHtml = `
+      <div style="max-width:500px;margin:0 auto;font-family:Arial,sans-serif;background:#fafafa;padding:32px 24px;border-radius:12px;border:1px solid #eee;box-shadow:0 2px 12px #0001;">
+        <div style="text-align:center;margin-bottom:24px;">
+          <img src='https://www.targos.sk/images/logo.png' alt='TARGOŠ logo' style='height:48px;margin-bottom:8px;' />
+          <h2 style="color:#f97316;font-size:22px;margin:0 0 8px 0;letter-spacing:2px;">TARGOŠ STAVEBNÉ PRÁCE</h2>
+          <div style="color:#888;font-size:13px;letter-spacing:1px;">Nový dopyt z webu</div>
+        </div>
+        <div style="background:#fff;border-radius:8px;padding:20px 16px;border:1px solid #f97316;">
+          <table style="width:100%;font-size:15px;color:#222;">
+            <tr><td style="font-weight:bold;padding:6px 0;width:120px;">Meno:</td><td>${name}</td></tr>
+            <tr><td style="font-weight:bold;padding:6px 0;">E-mail:</td><td>${email}</td></tr>
+            <tr><td style="font-weight:bold;padding:6px 0;">Telefón:</td><td>${phone}</td></tr>
+            <tr><td style="font-weight:bold;padding:6px 0;">Typ projektu:</td><td>${interest}</td></tr>
+            <tr><td style="font-weight:bold;padding:6px 0;vertical-align:top;">Správa:</td><td style="white-space:pre-line;">${message}</td></tr>
+          </table>
+        </div>
+        <div style="text-align:center;color:#aaa;font-size:11px;margin-top:32px;">&copy; ${new Date().getFullYear()} TARGOŠ s.r.o. | www.targos.sk</div>
+      </div>
+    `;
+    // HTML šablóna pre klienta
+    const clientHtml = `
+      <div style="max-width:500px;margin:0 auto;font-family:Arial,sans-serif;background:#fafafa;padding:32px 24px;border-radius:12px;border:1px solid #eee;box-shadow:0 2px 12px #0001;">
+        <div style="text-align:center;margin-bottom:24px;">
+          <img src='https://www.targos.sk/images/logo.png' alt='TARGOŠ logo' style='height:48px;margin-bottom:8px;' />
+          <h2 style="color:#f97316;font-size:22px;margin:0 0 8px 0;letter-spacing:2px;">TARGOŠ STAVEBNÉ PRÁCE</h2>
+          <div style="color:#888;font-size:13px;letter-spacing:1px;">Vaša požiadavka bola prijatá</div>
+        </div>
+        <div style="background:#fff;border-radius:8px;padding:20px 16px;border:1px solid #f97316;">
+          <p style="color:#222;font-size:15px;margin-bottom:18px;">Ďakujeme za zaslanie nezáväzného dopytu. Náš tím vás bude kontaktovať v priebehu 24 hodín s prvotným vyjadrením a návrhom termínu obhliadky.</p>
+          <table style="width:100%;font-size:15px;color:#222;">
+            <tr><td style="font-weight:bold;padding:6px 0;width:120px;">Meno:</td><td>${name}</td></tr>
+            <tr><td style="font-weight:bold;padding:6px 0;">E-mail:</td><td>${email}</td></tr>
+            <tr><td style="font-weight:bold;padding:6px 0;">Telefón:</td><td>${phone}</td></tr>
+            <tr><td style="font-weight:bold;padding:6px 0;">Typ projektu:</td><td>${interest}</td></tr>
+            <tr><td style="font-weight:bold;padding:6px 0;vertical-align:top;">Správa:</td><td style="white-space:pre-line;">${message}</td></tr>
+          </table>
+        </div>
+        <div style="text-align:center;color:#aaa;font-size:11px;margin-top:32px;">&copy; ${new Date().getFullYear()} TARGOŠ s.r.o. | www.targos.sk</div>
+      </div>
+    `;
     // Odoslať adminovi
     await transporter.sendMail({
       from: `TARGOŠ Web <${process.env.SMTP_USER}>`,
       to: process.env.SMTP_USER,
-      subject: adminMail.match(/^Subject:(.*)$/m)?.[1]?.trim() || 'Nový dopyt',
-      text: adminMail.replace(/^Subject:.*\n/, '')
+      subject: `Nový dopyt z webu TARGOŠ: ${interest}`,
+      html: adminHtml
     });
     // Odoslať klientovi
     await transporter.sendMail({
       from: `TARGOŠ Web <${process.env.SMTP_USER}>`,
       to: email,
-      subject: clientMail.match(/^Subject:(.*)$/m)?.[1]?.trim() || 'Potvrdenie dopytu',
-      text: clientMail.replace(/^Subject:.*\n/, '')
+      subject: 'Ďakujeme za váš dopyt | TARGOŠ',
+      html: clientHtml
     });
     res.json({ success: true });
   } catch (err) {

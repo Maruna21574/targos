@@ -15,6 +15,20 @@ import TrustLogos from './components/TrustLogos';
 import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import { getProjects } from './services/supabaseService';
+import ProjectDetail from './components/ProjectDetail';
+
+// Pomocná funkce na slugifikaci názvu
+function slugify(text) {
+  return text
+    .toString()
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/-+/g, '-');
+}
+import ServiceDetail from './components/ServiceDetail';
 
 const DEFAULT_PROJECTS = [
   {
@@ -35,8 +49,18 @@ const DEFAULT_PROJECTS = [
 ];
 
 
+
+// Mock služby - upravte podľa reálnych dát
+const DEFAULT_SERVICES = [
+  { id: 1, title: 'Kompletná rekonštrukcia', img: '', desc: 'Kompletné stavebné práce na kľúč.' },
+  { id: 2, title: 'Novostavba rodinného domu', img: '', desc: 'Výstavba nových rodinných domov.' },
+  { id: 3, title: 'Elektroinštalácie & Revízie', img: '', desc: 'Kompletné elektroinštalácie a revízie.' },
+  { id: 4, title: 'Iné stavebné práce', img: '', desc: 'Všetky ostatné stavebné práce podľa dohody.' },
+];
+
 const App: React.FC = () => {
   const [projects, setProjects] = useState<any[]>(DEFAULT_PROJECTS);
+  const [services] = useState<any[]>(DEFAULT_SERVICES);
   const [scrolled, setScrolled] = useState(false);
   const [prefilledMessage, setPrefilledMessage] = useState('');
   const [dbLoading, setDbLoading] = useState(true);
@@ -91,7 +115,9 @@ const App: React.FC = () => {
             <Route path="/ai" element={<ProjectConsultant setPrefilledMessage={setPrefilledMessage} />} />
             <Route path="/admin" element={<Admin projects={projects} setProjects={updateProjectsInState} defaultProjects={DEFAULT_PROJECTS} />} />
             <Route path="/sluzby" element={<Services />} />
+            <Route path="/sluzby/:slug" element={<ServiceDetail services={services} />} />
             <Route path="/realizacie" element={<div className="pt-20"><Portfolio projects={projects} /><Contact prefilledMessage={prefilledMessage} /></div>} />
+            <Route path="/realizacie/:slug" element={<ProjectDetail projects={projects} />} />
             <Route path="/kontakt" element={<div className="pt-20"><Contact prefilledMessage={prefilledMessage} /></div>} />
             <Route path="/gdpr" element={<div className="pt-20"><Legal type="gdpr" /></div>} />
             <Route path="/cookies" element={<div className="pt-20"><Legal type="cookies" /></div>} />
