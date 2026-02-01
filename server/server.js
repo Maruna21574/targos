@@ -13,12 +13,20 @@ app.use(express.json());
 app.use(cors());
 
 // Nastavenie SMTP pre Websupport
+const smtpPort = Number(process.env.SMTP_PORT) || 587;
+const smtpSecure = process.env.SMTP_SECURE === 'true';
+console.log('SMTP config:', {
+  host: process.env.SMTP_HOST || 'smtp.m1.websupport.sk',
+  port: smtpPort,
+  secure: smtpSecure,
+  user: process.env.SMTP_USER
+});
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || 'smtp.m1.websupport.sk',
-  port: Number(process.env.SMTP_PORT) || 587,
-  secure: false, // pre port 587 musí byť false
+  port: smtpPort,
+  secure: smtpSecure,
   auth: {
-    user: process.env.SMTP_USER, // napr. info@targos.sk
+    user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS
   }
 });
