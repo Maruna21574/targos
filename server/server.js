@@ -13,17 +13,15 @@ app.use(express.json());
 app.use(cors());
 
 // Test SMTP spojenia pri štarte servera
+// Test SMTP spojenia pri štarte servera (Websupport SMTP, SSL/TLS, port 465)
 function testSmtpConnection() {
   const testTransporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.m1.websupport.sk',
-    port: smtpPort,
-    secure: smtpSecure,
+    host: 'smtp.m1.websupport.sk',
+    port: 465,
+    secure: true,
     auth: {
-      user: process.env.SMTP_USER,
+      user: 'info@targos.sk',
       pass: process.env.SMTP_PASS
-    },
-    tls: {
-      rejectUnauthorized: false
     }
   });
   testTransporter.verify(function(error, success) {
@@ -36,21 +34,13 @@ function testSmtpConnection() {
 }
 testSmtpConnection();
 
-// Nastavenie SMTP pre Websupport
-const smtpPort = Number(process.env.SMTP_PORT) || 587;
-const smtpSecure = process.env.SMTP_SECURE === 'true';
-console.log('SMTP config:', {
-  host: process.env.SMTP_HOST || 'smtp.m1.websupport.sk',
-  port: smtpPort,
-  secure: smtpSecure,
-  user: process.env.SMTP_USER
-});
+// Nastavenie SMTP pre Websupport (SSL/TLS, port 465)
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.m1.websupport.sk',
-  port: smtpPort,
-  secure: smtpSecure,
+  host: 'smtp.m1.websupport.sk',
+  port: 465,
+  secure: true,
   auth: {
-    user: process.env.SMTP_USER,
+    user: 'info@targos.sk',
     pass: process.env.SMTP_PASS
   }
 });
