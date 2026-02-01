@@ -1,7 +1,11 @@
 
 import React, { useState } from 'react';
 
-const FAQ: React.FC = () => {
+interface FAQProps {
+  isHome?: boolean;
+}
+
+const FAQ: React.FC<FAQProps> = ({ isHome }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqs = [
@@ -24,7 +28,7 @@ const FAQ: React.FC = () => {
   ];
 
   return (
-    <section className="py-32 bg-zinc-950">
+    <section className={`${isHome ? 'py-16' : 'py-32'} bg-zinc-950`}>
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-orange-500 font-black uppercase tracking-[0.3em] text-xs mb-4">Otázky</h2>

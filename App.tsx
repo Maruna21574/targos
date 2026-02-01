@@ -1,3 +1,13 @@
+import { useLocation } from 'react-router-dom';
+
+// Komponenta na scrollovanie hore pri zmene route
+const ScrollToTop: React.FC = () => {
+  const { pathname } = useLocation();
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [pathname]);
+  return null;
+};
 
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
@@ -9,6 +19,8 @@ import Portfolio from './components/Portfolio';
 import ProjectConsultant from './components/ProjectConsultant';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import PricingSection from './components/PricingSection';
+import PricingPage from './components/PricingPage';
 import Legal from './components/Legal';
 import Admin from './components/Admin';
 import TrustLogos from './components/TrustLogos';
@@ -16,6 +28,7 @@ import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import { getProjects } from './services/supabaseService';
 import ProjectDetail from './components/ProjectDetail';
+import ScrollToTopButton from './components/ScrollToTopButton';
 
 // Pomocná funkce na slugifikaci názvu
 function slugify(text) {
@@ -89,7 +102,9 @@ const App: React.FC = () => {
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen flex flex-col bg-[#0A0A0A]">
+        <ScrollToTopButton />
         <Navbar scrolled={scrolled} />
         {dbLoading && (
           <div className="fixed bottom-4 right-4 bg-orange-600 text-white p-2 rounded-full animate-pulse z-50">
@@ -101,14 +116,18 @@ const App: React.FC = () => {
             <Route path="/" element={
               <div className="animate-in fade-in duration-700">
                 <Hero />
+                <About isHome />
+                <Services isHome />
                 <TrustLogos />
-                <About />
-                <Services />
-                <Portfolio projects={projects} />
-                <Testimonials />
+                <Portfolio projects={projects} isHome />
+                <Testimonials isHome />
                 {/* <ProjectConsultant setPrefilledMessage={setPrefilledMessage} /> */}
-                <FAQ />
-                <Contact prefilledMessage={prefilledMessage} />
+                <FAQ isHome />
+                <PricingSection />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <Contact prefilledMessage={prefilledMessage} isHome />
+                </div>
+                
               </div>
             } />
             <Route path="/o-nas" element={<About />} />
@@ -118,9 +137,10 @@ const App: React.FC = () => {
             <Route path="/sluzby/:slug" element={<ServiceDetail services={services} />} />
             <Route path="/realizacie" element={<Portfolio projects={projects} />} />
             <Route path="/realizacie/:slug" element={<ProjectDetail projects={projects} />} />
-            <Route path="/kontakt" element={<div className="pt-20"><ProjectConsultant setPrefilledMessage={setPrefilledMessage} /><Contact prefilledMessage={prefilledMessage} /></div>} />
-            <Route path="/gdpr" element={<div className="pt-20"><Legal type="gdpr" /></div>} />
-            <Route path="/cookies" element={<div className="pt-20"><Legal type="cookies" /></div>} />
+            <Route path="/kontakt" element={<div className="pt-20"><Contact prefilledMessage={prefilledMessage} /><ProjectConsultant setPrefilledMessage={setPrefilledMessage} /></div>} />
+            <Route path="/cenova-ponuka" element={<PricingPage />} />
+            <Route path="/gdpr" element={<Legal type="gdpr" />} />
+            <Route path="/cookies" element={<Legal type="cookies" />} />
             <Route path="*" element={<div className="pt-20 text-center text-white">Sekcia sa pripravuje...</div>} />
           </Routes>
         </main>

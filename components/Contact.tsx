@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 interface ContactProps {
   prefilledMessage?: string;
   setPrefilledMessage?: (msg: string) => void;
+  isHome?: boolean;
 }
 
-const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMessage }) => {
+const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMessage, isHome }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -47,8 +48,8 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
   };
 
   return (
-    <section className="py-20  min-h-[60vh] bg-transparent">
-      <div className="max-w-7xl pt-20 mx-auto flex flex-col md:flex-row gap-12 items-stretch">
+    <section className={`${isHome ? 'py-0 mb-32' : 'py-20'} min-h-[60vh] bg-transparent`}>
+      <div className="max-w-7xl pt-20 mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-12 items-stretch">
         {/* LEFT PANEL: Contact Info */}
         <div className="md:w-1/2 flex flex-col justify-center mb-12 md:mb-0">
           <h5 className="text-orange-500 font-black uppercase tracking-widest text-xs mb-4">Kontaktujte nás</h5>
@@ -56,7 +57,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
           <p className="text-zinc-300 text-lg mb-10 max-w-lg">Či už ide o drobnú rekonštrukciu alebo výstavbu rodinného domu, sme tu, aby sme vám poskytli odborné poradenstvo a férovú ponuku.</p>
           <div className="space-y-10">
             <div className="flex items-center gap-4">
-              <div className="bg-zinc-900 rounded-md p-3 flex items-center justify-center">
+              <div className="bg-zinc-900 p-3 flex items-center justify-center">
                 <svg className="w-6 h-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5.75C3 4.784 3.784 4 4.75 4h14.5A1.75 1.75 0 0121 5.75v12.5A1.75 1.75 0 0119.25 20H4.75A1.75 1.75 0 013 18.25V5.75z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l9 6 9-6" /></svg>
               </div>
               <div>
@@ -66,7 +67,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
               </div>
             </div>
             <div className="flex items-center gap-4 mt-4">
-              <div className="bg-zinc-900 rounded-md p-3 flex items-center justify-center">
+              <div className="bg-zinc-900 p-3 flex items-center justify-center">
                 <svg className="w-6 h-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 01-8 0m8 0a4 4 0 00-8 0m8 0V8a4 4 0 00-8 0v4m8 0v4a4 4 0 01-8 0v-4" /></svg>
               </div>
               <div>
@@ -78,7 +79,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
         </div>
         {/* RIGHT PANEL: Form */}
         <div className="md:w-1/2 flex items-center">
-          <div className="w-full rounded-2xl bg-black shadow-2xl border border-zinc-800 px-6 py-10 md:px-12 md:py-14">
+          <div className={`w-full rounded-2xl bg-black border border-zinc-800 px-6 py-10 md:px-12 md:py-14 relative ${isHome ? 'shadow-[0_0_40px_0_rgba(234,88,12,0.4)]' : 'shadow-2xl'}`}>
             {submitted ? (
               <div>
                 <div>
@@ -123,7 +124,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                       type="text" 
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors rounded-md" 
+                      className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors" 
                     />
                   </div>
                   <div className="space-y-2">
@@ -133,7 +134,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                       type="email" 
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors rounded-md" 
+                      className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors" 
                     />
                   </div>
                   <div className="space-y-2">
@@ -142,7 +143,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                       type="tel" 
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                      className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors rounded-md" 
+                      className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors" 
                       placeholder="+421 908 949 117"
                     />
                   </div>
@@ -152,7 +153,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                   <select 
                     value={formData.interest}
                     onChange={(e) => setFormData({...formData, interest: e.target.value})}
-                    className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors appearance-none rounded-md"
+                    className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors appearance-none"
                   >
                     <option>Kompletná rekonštrukcia</option>
                     <option>Novostavba rodinného domu</option>
@@ -167,7 +168,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
                     placeholder="Popíšte nám vašu predstavu..."
-                    className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors resize-none rounded-md"
+                    className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors resize-none"
                   ></textarea>
                 </div>
                 <div className="flex items-center space-x-3 mb-8">
@@ -196,6 +197,10 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
           </div>
         </div>
       </div>
+      {isHome && (
+        <div className="block md:hidden mb-32" />
+      )}
+      {/* Orange shadow below removed for a subtler look as requested */}
     </section>
   );
 };

@@ -41,7 +41,7 @@ const Hero: React.FC<HeroProps> = ({ setActivePage }) => {
           </div>
           
           <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.95] mb-8 tracking-tighter animate-in fade-in slide-in-from-bottom duration-1000">
-            STAVIAME <br />
+            REALIZUJEME <br />
             <span className="text-gradient-orange">VAŠE SNY.</span>
           </h1>
           
@@ -52,7 +52,7 @@ const Hero: React.FC<HeroProps> = ({ setActivePage }) => {
           
           <div className="flex flex-col sm:flex-row gap-6 animate-in fade-in slide-in-from-bottom duration-1000 delay-500">
             <a 
-              href="#contact"
+              href="/cenova-ponuka"
               className="bg-orange-600 hover:bg-orange-700 text-white px-10 py-5 rounded-sm font-black text-xs uppercase tracking-widest transition-all transform hover:-translate-y-1 shadow-2xl shadow-orange-600/40 text-center"
             >
               Nezáväzná kalkulácia

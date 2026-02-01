@@ -63,8 +63,12 @@ const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, se
     return 'text-green-500';
   };
 
+  // Detect if on /kontakt page
+  const location = window.location?.pathname || '';
+  const isContactPage = location === '/kontakt';
+
   return (
-    <section id="ai-poradca" className="py-24 bg-zinc-950 relative overflow-hidden print:bg-white print:p-0">
+    <section id="ai-poradca" className={`${isContactPage ? 'py-0 md:py-24' : 'py-24'} bg-zinc-950 relative overflow-hidden print:bg-white print:p-0`}>
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-orange-600/5 blur-[150px] -z-10 rounded-full print:hidden"></div>
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -100,7 +104,8 @@ const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, se
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Popíšte váš zámer (napr. rekonštrukcia kúpeľne, novostavba...)"
-                className="flex-grow bg-black border border-zinc-800 text-white rounded-sm px-6 py-5 focus:outline-none focus:border-orange-600 transition-all text-lg font-light"
+                className="flex-grow bg-black border border-zinc-800 text-white rounded-sm px-6 py-5 focus:outline-none focus:border-orange-600 transition-all text-lg font-light placeholder:text-xs md:placeholder:text-base overflow-x-auto whitespace-nowrap"
+                style={{ WebkitOverflowScrolling: 'touch' }}
               />
               <button
                 type="submit"

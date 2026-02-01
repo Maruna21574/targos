@@ -1,11 +1,15 @@
 
 import React from 'react';
 
-const About: React.FC = () => {
+interface AboutProps {
+  isHome?: boolean;
+}
+
+const About: React.FC<AboutProps> = ({ isHome }) => {
   return (
-    <section id="about" className="py-32 mt-32 bg-zinc-950 relative overflow-hidden">
+      <section id="about" className={`${isHome ? 'py-16 mt-0' : 'py-32 mt-16'} bg-zinc-950 relative overflow-hidden`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-20 items-center">
           <div className="relative">
             <div className="aspect-[4/5] rounded-sm overflow-hidden shadow-2xl border border-zinc-800 transform rotate-2">
               <img 

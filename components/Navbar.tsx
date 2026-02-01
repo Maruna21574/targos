@@ -51,7 +51,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
               </Link>
             ))}
             <Link
-              to="/kontakt"
+              to="/cenova-ponuka"
               onClick={() => setIsOpen(false)}
               className="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2.5 rounded-sm font-black transition-all hover:scale-105 active:scale-95 text-xs tracking-widest orange-glow"
             >
@@ -77,20 +77,45 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
       </div>
 
       {isOpen && (
-        <div className="lg:hidden bg-zinc-950/95 backdrop-blur-xl border-b border-orange-500/20 absolute top-full left-0 w-full animate-in fade-in slide-in-from-top-4">
-          <div className="px-4 pt-2 pb-6 space-y-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsOpen(false)}
-                className={`block w-full text-left px-3 py-4 text-sm font-bold tracking-widest uppercase ${location.pathname === link.path ? 'text-orange-500 bg-orange-500/5' : 'text-gray-400'}`}
-              >
-                {link.name}
+        <>
+          {/* Overlay for background opacity */}
+          <div className="fixed inset-0 z-40 bg-black/70 transition-opacity duration-300" onClick={() => setIsOpen(false)} />
+          {/* Mobile nav menu - slide in from right */}
+          <div className="fixed top-0 right-0 h-full w-full bg-zinc-950/95 backdrop-blur-xl border-l border-orange-500/20 z-50 shadow-2xl animate-in slide-in-from-right-32 duration-300 flex flex-col">
+            <div className="flex items-center justify-between px-4 pt-6 pb-2">
+              <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center space-x-2">
+                <img src="/images/logo_targos.png" alt="TARGOŠ logo" className="w-16 h-16 object-contain" />
+                <span className="text-xl font-black tracking-tighter text-white">TARGOŠ</span>
               </Link>
-            ))}
+              <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-orange-500 p-2">
+                <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="px-4 pt-2 pb-6 space-y-1 flex-1 overflow-y-auto">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setIsOpen(false)}
+                  className={`block w-full text-left px-3 py-4 text-base font-black tracking-widest uppercase rounded transition-colors duration-200 ${location.pathname === link.path ? 'text-orange-500 bg-orange-500/10' : 'text-gray-300 hover:bg-zinc-900/40 hover:text-orange-500'}`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+            <div className="px-4 pb-8">
+              <Link
+                to="/cenova-ponuka"
+                onClick={() => setIsOpen(false)}
+                className="block w-full bg-orange-600 hover:bg-orange-700 text-white px-6 py-4 rounded-lg font-black transition-all hover:scale-105 active:scale-95 text-base tracking-widest text-center orange-glow shadow-lg"
+              >
+                CENOVÁ PONUKA
+              </Link>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </nav>
   );

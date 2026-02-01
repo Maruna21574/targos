@@ -1,7 +1,11 @@
 
 import React from 'react';
 
-const Testimonials: React.FC = () => {
+interface TestimonialsProps {
+  isHome?: boolean;
+}
+
+const Testimonials: React.FC<TestimonialsProps> = ({ isHome }) => {
   const reviews = [
     {
       name: "Ing. Peter Malý",
@@ -24,7 +28,7 @@ const Testimonials: React.FC = () => {
   ];
 
   return (
-    <section className="py-32 bg-black relative">
+    <section className={`${isHome ? 'py-16' : 'py-32'} bg-black relative`}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-20">
           <h2 className="text-orange-500 font-black uppercase tracking-[0.3em] text-xs mb-4">Referencie</h2>

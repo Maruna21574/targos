@@ -18,17 +18,21 @@ interface Project {
 
 interface PortfolioProps {
   projects: Project[];
+  isHome?: boolean;
 }
 
-const Portfolio: React.FC<PortfolioProps> = ({ projects }) => {
+const Portfolio: React.FC<PortfolioProps> = ({ projects, isHome }) => {
   const navigate = useNavigate();
 
   if (!projects || projects.length === 0) return null;
 
   return (
-    <section id="portfolio" className="py-32 bg-black overflow-hidden">
+    <section
+      id="portfolio"
+      className={`${isHome ? 'md:py-32 py-0' : 'pt-24 md:pt-32'} bg-black overflow-hidden`}
+    >
       <div className="max-w-7xl mx-auto px-4 pt-20 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 text-left">
+        <div className="flex flex-col md:flex-row justify-between items-start mb-20 gap-8 text-left">
           <div className="animate-in slide-in-from-left duration-1000">
             <h2 className="text-orange-500 font-black uppercase tracking-[0.3em] text-xs mb-4">Naša práca</h2>
             <h3 className="text-5xl md:text-6xl font-black text-white tracking-tighter uppercase">NAŠE REALIZÁCIE</h3>

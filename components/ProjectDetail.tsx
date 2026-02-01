@@ -38,9 +38,16 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
   const allImages = [project.img, ...(project.gallery && Array.isArray(project.gallery) ? project.gallery : [])].filter(Boolean);
 
   return (
-    <section className="py-16 pt-32 md:py-24 bg-black min-h-screen">
+    <section className="py-16 pt-16 md:pt-32 md:py-24 bg-black min-h-screen">
       <div className="max-w-6xl pt-32 mx-auto px-4">
-        <button onClick={() => navigate(-1)} className="mb-8 text-orange-500 hover:underline">← Späť na realizácie</button>
+        {/* Horné tlačidlo späť */}
+        <button
+          onClick={() => navigate(-1)}
+          className="mb-8 flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-900 border border-orange-600 text-orange-500 font-black uppercase tracking-widest shadow-lg hover:bg-orange-600 hover:text-white hover:shadow-orange-500/30 transition-all text-xs group"
+        >
+          <svg className="w-4 h-4 mr-1 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+          Späť na realizácie
+        </button>
         <div className="flex flex-col md:flex-row gap-12">
           {/* LEFT COLUMN: Images */}
           <div className="md:w-1/2 flex flex-col gap-6">
@@ -154,6 +161,51 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
             )}
           </div>
         </div>
+        {/* Dolné tlačidlo späť */}
+        <div className="flex justify-center mt-16">
+          <button
+            onClick={() => navigate(-1)}
+            className="flex items-center gap-2 px-8 py-4 rounded-full bg-zinc-900 border border-orange-600 text-orange-500 font-black uppercase tracking-widest shadow-lg hover:bg-orange-600 hover:text-white hover:shadow-orange-500/30 transition-all text-sm group"
+          >
+            <svg className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+            Späť na realizácie
+          </button>
+        </div>
+
+        {/* Ďalšie realizácie */}
+        {projects.length > 1 && (
+          <div className="mt-24">
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-10 tracking-tighter uppercase text-center">Ďalšie realizácie</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              {projects.filter(p => slugify(p.title) !== slug).slice(0, 3).map((p, i) => {
+                const pSlug = slugify(p.title);
+                return (
+                  <div
+                    key={pSlug}
+                    className="group bg-zinc-900/60 border border-zinc-800 rounded-lg overflow-hidden shadow-lg hover:shadow-orange-500/20 transition-all cursor-pointer flex flex-col"
+                    onClick={() => navigate(`/realizacie/${pSlug}`)}
+                    tabIndex={0}
+                    role="button"
+                    onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') navigate(`/realizacie/${pSlug}`); }}
+                  >
+                    {p.img && (
+                      <img
+                        src={p.img}
+                        alt={p.title}
+                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    )}
+                    <div className="p-6 flex flex-col flex-grow">
+                      <h3 className="text-xl font-black text-white mb-2 group-hover:text-orange-500 transition-colors">{p.title}</h3>
+                      {p.loc && <span className="text-orange-500 text-xs font-bold uppercase tracking-widest mb-1">{p.loc}</span>}
+                      {p.desc && <p className="text-zinc-400 text-sm mt-2 line-clamp-2">{p.desc}</p>}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

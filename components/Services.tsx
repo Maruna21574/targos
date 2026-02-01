@@ -46,10 +46,17 @@ const serviceCategories = [
     }
   ];
 
-const Services: React.FC = () => {
+interface ServicesProps {
+  isHome?: boolean;
+}
+
+const Services: React.FC<ServicesProps> = ({ isHome }) => {
   const navigate = useNavigate();
   return (
-      <section id="services" className="py-32 pt-48 bg-black border-y border-zinc-900 relative">
+      <section
+        id="services"
+        className={`${isHome ? 'pt-24 md:pt-48 py-16 md:py-32' : 'pt-48 py-32'} bg-black border-y border-zinc-900 relative`}
+      >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-24">
           <h2 className="text-orange-500 font-black uppercase tracking-[0.3em] text-xs mb-4">Čo ponúkame</h2>
@@ -59,10 +66,26 @@ const Services: React.FC = () => {
           </p>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {serviceCategories.map((cat, idx) => (
-            <div key={idx} className="relative group">
-               <div className="absolute inset-0 bg-orange-600 opacity-0 group-hover:opacity-5 blur-3xl transition-opacity duration-500"></div>
-               <div className="relative z-10 bg-zinc-900/40 border border-zinc-800 rounded-sm h-full flex flex-col hover:border-orange-500/30 transition-all duration-500 overflow-hidden">
+          {serviceCategories.map((cat, idx) => {
+            const slug = cat.title
+              .toString()
+              .normalize('NFD')
+              .replace(/\p{Diacritic}/gu, '')
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, '-')
+              .replace(/^-+|-+$/g, '')
+              .replace(/-+/g, '-');
+            return (
+              <div
+                key={idx}
+                className="relative group cursor-pointer"
+                tabIndex={0}
+                role="button"
+                onClick={() => navigate(`/sluzby/${slug}`)}
+                onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') navigate(`/sluzby/${slug}`); }}
+              >
+                <div className="absolute inset-0 bg-orange-600 opacity-0 group-hover:opacity-5 blur-3xl transition-opacity duration-500"></div>
+                <div className="relative z-10 bg-zinc-900/40 border border-zinc-800 rounded-sm h-full flex flex-col hover:border-orange-500/30 transition-all duration-500 overflow-hidden">
                   {/* Category Image */}
                   <div className="h-48 overflow-hidden relative">
                     <img 
@@ -86,29 +109,17 @@ const Services: React.FC = () => {
                         </li>
                       ))}
                     </ul>
-                    <button 
-                      onClick={() => {
-                        const slug = cat.title
-                          .toString()
-                          .normalize('NFD')
-                          .replace(/\p{Diacritic}/gu, '')
-                          .toLowerCase()
-                          .replace(/[^a-z0-9]+/g, '-')
-                          .replace(/^-+|-+$/g, '')
-                          .replace(/-+/g, '-');
-                        navigate(`/sluzby/${slug}`);
-                      }}
-                      className="mt-10 pt-6 border-t border-zinc-800 flex justify-between items-center w-full group/btn"
-                    >
-                       <span className="text-[10px] font-black uppercase tracking-widest text-orange-500 group-hover/btn:underline">Viac detailov</span>
-                       <svg className="w-4 h-4 text-orange-500 transform transition-transform group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                       </svg>
-                    </button>
+                    <div className="mt-10 pt-6 border-t border-zinc-800 flex justify-between items-center w-full group/btn">
+                      <span className="text-[10px] font-black uppercase tracking-widest text-orange-500 group-hover/btn:underline">Viac detailov</span>
+                      <svg className="w-4 h-4 text-orange-500 transform transition-transform group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                      </svg>
+                    </div>
                   </div>
-               </div>
-            </div>
-          ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

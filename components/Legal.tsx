@@ -7,7 +7,7 @@ interface LegalProps {
 
 const Legal: React.FC<LegalProps> = ({ type }) => {
   return (
-    <div className="py-24 bg-black min-h-screen">
+    <div className="py-48 bg-black min-h-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-5xl font-black text-white mb-4 tracking-tighter uppercase">
           {type === 'gdpr' ? 'Ochrana osobných údajov' : 'Používanie súborov Cookies'}
