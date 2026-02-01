@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -29,7 +27,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await fetch('http://localhost:4000/api/send-inquiry', {
+      const response = await fetch('https://targos.onrender.com/api/send-inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
