@@ -49,7 +49,7 @@ const serviceCategories = [
 const Services: React.FC = () => {
   const navigate = useNavigate();
   return (
-    <section id="services" className="py-32 bg-black border-y border-zinc-900 relative">
+      <section id="services" className="py-32 pt-48 bg-black border-y border-zinc-900 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-24">
           <h2 className="text-orange-500 font-black uppercase tracking-[0.3em] text-xs mb-4">Čo ponúkame</h2>

@@ -106,7 +106,7 @@ const App: React.FC = () => {
                 <Services />
                 <Portfolio projects={projects} />
                 <Testimonials />
-                <ProjectConsultant setPrefilledMessage={setPrefilledMessage} />
+                {/* <ProjectConsultant setPrefilledMessage={setPrefilledMessage} /> */}
                 <FAQ />
                 <Contact prefilledMessage={prefilledMessage} />
               </div>
@@ -116,9 +116,9 @@ const App: React.FC = () => {
             <Route path="/admin" element={<Admin projects={projects} setProjects={updateProjectsInState} defaultProjects={DEFAULT_PROJECTS} />} />
             <Route path="/sluzby" element={<Services />} />
             <Route path="/sluzby/:slug" element={<ServiceDetail services={services} />} />
-            <Route path="/realizacie" element={<div className="pt-20"><Portfolio projects={projects} /><Contact prefilledMessage={prefilledMessage} /></div>} />
+            <Route path="/realizacie" element={<Portfolio projects={projects} />} />
             <Route path="/realizacie/:slug" element={<ProjectDetail projects={projects} />} />
-            <Route path="/kontakt" element={<div className="pt-20"><Contact prefilledMessage={prefilledMessage} /></div>} />
+            <Route path="/kontakt" element={<div className="pt-20"><ProjectConsultant setPrefilledMessage={setPrefilledMessage} /><Contact prefilledMessage={prefilledMessage} /></div>} />
             <Route path="/gdpr" element={<div className="pt-20"><Legal type="gdpr" /></div>} />
             <Route path="/cookies" element={<div className="pt-20"><Legal type="cookies" /></div>} />
             <Route path="*" element={<div className="pt-20 text-center text-white">Sekcia sa pripravuje...</div>} />

@@ -47,31 +47,31 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
   };
 
   return (
-    <section className="py-20 min-h-[60vh] bg-transparent">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 items-stretch">
+    <section className="py-20  min-h-[60vh] bg-transparent">
+      <div className="max-w-7xl pt-20 mx-auto flex flex-col md:flex-row gap-12 items-stretch">
         {/* LEFT PANEL: Contact Info */}
         <div className="md:w-1/2 flex flex-col justify-center mb-12 md:mb-0">
           <h5 className="text-orange-500 font-black uppercase tracking-widest text-xs mb-4">Kontaktujte nás</h5>
           <h2 className="text-5xl md:text-6xl font-black text-white mb-6 leading-tight">MÁTE PLÁN?<br/>MY MÁME TÍM.</h2>
           <p className="text-zinc-300 text-lg mb-10 max-w-lg">Či už ide o drobnú rekonštrukciu alebo výstavbu rodinného domu, sme tu, aby sme vám poskytli odborné poradenstvo a férovú ponuku.</p>
-          <div className="space-y-6">
+          <div className="space-y-10">
             <div className="flex items-center gap-4">
               <div className="bg-zinc-900 rounded-md p-3 flex items-center justify-center">
                 <svg className="w-6 h-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5.75C3 4.784 3.784 4 4.75 4h14.5A1.75 1.75 0 0121 5.75v12.5A1.75 1.75 0 0119.25 20H4.75A1.75 1.75 0 013 18.25V5.75z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l9 6 9-6" /></svg>
               </div>
               <div>
                 <div className="text-zinc-400 text-xs font-black uppercase tracking-widest">Telefónny kontakt</div>
-                <div className="text-orange-500 font-black text-lg md:text-xl">+421 908 949 117</div>
+                <a href="tel:+421908949117" className="text-orange-500 font-black text-lg md:text-xl hover:underline tracking-wider">+421&nbsp;908&nbsp;949&nbsp;117</a>
                 <div className="text-zinc-500 text-xs">Po - Pia: 08:00 - 17:00</div>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 mt-4">
               <div className="bg-zinc-900 rounded-md p-3 flex items-center justify-center">
                 <svg className="w-6 h-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 01-8 0m8 0a4 4 0 00-8 0m8 0V8a4 4 0 00-8 0v4m8 0v4a4 4 0 01-8 0v-4" /></svg>
               </div>
               <div>
                 <div className="text-zinc-400 text-xs font-black uppercase tracking-widest">E-mailová adresa</div>
-                <div className="text-white font-black text-lg md:text-xl">info@targos.sk</div>
+                <a href="mailto:info@targos.sk" className="text-white font-black text-lg md:text-xl hover:underline">info@targos.sk</a>
               </div>
             </div>
           </div>

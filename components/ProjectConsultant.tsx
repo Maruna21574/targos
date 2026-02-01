@@ -80,11 +80,11 @@ const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, se
           </div>
         </div>
 
-        <div className="text-center mb-16 print:hidden">
-          <div className="inline-block px-4 py-1 rounded-full bg-orange-600/10 text-orange-500 text-[10px] font-black uppercase tracking-[0.4em] mb-4 border border-orange-500/20">
+        <div className="text-center pt-32 mb-16 print:hidden">
+          <div className="inline-block px-4 mb-10 py-1 rounded-full bg-orange-600/10 text-orange-500 text-[10px] font-black uppercase tracking-[0.4em] mb-4 border border-orange-500/20">
             Targoš AI Projektový Poradca
           </div>
-          <h2 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter uppercase leading-none">
+          <h2 className="text-5xl pt-10 md:text-7xl font-black text-white mb-6 tracking-tighter uppercase leading-none">
             PROJEKTOVÝ <span className="text-orange-600">PORADCA</span>
           </h2>
           <p className="text-zinc-500 text-sm font-light max-w-xl mx-auto">

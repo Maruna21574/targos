@@ -69,7 +69,7 @@ const ServiceDetail: React.FC = () => {
 
   return (
     <section className="py-32 bg-black min-h-screen">
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-4xl pt-32 mx-auto px-4">
         <button onClick={() => navigate(-1)} className="mb-8 text-orange-500 hover:underline">← Späť na služby</button>
         <h1 className="text-4xl font-black text-white mb-4">{service.title}</h1>
         {service.image && (

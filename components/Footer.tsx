@@ -34,10 +34,10 @@ const Footer: React.FC = () => {
           <div className="text-left">
             <h4 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-8">Navigácia</h4>
             <ul className="space-y-4 text-sm text-gray-500">
-              <li><Link to="/o-nas" className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold">O nás</Link></li>
-              <li><Link to="/sluzby" className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold">Služby</Link></li>
-              <li><Link to="/realizacie" className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold">Realizácie</Link></li>
-              <li><Link to="/kontakt" className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold">Kontakt</Link></li>
+              <li><Link to="/o-nas" className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold" onClick={() => window.scrollTo({top:0, behavior:'smooth'})}>O nás</Link></li>
+              <li><Link to="/sluzby" className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold" onClick={() => window.scrollTo({top:0, behavior:'smooth'})}>Služby</Link></li>
+              <li><Link to="/realizacie" className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold" onClick={() => window.scrollTo({top:0, behavior:'smooth'})}>Realizácie</Link></li>
+              <li><Link to="/kontakt" className="hover:text-orange-500 transition-colors uppercase tracking-widest text-[11px] font-bold" onClick={() => window.scrollTo({top:0, behavior:'smooth'})}>Kontakt</Link></li>
             </ul>
           </div>
           
@@ -52,8 +52,8 @@ const Footer: React.FC = () => {
         <div className="pt-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold text-gray-700 uppercase tracking-widest">
           <p>&copy; {new Date().getFullYear()} TARGOŠ s.r.o.</p>
           <div className="flex space-x-8">
-            <Link to="/gdpr" className="hover:text-orange-500 transition-colors">GDPR</Link>
-            <Link to="/cookies" className="hover:text-orange-500 transition-colors">Cookies</Link>
+            <Link to="/gdpr" className="hover:text-orange-500 transition-colors" onClick={() => window.scrollTo({top:0, behavior:'smooth'})}>GDPR</Link>
+            <Link to="/cookies" className="hover:text-orange-500 transition-colors" onClick={() => window.scrollTo({top:0, behavior:'smooth'})}>Cookies</Link>
           </div>
         </div>
       </div>

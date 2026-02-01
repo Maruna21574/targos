@@ -27,7 +27,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects }) => {
 
   return (
     <section id="portfolio" className="py-32 bg-black overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 pt-20 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 text-left">
           <div className="animate-in slide-in-from-left duration-1000">
             <h2 className="text-orange-500 font-black uppercase tracking-[0.3em] text-xs mb-4">Naša práca</h2>
@@ -53,7 +53,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects }) => {
               <div 
                 key={p.id} 
                 onClick={() => navigate(`/realizacie/${slug}`)}
-                className="group relative overflow-hidden bg-zinc-900 aspect-[4/5] rounded-sm cursor-pointer border border-zinc-800 hover:border-orange-500/50 transition-all duration-700 hover:-translate-y-2 text-left"
+                className="group relative overflow-hidden aspect-[4/5] rounded-sm cursor-pointer border border-zinc-800 hover:border-orange-500/50 transition-all duration-700 hover:-translate-y-2 text-left"
               >
                 <img src={p.img} alt={p.title} className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-all duration-1000 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>

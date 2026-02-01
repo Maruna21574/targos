@@ -38,8 +38,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
   const allImages = [project.img, ...(project.gallery && Array.isArray(project.gallery) ? project.gallery : [])].filter(Boolean);
 
   return (
-    <section className="py-16 md:py-24 bg-black min-h-screen">
-      <div className="max-w-6xl mx-auto px-4">
+    <section className="py-16 pt-32 md:py-24 bg-black min-h-screen">
+      <div className="max-w-6xl pt-32 mx-auto px-4">
         <button onClick={() => navigate(-1)} className="mb-8 text-orange-500 hover:underline">← Späť na realizácie</button>
         <div className="flex flex-col md:flex-row gap-12">
           {/* LEFT COLUMN: Images */}
