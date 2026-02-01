@@ -53,7 +53,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
           <div className="md:w-1/2 flex flex-col gap-6">
             {project.img && (
               <img
-                src={project.img}
+                src={project.img} loading="lazy"
                 alt={project.title}
                 className="w-full aspect-video object-cover rounded-lg shadow-2xl border-2 border-zinc-900 cursor-pointer hover:border-orange-500 transition-all"
                 onClick={() => { setLightboxIndex(0); setLightboxOpen(true); }}
@@ -63,7 +63,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
               <div className="grid grid-cols-2 gap-4">
                 {project.gallery.slice(0, 4).map((url: string, i: number) => (
                   <img
-                    key={i}
+                    key={i} loading="lazy"
                     src={url}
                     alt={`Galéria ${i+1}`}
                     className="w-full h-32 object-cover rounded border-2 border-zinc-800 cursor-pointer hover:border-orange-500 transition-all shadow-lg"
@@ -190,7 +190,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
                   >
                     {p.img && (
                       <img
-                        src={p.img}
+                        src={p.img} loading="lazy"
                         alt={p.title}
                         className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
                       />

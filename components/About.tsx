@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface AboutProps {
@@ -7,13 +6,13 @@ interface AboutProps {
 
 const About: React.FC<AboutProps> = ({ isHome }) => {
   return (
-      <section id="about" className={`${isHome ? 'py-16 mt-0' : 'py-32 mt-16'} bg-zinc-950 relative overflow-hidden`}>
+      <section id="about" className={`${isHome ? 'py-16 mt-0' : 'py-56 mt-0'} bg-zinc-950 relative overflow-hidden`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-20 items-center">
           <div className="relative">
             <div className="aspect-[4/5] rounded-sm overflow-hidden shadow-2xl border border-zinc-800 transform rotate-2">
               <img 
-                src="/images/targos_praca_hp.jpg"
+                src="/images/targos_praca_hp.jpg" loading="lazy"
                 alt="Práca TARGOŠ" 
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
               />

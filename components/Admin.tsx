@@ -244,7 +244,7 @@ const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
                 />
               </div>
               {newProject.img && (
-                <img src={newProject.img} alt="Náhľad" className="w-16 h-16 object-cover rounded border border-zinc-800 ml-2" />
+                <img src={newProject.img} alt="Náhľad" className="w-16 h-16 object-cover rounded border border-zinc-800 ml-2" loading="lazy" />
               )}
             </div>
             <div className="md:col-span-2 flex gap-4 items-start">
@@ -270,7 +270,7 @@ const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
                 <div className="flex flex-wrap gap-2 mt-2 min-h-[40px]">
                   {galleryText.split('\n').filter(Boolean).map((url, i, arr) => (
                     <div key={i} className="relative group flex flex-col items-center">
-                      <img src={url} alt="Galéria" className="w-16 h-16 object-cover rounded border border-zinc-800" />
+                      <img src={url} alt="Galéria" className="w-16 h-16 object-cover rounded border border-zinc-800" loading="lazy" />
                       <div className="flex gap-1 mt-1">
                         <button type="button" onClick={() => handleMoveGalleryImg(i, -1)} disabled={i === 0} className="bg-zinc-800 text-white text-xs rounded px-1 disabled:opacity-30">←</button>
                         <button type="button" onClick={() => handleMoveGalleryImg(i, 1)} disabled={i === arr.length - 1} className="bg-zinc-800 text-white text-xs rounded px-1 disabled:opacity-30">→</button>
@@ -307,7 +307,7 @@ const Admin: React.FC<AdminProps> = ({ projects, setProjects }) => {
             {projects.map(p => (
               <div key={p.id} className="bg-zinc-900/50 p-4 flex items-center justify-between border border-zinc-800 hover:border-zinc-700 transition-all group">
                 <div className="flex items-center gap-6">
-                  <img src={p.img} className="w-16 h-16 object-cover rounded-sm border border-zinc-800 grayscale group-hover:grayscale-0 transition-all" alt="" />
+                  <img src={p.img} className="w-16 h-16 object-cover rounded-sm border border-zinc-800 grayscale group-hover:grayscale-0 transition-all" alt="" loading="lazy" />
                   <div>
                     <h3 className="text-white font-bold text-sm uppercase tracking-tight">{p.title}</h3>
                     <p className="text-zinc-500 text-[10px] uppercase font-bold mt-1 tracking-widest">{p.loc} • {p.year}</p>

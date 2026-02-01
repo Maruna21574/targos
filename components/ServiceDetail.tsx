@@ -80,7 +80,7 @@ const ServiceDetail: React.FC = () => {
         </button>
         <h1 className="text-4xl font-black text-white mb-4">{service.title}</h1>
         {service.image && (
-          <img src={service.image} alt={service.title} className="w-full rounded mb-8" />
+          <img src={service.image} alt={service.title} className="w-full rounded mb-8" loading="lazy" />
         )}
         <p className="text-lg text-zinc-300 mb-8">{service.desc}</p>
         <div className="bg-zinc-900/50 border border-zinc-800 rounded-sm p-6 mb-8">

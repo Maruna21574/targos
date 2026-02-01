@@ -10,6 +10,7 @@ const ScrollToTop: React.FC = () => {
 };
 
 import React, { useState, useEffect } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -91,62 +92,54 @@ const App: React.FC = () => {
       setDbLoading(false);
     };
     loadData();
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const updateProjectsInState = (newProjects: any[]) => {
-    setProjects(newProjects);
-  };
-
   return (
-    <Router>
-      <ScrollToTop />
-      <div className="min-h-screen flex flex-col bg-[#0A0A0A]">
-        <ScrollToTopButton />
+    <HelmetProvider>
+      <Router>
+        <ScrollToTop />
         <Navbar scrolled={scrolled} />
-        {dbLoading && (
-          <div className="fixed bottom-4 right-4 bg-orange-600 text-white p-2 rounded-full animate-pulse z-50">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
-          </div>
-        )}
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={
-              <div className="animate-in fade-in duration-700">
-                <Hero />
-                <About isHome />
-                <Services isHome />
-                <TrustLogos />
-                <Portfolio projects={projects} isHome />
-                <Testimonials isHome />
-                {/* <ProjectConsultant setPrefilledMessage={setPrefilledMessage} /> */}
-                <FAQ isHome />
-                <PricingSection />
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <Contact prefilledMessage={prefilledMessage} isHome />
-                </div>
-                
-              </div>
-            } />
-            <Route path="/o-nas" element={<About />} />
-            <Route path="/ai" element={<ProjectConsultant setPrefilledMessage={setPrefilledMessage} />} />
-            <Route path="/admin" element={<Admin projects={projects} setProjects={updateProjectsInState} defaultProjects={DEFAULT_PROJECTS} />} />
-            <Route path="/sluzby" element={<Services />} />
-            <Route path="/sluzby/:slug" element={<ServiceDetail services={services} />} />
-            <Route path="/realizacie" element={<Portfolio projects={projects} />} />
-            <Route path="/realizacie/:slug" element={<ProjectDetail projects={projects} />} />
-            <Route path="/kontakt" element={<div className="pt-20"><Contact prefilledMessage={prefilledMessage} /><ProjectConsultant setPrefilledMessage={setPrefilledMessage} /></div>} />
-            <Route path="/cenova-ponuka" element={<PricingPage />} />
-            <Route path="/gdpr" element={<Legal type="gdpr" />} />
-            <Route path="/cookies" element={<Legal type="cookies" />} />
-            <Route path="*" element={<div className="pt-20 text-center text-white">Sekcia sa pripravuje...</div>} />
-          </Routes>
-        </main>
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Hero />
+              <About isHome />
+              <Services isHome />
+              <Portfolio isHome />
+              <Testimonials isHome />
+              <ProjectConsultant isHome />
+              <FAQ isHome />
+              <Contact isHome />
+            </>
+          } />
+          <Route path="/sluzby" element={<Services />} />
+          <Route path="/sluzby/:slug" element={<ServiceDetail />} />
+          <Route path="/projekty" element={<Portfolio />} />
+          <Route path="/projekty/:slug" element={<ProjectDetail />} />
+          <Route path="/cennik" element={<PricingPage />} />
+          <Route path="/kontakt" element={<Contact />} />
+          <Route path="/gdpr" element={<Legal />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/o-nas" element={<About />} />
+          <Route path="/realizacie" element={<Portfolio projects={projects} />} />
+          <Route path="/realizacie/:slug" element={<ProjectDetail projects={projects} />} />
+          <Route path="/ai" element={<ProjectConsultant setPrefilledMessage={setPrefilledMessage} />} />
+          <Route path="/cenova-ponuka" element={<PricingPage />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+        <TrustLogos />
         <Footer />
-      </div>
-    </Router>
+        <ScrollToTopButton />
+      </Router>
+    </HelmetProvider>
   );
 };
 

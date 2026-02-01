@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -20,13 +19,13 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-black/95 backdrop-blur-lg py-3' : 'bg-transparent py-6'}`}>
+    <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-black py-3' : 'bg-transparent py-6'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-3 cursor-pointer group">
             <div className="relative w-28 h-28 flex items-center justify-center">
               <img 
-                src="/images/logo_targos.png" 
+                src="/images/logo_targos.png" loading="lazy"
                 alt="TARGOŠ logo" 
                 className="w-28 h-28 object-contain"
               />
@@ -84,7 +83,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
           <div className="fixed top-0 right-0 h-full w-full bg-zinc-950/95 backdrop-blur-xl border-l border-orange-500/20 z-50 shadow-2xl animate-in slide-in-from-right-32 duration-300 flex flex-col">
             <div className="flex items-center justify-between px-4 pt-6 pb-2">
               <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center space-x-2">
-                <img src="/images/logo_targos.png" alt="TARGOŠ logo" className="w-16 h-16 object-contain" />
+                <img src="/images/logo_targos.png" alt="TARGOŠ logo" className="w-16 h-16 object-contain" loading="lazy" />
                 <span className="text-xl font-black tracking-tighter text-white">TARGOŠ</span>
               </Link>
               <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-orange-500 p-2">

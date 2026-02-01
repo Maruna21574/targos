@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
                 <Link to="/" className="flex items-center space-x-3 mb-8 cursor-pointer group">
                   <div className="relative w-28 h-28 flex items-center justify-center">
                     <img 
-                      src="/images/logo_targos.png" 
+                      src="/images/logo_targos.png" loading="lazy"
                       alt="TARGOŠ logo" 
                       className="w-28 h-28 object-contain"
                     />

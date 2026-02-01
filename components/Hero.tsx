@@ -19,7 +19,7 @@ const Hero: React.FC<HeroProps> = ({ setActivePage }) => {
           poster="/images/video_hp.jpg"
         >
           <source 
-            src="/images/video_hp.mp4"
+            src="/images/video_hp.mp4" loading="lazy"
             type="video/mp4" 
           />
           Your browser does not support the video tag.
@@ -41,7 +41,7 @@ const Hero: React.FC<HeroProps> = ({ setActivePage }) => {
           </div>
           
           <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.95] mb-8 tracking-tighter animate-in fade-in slide-in-from-bottom duration-1000">
-            REALIZUJEME <br />
+            PLNÍME <br />
             <span className="text-gradient-orange">VAŠE SNY.</span>
           </h1>
           

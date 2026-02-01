@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 interface TestimonialsProps {
   isHome?: boolean;
@@ -28,6 +29,14 @@ const Testimonials: React.FC<TestimonialsProps> = ({ isHome }) => {
   ];
 
   return (
+    <>
+      <Helmet>
+        <title>Referencie | TARGOŠ</title>
+        <meta name="description" content="Skúsenosti a hodnotenia našich klientov. Prečítajte si referencie na stavebné práce TARGOŠ." />
+        <meta property="og:title" content="Referencie | TARGOŠ" />
+        <meta property="og:description" content="Skúsenosti a hodnotenia našich klientov. Prečítajte si referencie na stavebné práce TARGOŠ." />
+        <meta property="og:image" content="/images/og_testimonials.jpg" />
+      </Helmet>
     <section className={`${isHome ? 'py-16' : 'py-32'} bg-black relative`}>
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-20">
@@ -56,6 +65,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ isHome }) => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

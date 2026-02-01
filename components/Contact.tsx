@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 interface ContactProps {
   prefilledMessage?: string;
@@ -48,6 +49,14 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Kontakt | TARGOŠ</title>
+        <meta name="description" content="Kontaktujte nás pre nezáväznú cenovú ponuku alebo odborné poradenstvo. TARGOŠ - stavebné práce s tradíciou." />
+        <meta property="og:title" content="Kontakt | TARGOŠ" />
+        <meta property="og:description" content="Kontaktujte nás pre nezáväznú cenovú ponuku alebo odborné poradenstvo. TARGOŠ - stavebné práce s tradíciou." />
+        <meta property="og:image" content="/images/og_contact.jpg" />
+      </Helmet>
     <section className={`${isHome ? 'py-0 mb-32' : 'py-20'} min-h-[60vh] bg-transparent`}>
       <div className="max-w-7xl pt-20 mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-12 items-stretch">
         {/* LEFT PANEL: Contact Info */}
@@ -202,6 +211,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
       )}
       {/* Orange shadow below removed for a subtler look as requested */}
     </section>
+    </>
   );
 };
 
