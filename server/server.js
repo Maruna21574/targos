@@ -15,8 +15,8 @@ app.use(cors());
 // Nastavenie SMTP pre Websupport
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || 'smtp.m1.websupport.sk',
-  port: Number(process.env.SMTP_PORT) || 465,
-  secure: true,
+  port: Number(process.env.SMTP_PORT) || 587,
+  secure: false, // pre port 587 musí byť false
   auth: {
     user: process.env.SMTP_USER, // napr. info@targos.sk
     pass: process.env.SMTP_PASS
