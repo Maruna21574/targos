@@ -38,12 +38,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
   const allImages = [project.img, ...(project.gallery && Array.isArray(project.gallery) ? project.gallery : [])].filter(Boolean);
 
   return (
-    <section className="py-16 pt-16 md:pt-32 md:py-24 bg-black min-h-screen">
+    <section className="py-16 pt-16 md:pt-32 md:py-24 bg-white dark:bg-black min-h-screen">
       <div className="max-w-6xl pt-32 mx-auto px-4">
         {/* Horné tlačidlo späť */}
         <button
           onClick={() => navigate(-1)}
-          className="mb-8 flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-900 border border-orange-600 text-orange-500 font-black uppercase tracking-widest shadow-lg hover:bg-orange-600 hover:text-white hover:shadow-orange-500/30 transition-all text-xs group"
+          className="mb-8 flex items-center gap-2 px-6 py-3 rounded-full bg-gray-100 dark:bg-zinc-900 border border-orange-600 text-orange-500 font-black uppercase tracking-widest shadow-lg hover:bg-orange-600 hover:text-white hover:shadow-orange-500/30 transition-all text-xs group"
         >
           <svg className="w-4 h-4 mr-1 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
           Späť na realizácie
@@ -55,7 +55,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
               <img
                 src={project.img} loading="lazy"
                 alt={project.title}
-                className="w-full aspect-video object-cover rounded-lg shadow-2xl border-2 border-zinc-900 cursor-pointer hover:border-orange-500 transition-all"
+                className="w-full aspect-video object-cover rounded-lg shadow-2xl border-2 border-gray-300 dark:border-zinc-900 cursor-pointer hover:border-orange-500 transition-all grayscale-[10%] opacity-90 hover:opacity-100 hover:grayscale-0"
                 onClick={() => { setLightboxIndex(0); setLightboxOpen(true); }}
               />
             )}
@@ -66,7 +66,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
                     key={i} loading="lazy"
                     src={url}
                     alt={`Galéria ${i+1}`}
-                    className="w-full h-32 object-cover rounded border-2 border-zinc-800 cursor-pointer hover:border-orange-500 transition-all shadow-lg"
+                    className="w-full h-32 object-cover rounded border-2 border-gray-200 dark:border-zinc-800 cursor-pointer hover:border-orange-500 transition-all shadow-lg grayscale-[20%] opacity-80 hover:opacity-100 hover:grayscale-0"
                     onClick={() => { setLightboxIndex(i + 1); setLightboxOpen(true); }}
                   />
                 ))}
@@ -83,23 +83,23 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
           {/* RIGHT COLUMN: Info */}
           <div className="md:w-1/2 flex flex-col gap-6">
             <div className="flex flex-wrap gap-2 items-center mb-2">
-              {project.loc && <span className="text-orange-500 font-black text-xs uppercase tracking-widest">{project.loc}</span>}
-              {project.year && <><span className="text-zinc-700">•</span><span className="text-orange-500 font-black text-xs uppercase tracking-widest">{project.year}</span></>}
+              {project.loc && <span className="text-orange-500 font-black text-xs uppercase tracking-widest dark:text-white text-gray-900 drop-shadow-lg">{project.loc}</span>}
+              {project.year && <><span className="text-gray-500 dark:text-zinc-700">•</span><span className="text-orange-500 font-black text-xs uppercase tracking-widest dark:text-white text-gray-900 drop-shadow-lg">{project.year}</span></>}
             </div>
-            <h1 className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tighter leading-[1.05] uppercase">{project.title}</h1>
+            <h1 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-2 tracking-tighter leading-[1.05] uppercase drop-shadow-lg">{project.title}</h1>
             {project.desc && (
-              <p className="text-zinc-300 text-lg leading-relaxed font-light italic border-l-4 border-orange-600 pl-6 mb-4">{project.desc}</p>
+              <p className="text-gray-700 dark:text-zinc-300 text-lg leading-relaxed font-light italic border-l-4 border-orange-600 pl-6 mb-4">{project.desc}</p>
             )}
             <div className="flex gap-4 mb-4">
               {project.cost && (
-                <div className="bg-zinc-900 border border-zinc-800 rounded-lg px-6 py-4 flex flex-col items-center min-w-[120px]">
-                  <span className="text-zinc-400 text-xs uppercase mb-1">Objem investície</span>
+                <div className="bg-gray-100 dark:bg-zinc-900 border border-gray-300 dark:border-zinc-800 rounded-lg px-6 py-4 flex flex-col items-center min-w-[120px]">
+                  <span className="text-gray-500 dark:text-zinc-400 text-xs uppercase mb-1">Objem investície</span>
                   <span className="text-orange-500 font-black text-2xl">{project.cost}</span>
                 </div>
               )}
               {project.duration && (
-                <div className="bg-zinc-900 border border-zinc-800 rounded-lg px-6 py-4 flex flex-col items-center min-w-[120px]">
-                  <span className="text-zinc-400 text-xs uppercase mb-1">Čas realizácie</span>
+                <div className="bg-gray-100 dark:bg-zinc-900 border border-gray-300 dark:border-zinc-800 rounded-lg px-6 py-4 flex flex-col items-center min-w-[120px]">
+                  <span className="text-gray-500 dark:text-zinc-400 text-xs uppercase mb-1">Čas realizácie</span>
                   <span className="text-orange-500 font-black text-2xl">{project.duration}</span>
                 </div>
               )}
@@ -127,8 +127,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
                         )}
                       </div>
                       <div className="pt-1 text-left pb-2">
-                        <h6 className="text-white font-black uppercase text-xs tracking-[0.1em] mb-1 group-hover:text-orange-500 transition-colors">{step.title}</h6>
-                        <p className="text-zinc-400 text-xs leading-relaxed font-light">{step.desc}</p>
+                        <h6 className="font-black uppercase text-xs tracking-[0.1em] mb-1 group-hover:text-orange-500 transition-colors drop-shadow-lg dark:text-white text-gray-900">{step.title}</h6>
+                        <p className="text-xs leading-relaxed font-light dark:text-gray-300 text-gray-700">{step.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -142,8 +142,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
             {project.scope && (
               <>
                 <h3 className="text-orange-500 font-black uppercase text-xs mb-6 tracking-widest">Realizovaný rozsah</h3>
-                <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-4">
-                  <p className="text-zinc-400 text-sm whitespace-pre-line">{project.scope}</p>
+                <div className="bg-gray-100 dark:bg-zinc-900/50 border border-gray-300 dark:border-zinc-800 rounded-lg p-4">
+                  <p className="text-gray-700 dark:text-zinc-400 text-sm whitespace-pre-line">{project.scope}</p>
                 </div>
               </>
             )}
@@ -154,8 +154,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
             {project.materials && (
               <>
                 <h3 className="text-orange-500 font-black uppercase text-xs mb-6 tracking-widest">Použité materiály / technológie</h3>
-                <div className="bg-zinc-900/50 border border-zinc-800 rounded-lg p-4">
-                  <p className="text-zinc-400 text-sm whitespace-pre-line">{project.materials}</p>
+                <div className="bg-gray-100 dark:bg-zinc-900/50 border border-gray-300 dark:border-zinc-800 rounded-lg p-4">
+                  <p className="text-gray-700 dark:text-zinc-400 text-sm whitespace-pre-line">{project.materials}</p>
                 </div>
               </>
             )}
@@ -165,7 +165,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
         <div className="flex justify-center mt-16">
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-2 px-8 py-4 rounded-full bg-zinc-900 border border-orange-600 text-orange-500 font-black uppercase tracking-widest shadow-lg hover:bg-orange-600 hover:text-white hover:shadow-orange-500/30 transition-all text-sm group"
+            className="flex items-center gap-2 px-8 py-4 rounded-full bg-gray-100 dark:bg-zinc-900 border border-orange-600 text-orange-500 font-black uppercase tracking-widest shadow-lg hover:bg-orange-600 hover:text-white hover:shadow-orange-500/30 transition-all text-sm group"
           >
             <svg className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
             Späť na realizácie
@@ -175,14 +175,14 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
         {/* Ďalšie realizácie */}
         {projects.length > 1 && (
           <div className="mt-24">
-            <h2 className="text-3xl md:text-4xl font-black text-white mb-10 tracking-tighter uppercase text-center">Ďalšie realizácie</h2>
+            <h2 className="text-3xl md:text-4xl font-black dark:text-white text-gray-900 mb-10 tracking-tighter uppercase text-center">Ďalšie realizácie</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {projects.filter(p => slugify(p.title) !== slug).slice(0, 3).map((p, i) => {
                 const pSlug = slugify(p.title);
                 return (
                   <div
                     key={pSlug}
-                    className="group bg-zinc-900/60 border border-zinc-800 rounded-lg overflow-hidden shadow-lg hover:shadow-orange-500/20 transition-all cursor-pointer flex flex-col"
+                    className="group bg-gray-100/80 dark:bg-zinc-900/60 border border-gray-300 dark:border-zinc-800 rounded-lg overflow-hidden shadow-lg hover:shadow-orange-500/20 transition-all cursor-pointer flex flex-col"
                     onClick={() => navigate(`/realizacie/${pSlug}`)}
                     tabIndex={0}
                     role="button"
@@ -196,9 +196,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projects }) => {
                       />
                     )}
                     <div className="p-6 flex flex-col flex-grow">
-                      <h3 className="text-xl font-black text-white mb-2 group-hover:text-orange-500 transition-colors">{p.title}</h3>
-                      {p.loc && <span className="text-orange-500 text-xs font-bold uppercase tracking-widest mb-1">{p.loc}</span>}
-                      {p.desc && <p className="text-zinc-400 text-sm mt-2 line-clamp-2">{p.desc}</p>}
+                      <h3 className="text-xl font-black dark:text-white text-gray-900 mb-2 group-hover:text-orange-500 transition-colors drop-shadow-lg">{p.title}</h3>
+                      {p.loc && <span className="text-orange-500 text-xs font-bold uppercase tracking-widest mb-1 dark:text-white text-gray-900 drop-shadow-lg">{p.loc}</span>}
+                      {p.desc && <p className="text-sm mt-2 line-clamp-2 dark:text-gray-300 text-gray-700">{p.desc}</p>}
                     </div>
                   </div>
                 );

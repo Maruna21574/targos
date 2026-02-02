@@ -41,15 +41,15 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects, isHome }) => {
       </Helmet>
       <section
         id="portfolio"
-        className={`${isHome ? 'md:py-32 py-0' : 'pt-24 md:pt-32 pb-32'} bg-black overflow-hidden`}
+        className={`${isHome ? 'md:py-32 py-0' : 'pt-24 md:pt-32 pb-32'} bg-white dark:bg-black overflow-hidden`}
       >
         <div className="max-w-7xl mx-auto px-4 pt-20 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-start mb-20 gap-8 text-left">
             <div className="animate-in slide-in-from-left duration-1000">
               <h2 className="text-orange-500 font-black uppercase tracking-[0.3em] text-xs mb-4">Naša práca</h2>
-              <h3 className="text-5xl md:text-6xl font-black text-white tracking-tighter uppercase">NAŠE REALIZÁCIE</h3>
+              <h3 className="text-5xl md:text-6xl font-black dark:text-white text-gray-900 tracking-tighter uppercase">NAŠE REALIZÁCIE</h3>
             </div>
-            <p className="text-gray-500 max-w-sm font-light text-sm italic">
+            <p className="text-gray-700 dark:text-gray-500 max-w-sm font-light text-sm italic">
               Pozrite si detailnú chronológiu našich prác. Transparentne ukazujeme postupy, materiály aj finálne náklady projektov.
             </p>
           </div>
@@ -68,20 +68,20 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects, isHome }) => {
                 <div 
                   key={p.id} 
                   onClick={() => navigate(`/realizacie/${slug}`)}
-                  className="group relative overflow-hidden aspect-[4/5] rounded-sm cursor-pointer border border-zinc-800 hover:border-orange-500/50 transition-all duration-700 hover:-translate-y-2 text-left"
+                  className="group relative overflow-hidden aspect-[4/5] rounded-2xl cursor-pointer border-2 border-zinc-800 dark:border-zinc-600 hover:border-orange-600 transition-all duration-700 hover:-translate-y-2 text-left bg-gray-100 dark:bg-black shadow-2xl shadow-zinc-400/30 dark:shadow-zinc-900/80 hover:shadow-orange-200/60 dark:hover:shadow-orange-500/30"
                 >
-                  <img src={p.img} alt={p.title} className="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-all duration-1000 group-hover:scale-110" loading="lazy" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+                  <img src={p.img} alt={p.title} className="w-full h-full object-cover grayscale-[20%] opacity-70 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 dark:from-black via-gray-900/30 dark:via-black/30 to-transparent"></div>
                   <div className="absolute bottom-0 left-0 p-8 w-full transform transition-transform group-hover:-translate-y-2">
                     <div className="flex items-center space-x-3 mb-3 text-left">
                       <span className="h-px w-6 bg-orange-500"></span>
-                      <p className="text-orange-500 font-black text-[10px] uppercase tracking-widest">{p.loc}</p>
+                      <p className="text-orange-500 font-black text-[10px] uppercase tracking-widest text-white">{p.loc}</p>
                     </div>
-                    <h4 className="text-2xl font-black text-white tracking-tight leading-tight mb-4">{p.title}</h4>
+                    <h4 className="text-3xl font-extrabold text-white tracking-tight leading-tight mb-4 drop-shadow-lg">{p.title}</h4>
                     <div className="flex space-x-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                       <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">{p.cost}</div>
-                       <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">•</div>
-                       <div className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">{p.duration}</div>
+                       <div className="text-[10px] text-white font-bold uppercase tracking-widest">{p.cost}</div>
+                       <div className="text-[10px] text-white font-bold uppercase tracking-widest">•</div>
+                       <div className="text-[10px] text-white font-bold uppercase tracking-widest">{p.duration}</div>
                     </div>
                   </div>
                 </div>

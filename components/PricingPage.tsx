@@ -60,25 +60,25 @@ const PricingPage: React.FC = () => {
         <link rel="canonical" href="https://targos.sk/cennik" />
         <meta name="robots" content="index, follow" />
       </Helmet>
-      <section className="min-h-[80vh] bg-black py-20 pt-60 flex items-center justify-center">
-        <div className="max-w-2xl w-full rounded-2xl bg-black border border-zinc-800 px-6 py-10 md:px-12 md:py-14 relative shadow-[0_4px_32px_0_rgba(234,88,12,0.10)] mx-4">
+      <section className="min-h-[80vh] bg-zinc-100 dark:bg-black py-20 pt-60 flex items-center justify-center transition-colors">
+        <div className="max-w-2xl w-full rounded-2xl bg-white/90 dark:bg-black border border-zinc-300 dark:border-zinc-800 px-6 py-10 md:px-12 md:py-14 relative shadow-xl dark:shadow-[0_4px_32px_0_rgba(234,88,12,0.10)] mx-4 transition-colors">
           {!submitted && (
             <>
-              <h1 className="text-4xl md:text-5xl font-black text-orange-500 mb-6 text-center">Žiadosť o cenovú ponuku</h1>
-              <p className="text-zinc-300 text-lg mb-10 text-center">Vyplňte krátky formulár a pripravíme vám individuálnu cenovú ponuku na mieru. Čím viac detailov uvediete, tým presnejšie vám vieme pomôcť.</p>
+              <h1 className="text-4xl md:text-5xl font-black text-orange-600 dark:text-orange-500 mb-6 text-center drop-shadow-sm">Žiadosť o cenovú ponuku</h1>
+              <p className="text-zinc-600 dark:text-zinc-300 text-lg mb-10 text-center">Vyplňte krátky formulár a pripravíme vám individuálnu cenovú ponuku na mieru. Čím viac detailov uvediete, tým presnejšie vám vieme pomôcť.</p>
             </>
           )}
           {submitted ? (
             <div className="text-center py-16">
-              <div className="w-16 h-16 mx-auto mb-6 bg-green-500/20 rounded-full flex items-center justify-center border border-green-500/30">
-                <svg className="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+              <div className="w-16 h-16 mx-auto mb-6 bg-green-500/20 dark:bg-green-500/10 rounded-full flex items-center justify-center border border-green-500/30 dark:border-green-500/20">
+                <svg className="w-8 h-8 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
               </div>
-              <h2 className="text-2xl font-black text-orange-500 mb-2">Ďakujeme za váš záujem!</h2>
-              <p className="text-zinc-300">Vaša žiadosť bola úspešne odoslaná. Ozveme sa vám do 24 hodín s ponukou na mieru.</p>
+              <h2 className="text-2xl font-black text-orange-600 dark:text-orange-500 mb-2">Ďakujeme za váš záujem!</h2>
+              <p className="text-zinc-600 dark:text-zinc-300">Vaša žiadosť bola úspešne odoslaná. Ozveme sa vám do 24 hodín s ponukou na mieru.</p>
               <button
                 type="button"
                 onClick={() => setSubmitted(false)}
-                className="mt-10 bg-orange-600 hover:bg-orange-700 text-white font-black py-4 px-8 rounded text-lg uppercase tracking-widest transition-all"
+                className="mt-10 bg-orange-600 hover:bg-orange-700 text-white font-black py-4 px-8 rounded text-lg uppercase tracking-widest transition-all shadow-md shadow-orange-600/20"
               >
                 Nová žiadosť
               </button>
@@ -87,45 +87,45 @@ const PricingPage: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-8 print:hidden">
               <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">Meno a priezvisko *</label>
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">Meno a priezvisko *</label>
                   <input
                     type="text"
                     name="name"
                     value={form.name}
                     onChange={handleChange}
                     required
-                    className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors"
+                    className="w-full bg-white/80 dark:bg-black border-b-2 border-zinc-300 dark:border-zinc-700 focus:border-orange-500 text-zinc-900 dark:text-white px-3 py-3 outline-none transition-colors"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">E-mail *</label>
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">E-mail *</label>
                   <input
                     type="email"
                     name="email"
                     value={form.email}
                     onChange={handleChange}
                     required
-                    className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors"
+                    className="w-full bg-white/80 dark:bg-black border-b-2 border-zinc-300 dark:border-zinc-700 focus:border-orange-500 text-zinc-900 dark:text-white px-3 py-3 outline-none transition-colors"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">Telefón</label>
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">Telefón</label>
                   <input
                     type="tel"
                     name="phone"
                     value={form.phone}
                     onChange={handleChange}
-                    className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors"
+                    className="w-full bg-white/80 dark:bg-black border-b-2 border-zinc-300 dark:border-zinc-700 focus:border-orange-500 text-zinc-900 dark:text-white px-3 py-3 outline-none transition-colors"
                     placeholder="+421 908 949 117"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">Typ projektu</label>
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">Typ projektu</label>
                   <select
                     name="projectType"
                     value={form.projectType}
                     onChange={handleChange}
-                    className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors appearance-none"
+                    className="w-full bg-white/80 dark:bg-black border-b-2 border-zinc-300 dark:border-zinc-700 focus:border-orange-500 text-zinc-900 dark:text-white px-3 py-3 outline-none transition-colors appearance-none"
                   >
                     <option>Rekonštrukcia domu</option>
                     <option>Novostavba</option>
@@ -134,17 +134,17 @@ const PricingPage: React.FC = () => {
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">Rozpočet (voliteľné)</label>
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">Rozpočet (voliteľné)</label>
                   <input
                     type="text"
                     name="budget"
                     value={form.budget}
                     onChange={handleChange}
-                    className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors"
+                    className="w-full bg-white/80 dark:bg-black border-b-2 border-zinc-300 dark:border-zinc-700 focus:border-orange-500 text-zinc-900 dark:text-white px-3 py-3 outline-none transition-colors"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-black uppercase tracking-widest text-zinc-400 mb-2">Prílohy (voliteľné, PDF/JPG/PNG, max 5MB/súbor)</label>
+                  <label className="block text-xs font-black uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-2">Prílohy (voliteľné, PDF/JPG/PNG, max 5MB/súbor)</label>
                   <div className="relative w-full">
                     <input
                       type="file"
@@ -152,13 +152,13 @@ const PricingPage: React.FC = () => {
                       accept=".pdf,.jpg,.jpeg,.png"
                       multiple
                       onChange={e => setFiles(Array.from(e.target.files || []))}
-                      className="w-full bg-zinc-900 border-2 border-zinc-800 rounded-lg px-4 py-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-orange-600 file:text-white file:font-black file:uppercase file:tracking-widest transition-all hover:border-orange-500 focus:border-orange-500 cursor-pointer"
+                      className="w-full bg-zinc-200 dark:bg-zinc-900 border-2 border-zinc-300 dark:border-zinc-800 rounded-lg px-3 py-1.5 text-zinc-900 dark:text-white file:mr-1 file:py-1 file:px-2 file:rounded-sm file:border-0 file:bg-orange-600 file:text-white file:font-bold file:uppercase file:tracking-widest transition-all hover:border-orange-500 focus:border-orange-500 cursor-pointer text-xs"
                     />
                     <span className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-orange-500">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828L18 9.828V7h-2.828z" /></svg>
                     </span>
                     {files.length > 0 && (
-                      <ul className="mt-2 text-xs text-zinc-400 list-disc list-inside">
+                      <ul className="mt-2 text-xs text-zinc-500 dark:text-zinc-400 list-disc list-inside">
                         {files.map((file, i) => (
                           <li key={i}>{file.name}</li>
                         ))}
@@ -168,14 +168,14 @@ const PricingPage: React.FC = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">Detailný popis zámeru *</label>
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">Detailný popis zámeru *</label>
                 <textarea
                   name="details"
                   value={form.details}
                   onChange={handleChange}
                   required
                   rows={4}
-                  className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors resize-none"
+                  className="w-full bg-white/80 dark:bg-black border-b-2 border-zinc-300 dark:border-zinc-700 focus:border-orange-500 text-zinc-900 dark:text-white px-3 py-3 outline-none transition-colors resize-none"
                   placeholder="Popíšte čo najviac detailov, napr. lokalitu, rozsah prác, termín, špecifiká..."
                 />
               </div>
@@ -188,7 +188,7 @@ const PricingPage: React.FC = () => {
                   className="accent-orange-600 w-4 h-4"
                   required
                 />
-                <label htmlFor="agree" className="text-zinc-400 text-xs">Súhlasím so spracovaním osobných údajov podľa <a href="/gdpr" className="underline text-orange-500" target="_blank" rel="noopener noreferrer">zásad ochrany osobných údajov</a>.</label>
+                <label htmlFor="agree" className="text-zinc-600 dark:text-zinc-400 text-xs">Súhlasím so spracovaním osobných údajov podľa <a href="/gdpr" className="underline text-orange-600 dark:text-orange-500" target="_blank" rel="noopener noreferrer">zásad ochrany osobných údajov</a>.</label>
               </div>
               {/* Honeypot */}
               <input

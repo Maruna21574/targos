@@ -74,32 +74,32 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
         <link rel="canonical" href="https://targos.sk/kontakt" />
         <meta name="robots" content="index, follow" />
       </Helmet>
-    <section className={`${isHome ? 'py-0 mb-32' : 'py-20'} min-h-[60vh] bg-transparent`}>
+    <section className={`${isHome ? 'py-0' : 'py-20'} min-h-[60vh] bg-zinc-100 dark:bg-zinc-950 transition-colors`}>
       {/* ...existing code... */}
-      <div className="max-w-7xl pt-20 mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-12 items-stretch">
+      <div className="max-w-7xl pt-20 pb-20 mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-12 items-stretch">
         {/* LEFT PANEL: Contact Info */}
         <div className="md:w-1/2 flex flex-col justify-center mb-12 md:mb-0">
           <h5 className="text-orange-500 font-black uppercase tracking-widest text-xs mb-4">Kontaktujte nás</h5>
-          <h2 className="text-5xl md:text-6xl font-black text-white mb-6 leading-tight">MÁTE PLÁN?<br/>MY MÁME TÍM.</h2>
-          <p className="text-zinc-300 text-lg mb-10 max-w-lg">Či už ide o drobnú rekonštrukciu alebo výstavbu rodinného domu, sme tu, aby sme vám poskytli odborné poradenstvo a férovú ponuku.</p>
+          <h2 className="text-5xl md:text-6xl font-black text-zinc-900 dark:text-white mb-6 leading-tight transition-colors">MÁTE PLÁN?<br/>MY MÁME TÍM.</h2>
+          <p className="text-zinc-700 dark:text-zinc-300 text-lg mb-10 max-w-lg transition-colors">Či už ide o drobnú rekonštrukciu alebo výstavbu rodinného domu, sme tu, aby sme vám poskytli odborné poradenstvo a férovú ponuku.</p>
           <div className="space-y-10">
             <div className="flex items-center gap-4">
-              <div className="bg-zinc-900 p-3 flex items-center justify-center">
+              <div className="bg-zinc-200 dark:bg-zinc-900 p-3 flex items-center justify-center rounded-lg border border-zinc-300 dark:border-zinc-800">
                 <svg className="w-6 h-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5.75C3 4.784 3.784 4 4.75 4h14.5A1.75 1.75 0 0121 5.75v12.5A1.75 1.75 0 0119.25 20H4.75A1.75 1.75 0 013 18.25V5.75z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l9 6 9-6" /></svg>
               </div>
               <div>
-                <div className="text-zinc-400 text-xs font-black uppercase tracking-widest">Telefónny kontakt</div>
-                <a href="tel:+421908949117" className="text-orange-500 font-black text-lg md:text-xl hover:underline tracking-wider">+421&nbsp;908&nbsp;949&nbsp;117</a>
-                <div className="text-zinc-500 text-xs">Po - Pia: 08:00 - 17:00</div>
+                <div className="text-zinc-500 dark:text-zinc-400 text-xs font-black uppercase tracking-widest">Telefónny kontakt</div>
+                <a href="tel:+421908949117" className="text-orange-600 dark:text-orange-500 font-black text-lg md:text-xl hover:underline tracking-wider">+421&nbsp;908&nbsp;949&nbsp;117</a>
+                <div className="text-zinc-400 dark:text-zinc-500 text-xs">Po - Pia: 08:00 - 17:00</div>
               </div>
             </div>
             <div className="flex items-center gap-4 mt-4">
-              <div className="bg-zinc-900 p-3 flex items-center justify-center">
+              <div className="bg-zinc-200 dark:bg-zinc-900 p-3 flex items-center justify-center rounded-lg border border-zinc-300 dark:border-zinc-800">
                 <svg className="w-6 h-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 01-8 0m8 0a4 4 0 00-8 0m8 0V8a4 4 0 00-8 0v4m8 0v4a4 4 0 01-8 0v-4" /></svg>
               </div>
               <div>
-                <div className="text-zinc-400 text-xs font-black uppercase tracking-widest">E-mailová adresa</div>
-                <a href="mailto:info@targos.sk" className="text-white font-black text-lg md:text-xl hover:underline">info@targos.sk</a>
+                <div className="text-zinc-500 dark:text-zinc-400 text-xs font-black uppercase tracking-widest">E-mailová adresa</div>
+                <a href="mailto:info@targos.sk" className="text-zinc-900 dark:text-white font-black text-lg md:text-xl hover:underline">info@targos.sk</a>
               </div>
             </div>
           </div>
@@ -107,32 +107,32 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
         
         {/* RIGHT PANEL: Form */}
         <div className="md:w-1/2 flex items-center">
-          <div className={`w-full rounded-2xl bg-black border border-zinc-800 px-6 py-10 md:px-12 md:py-14 relative ${isHome ? 'shadow-[0_4px_32px_0_rgba(234,88,12,0.10)]' : 'shadow-2xl'}`}>
+          <div className={`w-full rounded-2xl bg-white dark:bg-black border border-zinc-300 dark:border-zinc-800 px-6 py-10 md:px-12 md:py-14 relative ${isHome ? 'shadow-[0_4px_32px_0_rgba(234,88,12,0.10)]' : 'shadow-2xl'} transition-colors`}>
             {submitted ? (
               <div>
                 <div>
-                  <p className="text-[10px] text-zinc-500 font-black uppercase tracking-widest mb-1">Typ projektu</p>
-                  <p className="text-orange-500 font-black text-xl tracking-tight uppercase print:text-black">{formData.interest}</p>
+                  <p className="text-[10px] text-zinc-500 dark:text-zinc-400 font-black uppercase tracking-widest mb-1">Typ projektu</p>
+                  <p className="text-orange-600 dark:text-orange-500 font-black text-xl tracking-tight uppercase print:text-black">{formData.interest}</p>
                 </div>
-                <div className="bg-zinc-100 border border-zinc-200 p-6 rounded-lg print:bg-white print:border-black">
-                  <p className="text-[10px] text-zinc-500 font-black uppercase tracking-widest mb-4">Text správy / Technické detaily</p>
-                  <p className="text-zinc-700 text-sm leading-relaxed whitespace-pre-line print:text-black">
+                <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-6 rounded-lg print:bg-white print:border-black transition-colors">
+                  <p className="text-[10px] text-zinc-500 dark:text-zinc-400 font-black uppercase tracking-widest mb-4">Text správy / Technické detaily</p>
+                  <p className="text-zinc-800 dark:text-zinc-200 text-sm leading-relaxed whitespace-pre-line print:text-black">
                     {formData.message || "Bez doplňujúcich informácií."}
                   </p>
-                  <p className="mt-6 text-black text-base font-light leading-relaxed whitespace-pre-line print:text-black">
+                  <p className="mt-6 text-zinc-900 dark:text-zinc-100 text-base font-light leading-relaxed whitespace-pre-line print:text-black">
                     Či už ide o drobnú rekonštrukciu alebo výstavbu rodinného domu, sme tu, aby sme vám poskytli odborné poradenstvo a férovú ponuku.
                   </p>
                 </div>
                 <div className="pt-8 flex flex-col items-center justify-center text-center space-y-6 print:hidden">
-                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center border border-green-500/30">
+                  <div className="w-16 h-16 bg-green-500/20 dark:bg-green-500/10 rounded-full flex items-center justify-center border border-green-500/30">
                     <svg className="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                   </div>
-                  <h4 className="text-white font-black text-xl uppercase tracking-tighter">Váš dopyt bol úspešne odoslaný na info@targos.sk</h4>
-                  <p className="text-zinc-500 text-xs font-light max-w-xs mx-auto">Náš tím vás bude kontaktovať v priebehu 24 hodín s prvotným vyjadrením a návrhom termínu obhliadky.</p>
+                  <h4 className="text-zinc-900 dark:text-white font-black text-xl uppercase tracking-tighter">Váš dopyt bol úspešne odoslaný na info@targos.sk</h4>
+                  <p className="text-zinc-500 dark:text-zinc-400 text-xs font-light max-w-xs mx-auto">Náš tím vás bude kontaktovať v priebehu 24 hodín s prvotným vyjadrením a návrhom termínu obhliadky.</p>
                   <div className="flex space-x-4 w-full">
                     <button 
                       onClick={handlePrintInquiry}
-                      className="flex-grow bg-zinc-200 hover:bg-zinc-300 text-zinc-900 font-black py-4 uppercase text-[10px] tracking-widest transition-all rounded-lg"
+                      className="flex-grow bg-zinc-200 dark:bg-zinc-700 hover:bg-zinc-300 dark:hover:bg-zinc-600 text-zinc-900 dark:text-zinc-100 font-black py-4 uppercase text-[10px] tracking-widest transition-all rounded-lg"
                     >
                       Vytlačiť potvrdenie
                     </button>
@@ -149,42 +149,42 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
               <form onSubmit={handleSubmit} className="space-y-8 print:hidden">
                 <div className="space-y-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">Vaše meno</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">Vaše meno</label>
                     <input 
                       required 
                       type="text" 
                       value={formData.name}
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors" 
+                      className="w-full bg-white dark:bg-black border-b-2 border-zinc-300 dark:border-zinc-700 focus:border-orange-500 text-zinc-900 dark:text-white px-3 py-3 outline-none transition-colors" 
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">E-mail</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">E-mail</label>
                     <input 
                       required 
                       type="email" 
                       value={formData.email}
                       onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors" 
+                      className="w-full bg-white dark:bg-black border-b-2 border-zinc-300 dark:border-zinc-700 focus:border-orange-500 text-zinc-900 dark:text-white px-3 py-3 outline-none transition-colors" 
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">Telefón</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">Telefón</label>
                     <input 
                       type="tel" 
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                      className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors" 
+                      className="w-full bg-white dark:bg-black border-b-2 border-zinc-300 dark:border-zinc-700 focus:border-orange-500 text-zinc-900 dark:text-white px-3 py-3 outline-none transition-colors" 
                       placeholder="+421 908 949 117"
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">O čo máte záujem?</label>
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">O čo máte záujem?</label>
                   <select 
                     value={formData.interest}
                     onChange={(e) => setFormData({...formData, interest: e.target.value})}
-                    className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors appearance-none"
+                    className="w-full bg-white dark:bg-black border-b-2 border-zinc-300 dark:border-zinc-700 focus:border-orange-500 text-zinc-900 dark:text-white px-3 py-3 outline-none transition-colors appearance-none"
                   >
                     <option>Kompletná rekonštrukcia</option>
                     <option>Novostavba rodinného domu</option>
@@ -193,17 +193,17 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                   </select>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500">Detaily projektu</label>
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">Detaily projektu</label>
                   <textarea 
                     rows={4} 
                     value={formData.message}
                     onChange={(e) => setFormData({...formData, message: e.target.value})}
                     placeholder="Popíšte nám vašu predstavu..."
-                    className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors resize-none"
+                    className="w-full bg-white dark:bg-black border-b-2 border-zinc-300 dark:border-zinc-700 focus:border-orange-500 text-zinc-900 dark:text-white px-3 py-3 outline-none transition-colors resize-none"
                   ></textarea>
                 </div>
                 <div>
-                  <label className="block text-xs font-black uppercase tracking-widest text-zinc-400 mb-2">Prílohy (voliteľné, PDF/JPG/PNG, max 5MB/súbor)</label>
+                  <label className="block text-xs font-black uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-2">Prílohy (voliteľné, PDF/JPG/PNG, max 5MB/súbor)</label>
                   <div className="relative w-full">
                     <input
                       type="file"
@@ -211,12 +211,15 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                       accept=".pdf,.jpg,.jpeg,.png"
                       multiple
                       onChange={e => setFiles(Array.from(e.target.files || []))}
-                      className="w-full bg-zinc-900 border-2 border-zinc-800 rounded-lg px-4 py-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-orange-600 file:text-white file:font-black file:uppercase file:tracking-widest transition-all hover:border-orange-500 focus:border-orange-500 cursor-pointer"
+                      className="w-full bg-zinc-100 dark:bg-zinc-900 border-2 border-zinc-300 dark:border-zinc-800 rounded-lg px-3 py-2 text-zinc-900 dark:text-white file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-orange-600 file:text-white file:font-black file:uppercase file:tracking-widest file:text-[10px] transition-all hover:border-orange-500 focus:border-orange-500 cursor-pointer appearance-none"
                     />
                     <span className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-orange-500">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828L18 9.828V7h-2.828z" /></svg>
                     </span>
                   </div>
+                  {files.length === 0 && (
+                    <div className="text-xs text-orange-600 dark:text-orange-400 font-bold mt-1">Nie je vybraný žiadny súbor</div>
+                  )}
                 </div>
                 <div style={{display:'none'}}>
                   <label>Ak ste človek, toto pole nevyplňujte</label>
@@ -224,7 +227,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                 </div>
                 <div className="flex items-center space-x-3 mb-8">
                   <input type="checkbox" required className="accent-orange-600 w-4 h-4" />
-                  <span className="text-zinc-500 text-xs font-light">Súhlasím so spracovaním <Link to="/gdpr" className="text-orange-500 font-bold cursor-pointer hover:underline">osobných údajov</Link>.</span>
+                  <span className="text-zinc-500 dark:text-zinc-400 text-xs font-light">Súhlasím so spracovaním <Link to="/gdpr" className="text-orange-500 font-bold cursor-pointer hover:underline">osobných údajov</Link>.</span>
                 </div>
                 <button 
                   type="submit"
@@ -249,7 +252,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
         </div>
       </div>
       {isHome && (
-        <div className="block md:hidden mb-32" />
+        <div className="block md:hidden pb-32" />
       )}
       {/* Orange shadow below removed for a subtler look as requested */}
     </section>

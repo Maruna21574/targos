@@ -3,9 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 
 interface NavbarProps {
   scrolled: boolean;
+  onToggleTheme?: () => void;
+  theme?: 'light' | 'dark';
 }
 
-const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
+const Navbar: React.FC<NavbarProps> = ({ scrolled, onToggleTheme, theme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
@@ -19,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-black py-3' : 'bg-transparent py-6'}`}>
+    <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white dark:bg-black py-3' : 'bg-transparent py-6'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-3 cursor-pointer group">
@@ -31,10 +33,10 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
               />
             </div>
             <div className="flex flex-col text-left">
-              <span className="text-2xl font-black tracking-tighter leading-none group-hover:text-orange-500 transition-colors">
+              <span className="text-2xl font-black tracking-tighter leading-none group-hover:text-orange-500 transition-colors text-black dark:text-white">
                 TARGOŠ
               </span>
-              <span className="text-[10px] font-bold text-orange-500 tracking-[0.2em] uppercase">Stavebné práce</span>
+              <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-black dark:text-orange-500">Stavebné práce</span>
             </div>
           </Link>
 
@@ -44,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className={`transition-all duration-300 font-bold text-xs uppercase tracking-widest ${location.pathname === link.path ? 'text-orange-500' : 'text-gray-400 hover:text-white'}`}
+                className={`transition-all duration-300 font-bold text-xs uppercase tracking-widest ${location.pathname === link.path ? 'text-black underline underline-offset-4 decoration-2 dark:text-orange-500' : 'text-black dark:text-white hover:text-orange-500 dark:hover:text-orange-500'}`}
               >
                 {link.name}
               </Link>
@@ -56,6 +58,14 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
             >
               CENOVÁ PONUKA
             </Link>
+            {/* Light/Dark mode toggle button */}
+            <button
+              onClick={onToggleTheme}
+              className="ml-4 px-3 py-2 rounded transition-colors font-bold text-xs border border-gray-300 bg-gray-100 text-black dark:text-white hover:bg-gray-200 dark:bg-zinc-900 dark:border-zinc-700 dark:hover:bg-zinc-800"
+              aria-label="Toggle light/dark mode"
+            >
+              {theme === 'dark' ? '🌙' : '☀️'}
+            </button>
           </div>
 
           <div className="lg:hidden">
@@ -80,11 +90,11 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
           {/* Overlay for background opacity */}
           <div className="fixed inset-0 z-40 bg-black/70 transition-opacity duration-300" onClick={() => setIsOpen(false)} />
           {/* Mobile nav menu - slide in from right */}
-          <div className="fixed top-0 right-0 h-full w-full bg-zinc-950/95 backdrop-blur-xl border-l border-orange-500/20 z-50 shadow-2xl animate-in slide-in-from-right-32 duration-300 flex flex-col">
+          <div className="fixed top-0 right-0 h-full w-full bg-white dark:bg-zinc-950/95 backdrop-blur-xl border-l border-orange-500/20 z-50 shadow-2xl animate-in slide-in-from-right-32 duration-300 flex flex-col">
             <div className="flex items-center justify-between px-4 pt-6 pb-2">
               <Link to="/" onClick={() => setIsOpen(false)} className="flex items-center space-x-2">
                 <img src="/images/logo_targos.png" alt="TARGOŠ logo" className="w-16 h-16 object-contain" loading="lazy" />
-                <span className="text-xl font-black tracking-tighter text-white">TARGOŠ</span>
+                <span className="text-xl font-black tracking-tighter text-black dark:text-white">TARGOŠ</span>
               </Link>
               <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-orange-500 p-2">
                 <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -98,7 +108,7 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
                   key={link.path}
                   to={link.path}
                   onClick={() => setIsOpen(false)}
-                  className={`block w-full text-left px-3 py-4 text-base font-black tracking-widest uppercase rounded transition-colors duration-200 ${location.pathname === link.path ? 'text-orange-500 bg-orange-500/10' : 'text-gray-300 hover:bg-zinc-900/40 hover:text-orange-500'}`}
+                  className={`block w-full text-left px-3 py-4 text-base font-black tracking-widest uppercase rounded transition-colors duration-200 ${location.pathname === link.path ? 'text-black underline underline-offset-4 decoration-2 bg-black/5 dark:text-orange-500 dark:bg-orange-500/10' : 'text-black dark:text-white hover:bg-gray-100 dark:hover:bg-zinc-900/40 hover:text-orange-500 dark:hover:text-orange-500'}`}
                 >
                   {link.name}
                 </Link>
@@ -112,6 +122,13 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
               >
                 CENOVÁ PONUKA
               </Link>
+              <button
+                onClick={onToggleTheme}
+                className="mt-4 w-full px-3 py-3 rounded transition-colors font-bold text-base border border-gray-300 bg-gray-100 text-black dark:text-white hover:bg-gray-200 dark:bg-zinc-900 dark:border-zinc-700 dark:hover:bg-zinc-800"
+                aria-label="Toggle light/dark mode"
+              >
+                {theme === 'dark' ? '🌙 Tmavý režim' : '☀️ Svetlý režim'}
+              </button>
             </div>
           </div>
         </>

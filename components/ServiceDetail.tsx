@@ -62,41 +62,41 @@ const ServiceDetail: React.FC = () => {
   const navigate = useNavigate();
   const service = serviceCategories.find(s => slugify(s.title) === slug);
 
-  if (!service) return <div className="pt-20 text-center text-white">Služba nebola nájdená.</div>;
+  if (!service) return <div className="pt-20 text-center text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-950 min-h-screen">Služba nebola nájdená.</div>;
 
   // Fallback text for podstránka
   const podstrankaText = 'Táto podstránka obsahuje detailné informácie o službe. Získajte viac informácií o tom, čo všetko zahŕňa, aké sú výhody a prečo si vybrať práve túto službu.';
 
   return (
-    <section className="py-32 pt-16 md:pt-32 bg-black min-h-screen">
-      <div className="max-w-4xl pt-32 mx-auto px-4">
+    <section className="py-16 md:py-32 min-h-screen bg-zinc-100 dark:bg-zinc-950 transition-colors">
+      <div className="max-w-4xl pt-20 pb-20 mx-auto px-4">
         {/* Horné tlačidlo späť */}
         <button
           onClick={() => navigate(-1)}
-          className="mb-8 flex items-center gap-2 px-6 py-3 rounded-full bg-zinc-900 border border-orange-600 text-orange-500 font-black uppercase tracking-widest shadow-lg hover:bg-orange-600 hover:text-white hover:shadow-orange-500/30 transition-all text-xs group"
+          className="mb-8 flex items-center gap-2 px-6 py-3 rounded-full bg-white dark:bg-zinc-900 border border-orange-600 text-orange-600 dark:text-orange-500 font-black uppercase tracking-widest shadow-lg hover:bg-orange-600 hover:text-white hover:shadow-orange-500/30 transition-all text-xs group"
         >
           <svg className="w-4 h-4 mr-1 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
           Späť na služby
         </button>
-        <h1 className="text-4xl font-black text-white mb-4">{service.title}</h1>
+        <h1 className="text-4xl font-black text-zinc-900 dark:text-white mb-4 transition-colors">{service.title}</h1>
         {service.image && (
-          <img src={service.image} alt={service.title} className="w-full rounded mb-8" loading="lazy" />
+          <img src={service.image} alt={service.title} className="w-full rounded-xl mb-8 shadow-lg" loading="lazy" />
         )}
-        <p className="text-lg text-zinc-300 mb-8">{service.desc}</p>
-        <div className="bg-zinc-900/50 border border-zinc-800 rounded-sm p-6 mb-8">
-          <h2 className="text-white font-black text-lg mb-2">O službe</h2>
-          <p className="text-zinc-400 text-base">{podstrankaText}</p>
+        <p className="text-lg text-zinc-700 dark:text-zinc-300 mb-8 transition-colors">{service.desc}</p>
+        <div className="bg-white/80 dark:bg-zinc-900/70 border border-zinc-200 dark:border-zinc-800 rounded-xl p-6 mb-8 shadow-sm transition-colors">
+          <h2 className="text-zinc-900 dark:text-white font-black text-lg mb-2 transition-colors">O službe</h2>
+          <p className="text-zinc-600 dark:text-zinc-400 text-base transition-colors">{podstrankaText}</p>
         </div>
         {service.longDesc && (
-          <div className="bg-zinc-900/50 border border-zinc-800 rounded-sm p-6 mb-8">
-            <h2 className="text-white font-black text-lg mb-2">Detailný popis</h2>
-            <p className="text-zinc-400 text-base">{service.longDesc}</p>
+          <div className="bg-white/80 dark:bg-zinc-900/70 border border-zinc-200 dark:border-zinc-800 rounded-xl p-6 mb-8 shadow-sm transition-colors">
+            <h2 className="text-zinc-900 dark:text-white font-black text-lg mb-2 transition-colors">Detailný popis</h2>
+            <p className="text-zinc-600 dark:text-zinc-400 text-base transition-colors">{service.longDesc}</p>
           </div>
         )}
         {service.items && Array.isArray(service.items) && service.items.length > 0 && (
           <div className="mb-8">
-            <h3 className="text-orange-500 font-black uppercase text-xs mb-4 tracking-widest">Čo zahŕňa služba</h3>
-            <ul className="list-disc pl-6 space-y-2 text-zinc-300">
+            <h3 className="text-orange-600 dark:text-orange-500 font-black uppercase text-xs mb-4 tracking-widest">Čo zahŕňa služba</h3>
+            <ul className="list-disc pl-6 space-y-2 text-zinc-700 dark:text-zinc-200 transition-colors">
               {service.items.map((item: string, i: number) => (
                 <li key={i}>{item}</li>
               ))}
@@ -108,7 +108,7 @@ const ServiceDetail: React.FC = () => {
         <div className="flex justify-center mt-16">
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-2 px-8 py-4 rounded-full bg-zinc-900 border border-orange-600 text-orange-500 font-black uppercase tracking-widest shadow-lg hover:bg-orange-600 hover:text-white hover:shadow-orange-500/30 transition-all text-sm group"
+            className="flex items-center gap-2 px-8 py-4 rounded-full bg-white dark:bg-zinc-900 border border-orange-600 text-orange-600 dark:text-orange-500 font-black uppercase tracking-widest shadow-lg hover:bg-orange-600 hover:text-white hover:shadow-orange-500/30 transition-all text-sm group"
           >
             <svg className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
             Späť na služby

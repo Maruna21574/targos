@@ -67,6 +67,13 @@ const App: React.FC = () => {
   const [dbLoading, setDbLoading] = useState(true);
   const location = useLocation();
   const [contactSubmitted, setContactSubmitted] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
+    }
+    return 'light';
+  });
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setContactSubmitted((window as any).__CONTACT_SUBMITTED === true);
@@ -96,10 +103,23 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Apply theme to html element
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(theme);
+      localStorage.setItem('theme', theme);
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   return (
     <HelmetProvider>
       <ScrollToTop />
-      <Navbar scrolled={scrolled} />
+      <Navbar scrolled={scrolled} onToggleTheme={toggleTheme} theme={theme} />
       <Routes>
         <Route path="/" element={
           <>
@@ -131,8 +151,8 @@ const App: React.FC = () => {
         <Route path="/cenova-ponuka" element={<PricingPage />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-      {/* TrustLogos zobraz len ak nie je potvrdenie kontaktu */}
-      {!((location.pathname === '/kontakt') && contactSubmitted) && <TrustLogos />}
+      {/* TrustLogos zobraz len na hlavnej stránke */}
+      {location.pathname === '/' && <TrustLogos />}
       <Footer />
       <ScrollToTopButton />
     </HelmetProvider>

@@ -67,14 +67,14 @@ const Services: React.FC<ServicesProps> = ({ isHome }) => {
       </Helmet>
       <section
         id="services"
-        className={`${isHome ? 'pt-24 md:pt-48 py-16 md:py-32' : 'pt-48 py-32'} bg-black border-y border-zinc-900 relative`}
+        className={`${isHome ? 'pt-24 md:pt-48 py-16 md:py-32' : 'pt-48 py-32'} bg-white dark:bg-black border-y border-gray-200 dark:border-zinc-900 relative`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-24">
             <h2 className="text-orange-500 font-black uppercase tracking-[0.3em] text-xs mb-4">
               Čo ponúkame
             </h2>
-            <h3 className="text-5xl md:text-6xl font-black text-white tracking-tighter mb-6">KOMPLETNÉ SLUŽBY</h3>
+            <h3 className="text-5xl md:text-6xl font-black dark:text-white text-gray-900 tracking-tighter mb-6">KOMPLETNÉ SLUŽBY</h3>
             <p className="mt-4 text-gray-500 max-w-xl mx-auto font-light text-lg">
               Sme vaším jediným partnerom od výkopu až po kolaudáciu. Ponúkame realizácie na kľúč pre súkromný aj firemný sektor.
             </p>
@@ -99,27 +99,27 @@ const Services: React.FC<ServicesProps> = ({ isHome }) => {
                   onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') navigate(`/sluzby/${slug}`); }}
                 >
                   <div className="absolute inset-0 bg-orange-600 opacity-0 group-hover:opacity-5 blur-3xl transition-opacity duration-500"></div>
-                  <div className="relative z-10 bg-zinc-900/40 border border-zinc-800 rounded-sm h-full flex flex-col hover:border-orange-500/30 transition-all duration-500 overflow-hidden">
+                  <div className="relative z-10 bg-white/95 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-700 rounded-2xl h-full flex flex-col hover:border-orange-400 hover:shadow-lg hover:shadow-orange-200/40 dark:hover:shadow-orange-500/20 transition-all duration-300 overflow-hidden shadow-lg shadow-zinc-300/20 dark:shadow-zinc-900/60">
                     {/* Category Image */}
                     <div className="h-48 overflow-hidden relative">
                       <img 
                         src={cat.image} loading="lazy"
                         alt={cat.title} 
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" 
+                        className="w-full h-full object-cover grayscale-[30%] opacity-80 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-700 group-hover:scale-110" 
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 dark:from-zinc-900 via-transparent to-transparent"></div>
                     </div>
                     <div className="p-10 flex flex-col flex-grow">
                       <div className="mb-8">
                         <span className="text-orange-500 text-4xl font-black opacity-20">0{idx + 1}</span>
-                        <h4 className="text-2xl font-black text-white mt-2 tracking-tight">{cat.title}</h4>
-                        <p className="text-zinc-500 text-sm mt-4 font-light leading-relaxed">{cat.desc}</p>
+                        <h4 className="text-2xl font-black dark:text-white text-gray-900 mt-2 tracking-tight drop-shadow-lg">{cat.title}</h4>
+                        <p className="text-gray-700 dark:text-zinc-500 text-sm mt-4 font-light leading-relaxed">{cat.desc}</p>
                       </div>
                       <ul className="space-y-4 flex-grow">
                         {cat.items.slice(0, 3).map((item, i) => (
-                          <li key={i} className="text-zinc-400 flex items-start space-x-3 text-xs">
+                          <li key={i} className="flex items-start space-x-3 text-xs text-gray-600 dark:text-zinc-400">
                             <span className="w-3 h-[1px] bg-orange-600 mt-2 flex-shrink-0"></span>
-                            <span className="group-hover:text-zinc-200 transition-colors">{item}</span>
+                            <span className="group-hover:text-gray-900 dark:group-hover:text-zinc-200 transition-colors">{item}</span>
                           </li>
                         ))}
                       </ul>
