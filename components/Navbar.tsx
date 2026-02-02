@@ -23,11 +23,11 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-3 cursor-pointer group">
-            <div className="relative w-28 h-28 flex items-center justify-center">
+            <div className="relative w-24 h-24 flex items-center justify-center">
               <img 
                 src="/images/logo_targos.png" loading="lazy"
                 alt="TARGOŠ logo" 
-                className="w-28 h-28 object-contain"
+                className="w-24 h-24 object-contain"
               />
             </div>
             <div className="flex flex-col text-left">

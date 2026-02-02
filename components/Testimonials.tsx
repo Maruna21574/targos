@@ -36,6 +36,9 @@ const Testimonials: React.FC<TestimonialsProps> = ({ isHome }) => {
         <meta property="og:title" content="Referencie | TARGOŠ" />
         <meta property="og:description" content="Skúsenosti a hodnotenia našich klientov. Prečítajte si referencie na stavebné práce TARGOŠ." />
         <meta property="og:image" content="/images/og_testimonials.jpg" />
+        <meta property="og:url" content="https://targos.sk/referencie" />
+        <link rel="canonical" href="https://targos.sk/referencie" />
+        <meta name="robots" content="index, follow" />
       </Helmet>
     <section className={`${isHome ? 'py-16' : 'py-32'} bg-black relative`}>
       <div className="max-w-7xl mx-auto px-4">

@@ -35,6 +35,9 @@ const FAQ: React.FC<FAQProps> = ({ isHome }) => {
         <meta property="og:title" content="FAQ | TARGOŠ" />
         <meta property="og:description" content="Najčastejšie otázky a odpovede o stavebných prácach, cenách a službách TARGOŠ." />
         <meta property="og:image" content="/images/og_faq.jpg" />
+        <meta property="og:url" content="https://targos.sk/faq" />
+        <link rel="canonical" href="https://targos.sk/faq" />
+        <meta name="robots" content="index, follow" />
       </Helmet>
       <section className={`${isHome ? 'py-16' : 'py-32'}  bg-black`}>
         <div className="max-w-4xl mx-auto px-4">

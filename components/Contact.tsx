@@ -70,6 +70,9 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
         <meta property="og:title" content="TARGOŠ" />
         <meta property="og:description" content="Kontaktujte nás pre nezáväznú cenovú ponuku alebo odborné poradenstvo. TARGOŠ - stavebné práce s tradíciou." />
         <meta property="og:image" content="/images/og_contact.jpg" />
+        <meta property="og:url" content="https://targos.sk/kontakt" />
+        <link rel="canonical" href="https://targos.sk/kontakt" />
+        <meta name="robots" content="index, follow" />
       </Helmet>
     <section className={`${isHome ? 'py-0 mb-32' : 'py-20'} min-h-[60vh] bg-transparent`}>
       {/* ...existing code... */}

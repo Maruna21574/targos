@@ -15,6 +15,9 @@ const Legal: React.FC<LegalProps> = ({ type }) => {
         <meta property="og:title" content="Právne informácie | TARGOŠ" />
         <meta property="og:description" content="Právne informácie, GDPR a ochrana osobných údajov. TARGOŠ - stavebné práce s tradíciou." />
         <meta property="og:image" content="/images/og_legal.jpg" />
+        <meta property="og:url" content="https://targos.sk/gdpr" />
+        <link rel="canonical" href="https://targos.sk/gdpr" />
+        <meta name="robots" content="index, follow" />
       </Helmet>
       <div className="py-48 bg-black min-h-screen">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

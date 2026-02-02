@@ -61,6 +61,9 @@ const Services: React.FC<ServicesProps> = ({ isHome }) => {
         <meta property="og:title" content="Služby | TARGOŠ" />
         <meta property="og:description" content="Kompletné stavebné služby, rekonštrukcie, novostavby, elektroinštalácie a ďalšie. Férový prístup, odborný tím." />
         <meta property="og:image" content="/images/og_services.jpg" />
+        <meta property="og:url" content="https://targos.sk/sluzby" />
+        <link rel="canonical" href="https://targos.sk/sluzby" />
+        <meta name="robots" content="index, follow" />
       </Helmet>
       <section
         id="services"

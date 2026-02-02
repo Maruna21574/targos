@@ -13,6 +13,7 @@ import React, { useState, useEffect } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import HomeMeta from './components/HomeMeta';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import About from './components/About';
@@ -102,10 +103,12 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={
           <>
+            {/* SEO meta tagy pre homepage */}
+            <HomeMeta />
             <Hero />
             <Portfolio projects={projects} />
             <Portfolio isHome />
-             <ProjectConsultant isHome />
+            <ProjectConsultant isHome />
             <Services isHome />
             <About isHome />
             <Testimonials isHome />

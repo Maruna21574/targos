@@ -35,6 +35,9 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects, isHome }) => {
         <meta property="og:title" content="Projekty | TARGOŠ" />
         <meta property="og:description" content="Ukážky našich stavebných projektov a realizácií. Pozrite si portfólio TARGOŠ." />
         <meta property="og:image" content="/images/og_projects.jpg" />
+        <meta property="og:url" content="https://targos.sk/projekty" />
+        <link rel="canonical" href="https://targos.sk/projekty" />
+        <meta name="robots" content="index, follow" />
       </Helmet>
       <section
         id="portfolio"

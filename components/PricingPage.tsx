@@ -56,6 +56,9 @@ const PricingPage: React.FC = () => {
         <meta property="og:title" content="Cenník | TARGOŠ" />
         <meta property="og:description" content="Cenník stavebných prác a služieb TARGOŠ. Férové ceny, transparentné podmienky, profesionálny prístup." />
         <meta property="og:image" content="/images/og_pricing.jpg" />
+        <meta property="og:url" content="https://targos.sk/cennik" />
+        <link rel="canonical" href="https://targos.sk/cennik" />
+        <meta name="robots" content="index, follow" />
       </Helmet>
       <section className="min-h-[80vh] bg-black py-20 pt-60 flex items-center justify-center">
         <div className="max-w-2xl w-full rounded-2xl bg-black border border-zinc-800 px-6 py-10 md:px-12 md:py-14 relative shadow-[0_4px_32px_0_rgba(234,88,12,0.10)] mx-4">
