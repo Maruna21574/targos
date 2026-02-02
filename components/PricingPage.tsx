@@ -16,10 +16,25 @@ const PricingPage: React.FC = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    // Tu by sa posielali dáta na backend
+    try {
+      const response = await fetch('https://api.targos.sk/mail.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          interest: 'Cenová ponuka: ' + form.projectType,
+          message: `Rozpočet: ${form.budget}\n${form.details}`
+        })
+      });
+      if (!response.ok) throw new Error('Chyba pri odosielaní formulára.');
+      setSubmitted(true);
+    } catch (err) {
+      alert((err as any).message || 'Chyba pri odosielaní.');
+    }
   };
 
   return (
