@@ -101,9 +101,10 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
             </div>
           </div>
         </div>
+        
         {/* RIGHT PANEL: Form */}
         <div className="md:w-1/2 flex items-center">
-          <div className={`w-full rounded-2xl bg-black border border-zinc-800 px-6 py-10 md:px-12 md:py-14 relative ${isHome ? 'shadow-[0_0_40px_0_rgba(234,88,12,0.4)]' : 'shadow-2xl'}`}>
+          <div className={`w-full rounded-2xl bg-black border border-zinc-800 px-6 py-10 md:px-12 md:py-14 relative ${isHome ? 'shadow-[0_4px_32px_0_rgba(234,88,12,0.10)]' : 'shadow-2xl'}`}>
             {submitted ? (
               <div>
                 <div>
