@@ -97,42 +97,40 @@ const App: React.FC = () => {
 
   return (
     <HelmetProvider>
-      <Router>
-        <ScrollToTop />
-        <Navbar scrolled={scrolled} />
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Hero />
-              <About isHome />
-              <Services isHome />
-              <Portfolio isHome />
-              <Testimonials isHome />
-              <ProjectConsultant isHome />
-              <FAQ isHome />
-              <Contact isHome />
-            </>
-          } />
-          <Route path="/sluzby" element={<Services />} />
-          <Route path="/sluzby/:slug" element={<ServiceDetail />} />
-          <Route path="/projekty" element={<Portfolio />} />
-          <Route path="/projekty/:slug" element={<ProjectDetail />} />
-          <Route path="/cennik" element={<PricingPage />} />
-          <Route path="/kontakt" element={<Contact />} />
-          <Route path="/gdpr" element={<Legal />} />
-          <Route path="/admin" element={<Admin projects={projects} setProjects={setProjects} defaultProjects={DEFAULT_PROJECTS} />} />
-          <Route path="/o-nas" element={<About />} />
-          <Route path="/realizacie" element={<Portfolio projects={projects} />} />
-          <Route path="/realizacie/:slug" element={<ProjectDetail projects={projects} />} />
-          <Route path="/ai" element={<ProjectConsultant setPrefilledMessage={setPrefilledMessage} />} />
-          <Route path="/cenova-ponuka" element={<PricingPage />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-        {/* TrustLogos zobraz len ak nie je potvrdenie kontaktu */}
-        {!((location.pathname === '/kontakt') && contactSubmitted) && <TrustLogos />}
-        <Footer />
-        <ScrollToTopButton />
-      </Router>
+      <ScrollToTop />
+      <Navbar scrolled={scrolled} />
+      <Routes>
+        <Route path="/" element={
+          <>
+            <Hero />
+            <About isHome />
+            <Services isHome />
+            <Portfolio isHome />
+            <Testimonials isHome />
+            <ProjectConsultant isHome />
+            <FAQ isHome />
+            <Contact isHome />
+          </>
+        } />
+        <Route path="/sluzby" element={<Services />} />
+        <Route path="/sluzby/:slug" element={<ServiceDetail />} />
+        <Route path="/projekty" element={<Portfolio />} />
+        <Route path="/projekty/:slug" element={<ProjectDetail />} />
+        <Route path="/cennik" element={<PricingPage />} />
+        <Route path="/kontakt" element={<Contact />} />
+        <Route path="/gdpr" element={<Legal />} />
+        <Route path="/admin" element={<Admin projects={projects} setProjects={setProjects} defaultProjects={DEFAULT_PROJECTS} />} />
+        <Route path="/o-nas" element={<About />} />
+        <Route path="/realizacie" element={<Portfolio projects={projects} />} />
+        <Route path="/realizacie/:slug" element={<ProjectDetail projects={projects} />} />
+        <Route path="/ai" element={<ProjectConsultant setPrefilledMessage={setPrefilledMessage} />} />
+        <Route path="/cenova-ponuka" element={<PricingPage />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+      {/* TrustLogos zobraz len ak nie je potvrdenie kontaktu */}
+      {!((location.pathname === '/kontakt') && contactSubmitted) && <TrustLogos />}
+      <Footer />
+      <ScrollToTopButton />
     </HelmetProvider>
   );
 };
