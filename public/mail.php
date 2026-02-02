@@ -1,6 +1,5 @@
 <?php
 // mail.php – jednoduchý PHP handler pre odosielanie e-mailov z formulára
-// Nahraj tento súbor na Websupport do koreňa webu (napr. www.targos.sk/mail.php)
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: https://www.targos.sk'); // uprav podľa domény
@@ -26,7 +25,6 @@ if (!$name || !$email || !$interest) {
     exit();
 }
 
-
 $year = date('Y');
 $replace = [
     '{{name}}' => $name,
@@ -41,37 +39,36 @@ $replace = [
 if (file_exists('admin-notification.html')) {
     $adminTpl = file_get_contents('admin-notification.html');
     $adminBody = str_replace(array_keys($replace), array_values($replace), $adminTpl);
-    $adminHeaders = "From: TARGOŠ <{$from}>\r\nReply-To: {$email}\r\nContent-Type: text/html; charset=UTF-8";
 } else if (file_exists('admin-notification.txt')) {
     $adminTpl = file_get_contents('admin-notification.txt');
     $adminBody = str_replace(array_keys($replace), array_values($replace), $adminTpl);
-    $adminHeaders = "From: TARGOŠ <{$from}>\r\nReply-To: {$email}\r\nContent-Type: text/plain; charset=UTF-8";
 } else {
     $adminBody = "Nový dopyt:\nMeno: $name\nE-mail: $email\nTelefón: $phone\nTyp projektu: $interest\nSpráva: $message";
-    $adminHeaders = "From: TARGOŠ <{$from}>\r\nReply-To: {$email}\r\nContent-Type: text/plain; charset=UTF-8";
 }
 
 // Klient šablóna (HTML alebo TXT)
 if (file_exists('client-confirmation.html')) {
     $clientTpl = file_get_contents('client-confirmation.html');
     $clientBody = str_replace(array_keys($replace), array_values($replace), $clientTpl);
-    $clientHeaders = "From: TARGOŠ <{$from}>\r\nReply-To: {$adminMail}\r\nContent-Type: text/html; charset=UTF-8";
 } else if (file_exists('client-confirmation.txt')) {
     $clientTpl = file_get_contents('client-confirmation.txt');
     $clientBody = str_replace(array_keys($replace), array_values($replace), $clientTpl);
-    $clientHeaders = "From: TARGOŠ <{$from}>\r\nReply-To: {$adminMail}\r\nContent-Type: text/plain; charset=UTF-8";
 } else {
     $clientBody = "Ďakujeme za váš dopyt, $name!\nVaša požiadavka bola prijatá.\n\nKópia vašej správy:\n$message";
-    $clientHeaders = "From: TARGOŠ <{$from}>\r\nReply-To: {$adminMail}\r\nContent-Type: text/plain; charset=UTF-8";
 }
-
 
 $adminMail = 'info@targos.sk'; // uprav na svoj e-mail
 $from = "info@targos.sk";
 
+// Jednoduché hlavičky
+$headers = "From: $from";
+
 // Pošli adminovi
-mail($adminMail, "Nový dopyt z webu: $interest", $adminBody, $adminHeaders);
+$sentAdmin = mail($adminMail, "Nový dopyt z webu: $interest", $adminBody, $headers);
 // Pošli klientovi
-mail($email, "Potvrdenie prijatia dopytu | TARGOŠ", $clientBody, $clientHeaders);
+$sentClient = mail($email, "Potvrdenie prijatia dopytu | TARGOŠ", $clientBody, $headers);
+
+// Logovanie výsledku
+file_put_contents('mail.log', date('c')." admin: ".($sentAdmin ? 'OK' : 'ERROR')." client: ".($sentClient ? 'OK' : 'ERROR')."\n", FILE_APPEND);
 
 echo json_encode(['success' => true]);
