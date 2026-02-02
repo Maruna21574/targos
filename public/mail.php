@@ -9,12 +9,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-$data = json_decode(file_get_contents('php://input'), true);
-$name = trim($data['name'] ?? '');
-$email = trim($data['email'] ?? '');
-$phone = trim($data['phone'] ?? '');
-$interest = trim($data['interest'] ?? '');
-$message = trim($data['message'] ?? '');
+
+
+// Rozlíš medzi JSON a multipart/form-data
+if (isset($_POST['name']) || isset($_FILES['attachments'])) {
+    // multipart/form-data
+    $name = trim($_POST['name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $phone = trim($_POST['phone'] ?? '');
+    $interest = trim($_POST['interest'] ?? '');
+    $budget = trim($_POST['budget'] ?? '');
+    $message = trim($_POST['message'] ?? '');
+    $website = trim($_POST['website'] ?? '');
+    // Honeypot antispam
+    if (!empty($website)) {
+        http_response_code(200);
+        echo json_encode(['success' => true, 'antispam' => true]);
+        exit();
+    }
+    $attachments = [];
+    if (isset($_FILES['attachments'])) {
+        $files = $_FILES['attachments'];
+        $count = is_array($files['name']) ? count($files['name']) : 0;
+        for ($i = 0; $i < $count; $i++) {
+            if ($files['error'][$i] === UPLOAD_ERR_OK && $files['size'][$i] <= 5*1024*1024) { // max 5MB/súbor
+                $attachments[] = [
+                    'name' => $files['name'][$i],
+                    'type' => $files['type'][$i],
+                    'content' => chunk_split(base64_encode(file_get_contents($files['tmp_name'][$i])))
+                ];
+            }
+        }
+    }
+    $hasAttachment = count($attachments) > 0;
+} else {
+    // JSON
+    $data = json_decode(file_get_contents('php://input'), true);
+    // Honeypot antispam
+    if (!empty($data['website'])) {
+        http_response_code(200);
+        echo json_encode(['success' => true, 'antispam' => true]);
+        exit();
+    }
+    $name = trim($data['name'] ?? '');
+    $email = trim($data['email'] ?? '');
+    $phone = trim($data['phone'] ?? '');
+    $interest = trim($data['interest'] ?? '');
+    $budget = trim($data['budget'] ?? '');
+    $message = trim($data['message'] ?? '');
+    $hasAttachment = false;
+}
 
 if (!$name || !$email || !$interest) {
     http_response_code(400);
@@ -22,13 +66,13 @@ if (!$name || !$email || !$interest) {
     exit();
 }
 
-
 $year = date('Y');
 $replace = [
     '{{name}}' => $name,
     '{{email}}' => $email,
     '{{phone}}' => $phone,
     '{{interest}}' => $interest,
+    '{{budget}}' => $budget,
     '{{message}}' => $message,
     '{{year}}' => $year
 ];
@@ -71,17 +115,43 @@ if ($isContact && file_exists('client-confirmation-contact.html')) {
 }
 
 $adminMail = 'info@targos.sk';
-$from = "info@targos.sk";
+
+$from = "TARGOŠ <info@targos.sk>";
 
 // HTML hlavičky
-$headers = "MIME-Version: 1.0\r\n";
-$headers .= "Content-type: text/html; charset=UTF-8\r\n";
-$headers .= "From: $from\r\n";
 
-// Pošli adminovi
-$sentAdmin = mail($adminMail, "Nový dopyt z webu: $interest", $adminBody, $headers);
-// Pošli klientovi
-$sentClient = mail($email, "Potvrdenie prijatia dopytu | TARGOŠ", $clientBody, $headers);
+if ($hasAttachment) {
+    $boundary = md5(uniqid(time()));
+    $headers = "MIME-Version: 1.0\r\n";
+    $headers .= "From: $from\r\n";
+    $headers .= "Content-Type: multipart/mixed; boundary=\"$boundary\"\r\n";
+
+    $body = "--$boundary\r\n";
+    $body .= "Content-Type: text/html; charset=UTF-8\r\n";
+    $body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+    $body .= $adminBody . "\r\n";
+    foreach ($attachments as $att) {
+        $body .= "--$boundary\r\n";
+        $body .= "Content-Type: {$att['type']}; name=\"{$att['name']}\"\r\n";
+        $body .= "Content-Transfer-Encoding: base64\r\n";
+        $body .= "Content-Disposition: attachment; filename=\"{$att['name']}\"\r\n\r\n";
+        $body .= $att['content'] . "\r\n";
+    }
+    $body .= "--$boundary--";
+    $sentAdmin = mail($adminMail, "Nový dopyt z webu: $interest", $body, $headers);
+
+    // Klientovi bez prílohy
+    $headersClient = "MIME-Version: 1.0\r\n";
+    $headersClient .= "Content-type: text/html; charset=UTF-8\r\n";
+    $headersClient .= "From: $from\r\n";
+    $sentClient = mail($email, "Potvrdenie prijatia dopytu | TARGOŠ", $clientBody, $headersClient);
+} else {
+    $headers = "MIME-Version: 1.0\r\n";
+    $headers .= "Content-type: text/html; charset=UTF-8\r\n";
+    $headers .= "From: $from\r\n";
+    $sentAdmin = mail($adminMail, "Nový dopyt z webu: $interest", $adminBody, $headers);
+    $sentClient = mail($email, "Potvrdenie prijatia dopytu | TARGOŠ", $clientBody, $headers);
+}
 
 // Logovanie výsledku
 file_put_contents('mail.log', date('c')." admin: ".($sentAdmin ? 'OK' : 'ERROR')." client: ".($sentClient ? 'OK' : 'ERROR')."\n", FILE_APPEND);

@@ -10,7 +10,10 @@ const PricingPage: React.FC = () => {
     budget: "",
     details: ""
   });
+  const [honeypot, setHoneypot] = useState("");
+  const [agree, setAgree] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [files, setFiles] = useState<File[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,17 +21,24 @@ const PricingPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (honeypot) return; // antispam
+    if (!agree) {
+      alert("Pre odoslanie musíte súhlasiť s podmienkami.");
+      return;
+    }
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', form.name);
+    formDataToSend.append('email', form.email);
+    formDataToSend.append('phone', form.phone);
+    formDataToSend.append('interest', 'Cenová ponuka: ' + form.projectType);
+    formDataToSend.append('budget', form.budget);
+    formDataToSend.append('message', form.details);
+    formDataToSend.append('website', honeypot);
+    files.forEach((file, i) => formDataToSend.append('attachments[]', file));
     try {
       const response = await fetch('https://api.targos.sk/mail.php', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          interest: 'Cenová ponuka: ' + form.projectType,
-          message: `Rozpočet: ${form.budget}\n${form.details}`
-        })
+        body: formDataToSend
       });
       if (!response.ok) throw new Error('Chyba pri odosielaní formulára.');
       setSubmitted(true);
@@ -91,6 +101,18 @@ const PricingPage: React.FC = () => {
               <div>
                 <label className="block text-xs font-black uppercase tracking-widest text-zinc-400 mb-2">Popis projektu / špecifikácia</label>
                 <textarea name="details" value={form.details} onChange={handleChange} required rows={5} className="w-full rounded bg-zinc-800 text-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Opíšte stručne váš zámer, lokalitu, termín, špecifiká..." />
+              </div>
+              <div>
+                <label className="block text-xs font-black uppercase tracking-widest text-zinc-400 mb-2">Prílohy (voliteľné, PDF/JPG/PNG, max 5MB/súbor)</label>
+                <input type="file" name="attachments" accept=".pdf,.jpg,.jpeg,.png" multiple onChange={e => setFiles(Array.from(e.target.files || []))} className="w-full text-white" />
+              </div>
+              <div style={{display:'none'}}>
+                <label>Ak ste človek, toto pole nevyplňujte</label>
+                <input type="text" name="website" value={honeypot} onChange={e => setHoneypot(e.target.value)} autoComplete="off" tabIndex={-1} />
+              </div>
+              <div className="flex items-center space-x-3 mb-8">
+                <input type="checkbox" required checked={agree} onChange={e => setAgree(e.target.checked)} className="accent-orange-600 w-4 h-4" />
+                <span className="text-zinc-500 text-xs font-light">Súhlasím so spracovaním <a href="/gdpr" className="text-orange-500 font-bold cursor-pointer hover:underline">osobných údajov</a>.</span>
               </div>
               <button type="submit" className="w-full bg-orange-600 hover:bg-orange-700 text-white font-black py-4 rounded text-lg uppercase tracking-widest transition-all">Odoslať žiadosť</button>
             </form>

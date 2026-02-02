@@ -18,6 +18,8 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
     interest: 'Kompletná rekonštrukcia',
     message: prefilledMessage
   });
+  const [honeypot, setHoneypot] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
 
   React.useEffect(() => {
     setFormData(prev => ({ ...prev, message: prefilledMessage }));
@@ -25,12 +27,20 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (honeypot) return; // antispam
     setIsSubmitting(true);
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', formData.name);
+    formDataToSend.append('email', formData.email);
+    formDataToSend.append('phone', formData.phone);
+    formDataToSend.append('interest', formData.interest);
+    formDataToSend.append('message', formData.message);
+    formDataToSend.append('website', honeypot);
+    files.forEach((file, i) => formDataToSend.append('attachments[]', file));
     try {
       const response = await fetch('https://api.targos.sk/mail.php', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: formDataToSend
       });
       if (!response.ok) throw new Error('Chyba pri odosielaní dopytu.');
       setIsSubmitting(false);
@@ -177,6 +187,14 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                     placeholder="Popíšte nám vašu predstavu..."
                     className="w-full bg-black border-b-2 border-zinc-700 focus:border-orange-500 text-white px-3 py-3 outline-none transition-colors resize-none"
                   ></textarea>
+                </div>
+                <div>
+                  <label className="block text-xs font-black uppercase tracking-widest text-zinc-400 mb-2">Prílohy (voliteľné, PDF/JPG/PNG, max 5MB/súbor)</label>
+                  <input type="file" name="attachments" accept=".pdf,.jpg,.jpeg,.png" multiple onChange={e => setFiles(Array.from(e.target.files || []))} className="w-full text-white" />
+                </div>
+                <div style={{display:'none'}}>
+                  <label>Ak ste človek, toto pole nevyplňujte</label>
+                  <input type="text" name="website" value={honeypot} onChange={e => setHoneypot(e.target.value)} autoComplete="off" tabIndex={-1} />
                 </div>
                 <div className="flex items-center space-x-3 mb-8">
                   <input type="checkbox" required className="accent-orange-600 w-4 h-4" />

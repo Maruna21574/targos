@@ -30,9 +30,10 @@
       <p>Bol prijatý nový dopyt cez webový formulár:</p>
       <table class="info-table">
         <tr><td class="label">Meno:</td><td>{{name}}</td></tr>
-        <tr><td class="label">E-mail:</td><td>{{email}}</td></tr>
-        <tr><td class="label">Telefón:</td><td>{{phone}}</td></tr>
+        <tr><td class="label">E-mail:</td><td><a href="mailto:{{email}}" style="color:#f97316;text-decoration:none;">{{email}}</a></td></tr>
+        <tr><td class="label">Telefón:</td><td><a href="tel:{{phone}}" style="color:#f97316;text-decoration:none;">{{phone}}</a></td></tr>
         <tr><td class="label">Typ projektu:</td><td>{{interest}}</td></tr>
+        <tr><td class="label">Rozpočet:</td><td>{{budget}}</td></tr>
         <tr><td class="label">Správa:</td><td style="white-space:pre-line;">{{message}}</td></tr>
       </table>
       <p style="font-size:13px;color:#888;">Odpovedať môžete priamo na tento e-mail.</p>
