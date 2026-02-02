@@ -11,7 +11,7 @@ const TrustLogos: React.FC = () => {
   ];
 
   return (
-    <section className="py-12 bg-zinc-900/30 border-b border-zinc-900">
+    <section className="py-12 bg-zinc-900/30 border-b border-zinc-900 print:hidden">
       <div className="max-w-7xl mx-auto px-4">
         <p className="text-center text-zinc-500 text-[10px] font-black uppercase tracking-[0.4em] mb-10">Certifikovaní partneri a materiály</p>
         <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-30 grayscale hover:grayscale-0 transition-all duration-700">

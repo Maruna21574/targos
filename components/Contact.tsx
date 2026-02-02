@@ -11,6 +11,11 @@ interface ContactProps {
 const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMessage, isHome }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  React.useEffect(() => {
+        if (typeof window !== 'undefined') {
+          (window as any).__CONTACT_SUBMITTED = submitted;
+        }
+  }, [submitted]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -59,13 +64,15 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
   return (
     <>
       <Helmet>
-        <title>Kontakt | TARGOŠ</title>
+        {/* Titulok a meta tagy nechaj, ale nadpis Kontakt | TARGOŠ a dátum úplne odstráň z renderu */}
+        <title>TARGOŠ</title>
         <meta name="description" content="Kontaktujte nás pre nezáväznú cenovú ponuku alebo odborné poradenstvo. TARGOŠ - stavebné práce s tradíciou." />
-        <meta property="og:title" content="Kontakt | TARGOŠ" />
+        <meta property="og:title" content="TARGOŠ" />
         <meta property="og:description" content="Kontaktujte nás pre nezáväznú cenovú ponuku alebo odborné poradenstvo. TARGOŠ - stavebné práce s tradíciou." />
         <meta property="og:image" content="/images/og_contact.jpg" />
       </Helmet>
     <section className={`${isHome ? 'py-0 mb-32' : 'py-20'} min-h-[60vh] bg-transparent`}>
+      {/* ...existing code... */}
       <div className="max-w-7xl pt-20 mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-12 items-stretch">
         {/* LEFT PANEL: Contact Info */}
         <div className="md:w-1/2 flex flex-col justify-center mb-12 md:mb-0">
@@ -108,12 +115,15 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                   <p className="text-zinc-700 text-sm leading-relaxed whitespace-pre-line print:text-black">
                     {formData.message || "Bez doplňujúcich informácií."}
                   </p>
+                  <p className="mt-6 text-black text-base font-light leading-relaxed whitespace-pre-line print:text-black">
+                    Či už ide o drobnú rekonštrukciu alebo výstavbu rodinného domu, sme tu, aby sme vám poskytli odborné poradenstvo a férovú ponuku.
+                  </p>
                 </div>
                 <div className="pt-8 flex flex-col items-center justify-center text-center space-y-6 print:hidden">
                   <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center border border-green-500/30">
                     <svg className="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                   </div>
-                  <h4 className="text-zinc-900 font-black text-xl uppercase tracking-tighter">Váš dopyt bol úspešne odoslaný na info@targos.sk</h4>
+                  <h4 className="text-white font-black text-xl uppercase tracking-tighter">Váš dopyt bol úspešne odoslaný na info@targos.sk</h4>
                   <p className="text-zinc-500 text-xs font-light max-w-xs mx-auto">Náš tím vás bude kontaktovať v priebehu 24 hodín s prvotným vyjadrením a návrhom termínu obhliadky.</p>
                   <div className="flex space-x-4 w-full">
                     <button 
@@ -190,7 +200,19 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
                 </div>
                 <div>
                   <label className="block text-xs font-black uppercase tracking-widest text-zinc-400 mb-2">Prílohy (voliteľné, PDF/JPG/PNG, max 5MB/súbor)</label>
-                  <input type="file" name="attachments" accept=".pdf,.jpg,.jpeg,.png" multiple onChange={e => setFiles(Array.from(e.target.files || []))} className="w-full text-white" />
+                  <div className="relative w-full">
+                    <input
+                      type="file"
+                      name="attachments"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      multiple
+                      onChange={e => setFiles(Array.from(e.target.files || []))}
+                      className="w-full bg-zinc-900 border-2 border-zinc-800 rounded-lg px-4 py-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-orange-600 file:text-white file:font-black file:uppercase file:tracking-widest transition-all hover:border-orange-500 focus:border-orange-500 cursor-pointer"
+                    />
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-orange-500">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828L18 9.828V7h-2.828z" /></svg>
+                    </span>
+                  </div>
                 </div>
                 <div style={{display:'none'}}>
                   <label>Ak ste človek, toto pole nevyplňujte</label>

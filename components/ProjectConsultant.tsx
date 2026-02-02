@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { getAIPonsultation } from '../services/geminiService';
+import { useNavigate } from 'react-router-dom';
 
 interface ProjectConsultantProps {
   setActivePage?: (page: string) => void;
@@ -12,6 +13,7 @@ const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, se
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<any | null>(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,12 +45,15 @@ const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, se
     if (setPrefilledMessage && result) {
       setPrefilledMessage(`Dopyt: ${query}\n\nAI analýza TARGOŠ:\nNáročnosť: ${result.narocnost}\nOdhad: ${result.odhad}`);
     }
+    // Ak je dostupný setActivePage, použi ho (homepage), inak presmeruj na /kontakt (podstránka /ai)
     if (setActivePage) {
       setActivePage('contact');
       setTimeout(() => {
         const el = document.getElementById('contact');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       }, 100);
+    } else {
+      navigate('/kontakt');
     }
   };
 

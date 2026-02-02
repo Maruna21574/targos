@@ -64,6 +64,13 @@ const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [prefilledMessage, setPrefilledMessage] = useState('');
   const [dbLoading, setDbLoading] = useState(true);
+  const location = useLocation();
+  const [contactSubmitted, setContactSubmitted] = useState(false);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setContactSubmitted((window as any).__CONTACT_SUBMITTED === true);
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -121,7 +128,8 @@ const App: React.FC = () => {
           <Route path="/cenova-ponuka" element={<PricingPage />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-        <TrustLogos />
+        {/* TrustLogos zobraz len ak nie je potvrdenie kontaktu */}
+        {!((location.pathname === '/kontakt') && contactSubmitted) && <TrustLogos />}
         <Footer />
         <ScrollToTopButton />
       </Router>

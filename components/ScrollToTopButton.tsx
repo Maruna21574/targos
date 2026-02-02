@@ -17,10 +17,9 @@ const ScrollToTopButton: React.FC = () => {
 
   return (
     <button
+      className="fixed bottom-8 right-8 z-50 bg-orange-600 text-white p-4 rounded-full shadow-[0_8px_32px_0_rgba(0,0,0,0.85)] hover:bg-orange-700 transition-all"
       onClick={scrollToTop}
       aria-label="Scroll to top"
-      className={`fixed bottom-8 right-8 z-50 p-3 rounded-full bg-orange-600 text-white shadow-lg transition-all duration-300 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-400 ${visible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-      style={{ boxShadow: '0 4px 24px 0 rgba(234,88,12,0.25)' }}
     >
       <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />

@@ -38,7 +38,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ projects, isHome }) => {
       </Helmet>
       <section
         id="portfolio"
-        className={`${isHome ? 'md:py-32 py-0' : 'pt-24 md:pt-32'} bg-black overflow-hidden`}
+        className={`${isHome ? 'md:py-32 py-0' : 'pt-24 md:pt-32 pb-32'} bg-black overflow-hidden`}
       >
         <div className="max-w-7xl mx-auto px-4 pt-20 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-start mb-20 gap-8 text-left">
