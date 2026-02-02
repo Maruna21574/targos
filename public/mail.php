@@ -138,19 +138,23 @@ if ($hasAttachment) {
         $body .= $att['content'] . "\r\n";
     }
     $body .= "--$boundary--";
-    $sentAdmin = mail($adminMail, "Nový dopyt z webu: $interest", $body, $headers);
+    $subjectAdmin = '=?UTF-8?B?' . base64_encode("Nový dopyt z webu: $interest") . '?=';
+    $sentAdmin = mail($adminMail, $subjectAdmin, $body, $headers);
 
     // Klientovi bez prílohy
     $headersClient = "MIME-Version: 1.0\r\n";
     $headersClient .= "Content-type: text/html; charset=UTF-8\r\n";
     $headersClient .= "From: $from\r\n";
-    $sentClient = mail($email, "Potvrdenie prijatia dopytu | TARGOŠ", $clientBody, $headersClient);
+    $subjectClient = '=?UTF-8?B?' . base64_encode("Potvrdenie prijatia dopytu | TARGOŠ") . '?=';
+    $sentClient = mail($email, $subjectClient, $clientBody, $headersClient);
 } else {
     $headers = "MIME-Version: 1.0\r\n";
     $headers .= "Content-type: text/html; charset=UTF-8\r\n";
     $headers .= "From: $from\r\n";
-    $sentAdmin = mail($adminMail, "Nový dopyt z webu: $interest", $adminBody, $headers);
-    $sentClient = mail($email, "Potvrdenie prijatia dopytu | TARGOŠ", $clientBody, $headers);
+    $subjectAdmin = '=?UTF-8?B?' . base64_encode("Nový dopyt z webu: $interest") . '?=';
+    $subjectClient = '=?UTF-8?B?' . base64_encode("Potvrdenie prijatia dopytu | TARGOŠ") . '?=';
+    $sentAdmin = mail($adminMail, $subjectAdmin, $adminBody, $headers);
+    $sentClient = mail($email, $subjectClient, $clientBody, $headers);
 }
 
 // Logovanie výsledku

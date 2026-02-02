@@ -44,27 +44,6 @@ function slugify(text) {
 }
 import ServiceDetail from './components/ServiceDetail';
 
-const DEFAULT_PROJECTS = [
-  {
-    "id": 1,
-    "title": "Moderná Vila pod Lesom",
-    "loc": "Bratislava - Koliba",
-    "img": "https://images.unsplash.com/photo-1600585154340-be6199f74039?auto=format&fit=crop&q=80&w=1200",
-    "gallery": [
-      "https://images.unsplash.com/photo-1600566753190-17f0bbc2249b?auto=format&fit=crop&q=80&w=1200"
-    ],
-    "desc": "Kompletná realizácia monolitického skeletu rodinnej vily.",
-    "cost": "245 000 €",
-    "duration": "14 mesiacov",
-    "year": "2023",
-    "scope": "Hrubá stavba, Fasáda",
-    "process": "1. Príprava | Terénne úpravy.; 2. Realizácia | Betonáž."
-  }
-];
-
-
-
-// Mock služby - upravte podľa reálnych dát
 const DEFAULT_SERVICES = [
   { id: 1, title: 'Kompletná rekonštrukcia', img: '', desc: 'Kompletné stavebné práce na kľúč.' },
   { id: 2, title: 'Novostavba rodinného domu', img: '', desc: 'Výstavba nových rodinných domov.' },
@@ -73,26 +52,26 @@ const DEFAULT_SERVICES = [
 ];
 
 const App: React.FC = () => {
-  const [projects, setProjects] = useState<any[]>(DEFAULT_PROJECTS);
+  const [projects, setProjects] = useState<any[]>([]);
   const [services] = useState<any[]>(DEFAULT_SERVICES);
   const [scrolled, setScrolled] = useState(false);
   const [prefilledMessage, setPrefilledMessage] = useState('');
   const [dbLoading, setDbLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const loadData = async () => {
-  //     const dbProjects = await getProjects();
-  //     if (dbProjects && dbProjects.length > 0) {
-  //       const mapped = dbProjects.map(p => ({
-  //         ...p,
-  //         desc: p.desc_text
-  //       }));
-  //       setProjects(mapped);
-  //     }
-  //     setDbLoading(false);
-  //   };
-  //   loadData();
-  // }, []);
+  useEffect(() => {
+    const loadData = async () => {
+      const dbProjects = await getProjects();
+      if (dbProjects && dbProjects.length > 0) {
+        const mapped = dbProjects.map(p => ({
+          ...p,
+          desc: p.desc_text
+        }));
+        setProjects(mapped);
+      }
+      setDbLoading(false);
+    };
+    loadData();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
