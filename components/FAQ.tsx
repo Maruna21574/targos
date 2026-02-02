@@ -36,7 +36,7 @@ const FAQ: React.FC<FAQProps> = ({ isHome }) => {
         <meta property="og:description" content="Najčastejšie otázky a odpovede o stavebných prácach, cenách a službách TARGOŠ." />
         <meta property="og:image" content="/images/og_faq.jpg" />
       </Helmet>
-      <section className={`${isHome ? 'py-16' : 'py-32'} bg-zinc-950`}>
+      <section className={`${isHome ? 'py-16' : 'py-32'}  bg-black`}>
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-orange-500 font-black uppercase tracking-[0.3em] text-xs mb-4">Otázky</h2>
@@ -56,7 +56,7 @@ const FAQ: React.FC<FAQProps> = ({ isHome }) => {
                   <span className={`text-2xl transition-transform duration-300 ${openIndex === i ? 'rotate-45 text-orange-500' : 'text-zinc-700'}`}>+</span>
                 </button>
                 <div className={`transition-all duration-500 ease-in-out ${openIndex === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                  <div className="p-6 pt-0 text-zinc-500 text-sm font-light leading-relaxed border-t border-zinc-900/50">
+                  <div className="p-6 pt-0 text-white text-sm font-light leading-relaxed border-zinc-900/50">
                     {f.a}
                   </div>
                 </div>

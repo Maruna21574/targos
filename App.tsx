@@ -103,11 +103,12 @@ const App: React.FC = () => {
         <Route path="/" element={
           <>
             <Hero />
-            <About isHome />
-            <Services isHome />
+            <Portfolio projects={projects} />
             <Portfolio isHome />
+             <ProjectConsultant isHome />
+            <Services isHome />
+            <About isHome />
             <Testimonials isHome />
-            <ProjectConsultant isHome />
             <FAQ isHome />
             <Contact isHome />
           </>

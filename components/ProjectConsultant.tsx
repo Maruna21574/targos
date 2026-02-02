@@ -6,9 +6,10 @@ import { useNavigate } from 'react-router-dom';
 interface ProjectConsultantProps {
   setActivePage?: (page: string) => void;
   setPrefilledMessage?: (msg: string) => void;
+  isHome?: boolean;
 }
 
-const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, setPrefilledMessage }) => {
+const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, setPrefilledMessage, isHome }) => {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -72,8 +73,15 @@ const ProjectConsultant: React.FC<ProjectConsultantProps> = ({ setActivePage, se
   const location = window.location?.pathname || '';
   const isContactPage = location === '/kontakt';
 
+  // On homepage, force py-0, otherwise keep original logic
+
+  // Always add pb-24
+  let sectionPadding = 'py-24 pb-24';
+  if (isHome) sectionPadding = 'py-0 pb-24';
+  else if (isContactPage) sectionPadding = 'py-0 md:py-24 pb-24';
+
   return (
-    <section id="ai-poradca" className={`${isContactPage ? 'py-0 md:py-24' : 'py-24'} bg-zinc-950 relative overflow-hidden print:bg-white print:p-0`}>
+    <section id="ai-poradca" className={`${sectionPadding} bg-zinc-950 relative overflow-hidden print:bg-white print:p-0`}>
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-orange-600/5 blur-[150px] -z-10 rounded-full print:hidden"></div>
       
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
