@@ -27,7 +27,7 @@ import Admin from './components/Admin';
 import TrustLogos from './components/TrustLogos';
 import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
-// import { getProjects } from './services/supabaseService';
+import { getProjects } from './services/supabaseService';
 import ProjectDetail from './components/ProjectDetail';
 import ScrollToTopButton from './components/ScrollToTopButton';
 
