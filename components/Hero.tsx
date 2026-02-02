@@ -1,11 +1,12 @@
-
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface HeroProps {
   setActivePage: (page: string) => void;
 }
 
 const Hero: React.FC<HeroProps> = ({ setActivePage }) => {
+  const navigate = useNavigate();
   return (
     <div className="relative h-screen flex items-center overflow-hidden bg-black">
       {/* Video Background Container */}
@@ -57,15 +58,12 @@ const Hero: React.FC<HeroProps> = ({ setActivePage }) => {
             >
               Nezáväzná kalkulácia
             </a>
-            <a 
-              href="#services"
-              className="bg-white/5 backdrop-blur-md hover:bg-white/10 text-white px-10 py-5 rounded-sm font-black text-xs uppercase tracking-widest transition-all border border-white/10 flex items-center justify-center space-x-3 text-center"
+            <button
+              className="bg-orange-600 hover:bg-orange-700 text-white px-10 py-5 rounded-sm font-black text-xs uppercase tracking-widest transition-all transform hover:-translate-y-1 shadow-2xl shadow-orange-600/40 text-center"
+              onClick={() => navigate('/sluzby')}
             >
-              <span>Naše služby</span>
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
+              Naše služby
+            </button>
           </div>
         </div>
       </div>

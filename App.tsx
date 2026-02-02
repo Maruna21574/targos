@@ -51,6 +51,13 @@ const DEFAULT_SERVICES = [
   { id: 4, title: 'Iné stavebné práce', img: '', desc: 'Všetky ostatné stavebné práce podľa dohody.' },
 ];
 
+const DEFAULT_PROJECTS = [
+  { id: 1, title: 'Kompletná rekonštrukcia', img: '', desc: 'Kompletné stavebné práce na kľúč.' },
+  { id: 2, title: 'Novostavba rodinného domu', img: '', desc: 'Výstavba nových rodinných domov.' },
+  { id: 3, title: 'Elektroinštalácie & Revízie', img: '', desc: 'Kompletné elektroinštalácie a revízie.' },
+  { id: 4, title: 'Iné stavebné práce', img: '', desc: 'Všetky ostatné stavebné práce podľa dohody.' },
+];
+
 const App: React.FC = () => {
   const [projects, setProjects] = useState<any[]>([]);
   const [services] = useState<any[]>(DEFAULT_SERVICES);
@@ -106,7 +113,7 @@ const App: React.FC = () => {
           <Route path="/cennik" element={<PricingPage />} />
           <Route path="/kontakt" element={<Contact />} />
           <Route path="/gdpr" element={<Legal />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin" element={<Admin projects={projects} setProjects={setProjects} defaultProjects={DEFAULT_PROJECTS} />} />
           <Route path="/o-nas" element={<About />} />
           <Route path="/realizacie" element={<Portfolio projects={projects} />} />
           <Route path="/realizacie/:slug" element={<ProjectDetail projects={projects} />} />
