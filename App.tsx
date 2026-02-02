@@ -27,7 +27,7 @@ import Admin from './components/Admin';
 import TrustLogos from './components/TrustLogos';
 import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
-import { getProjects } from './services/supabaseService';
+// import { getProjects } from './services/supabaseService';
 import ProjectDetail from './components/ProjectDetail';
 import ScrollToTopButton from './components/ScrollToTopButton';
 
@@ -79,20 +79,20 @@ const App: React.FC = () => {
   const [prefilledMessage, setPrefilledMessage] = useState('');
   const [dbLoading, setDbLoading] = useState(true);
 
-  useEffect(() => {
-    const loadData = async () => {
-      const dbProjects = await getProjects();
-      if (dbProjects && dbProjects.length > 0) {
-        const mapped = dbProjects.map(p => ({
-          ...p,
-          desc: p.desc_text
-        }));
-        setProjects(mapped);
-      }
-      setDbLoading(false);
-    };
-    loadData();
-  }, []);
+  // useEffect(() => {
+  //   const loadData = async () => {
+  //     const dbProjects = await getProjects();
+  //     if (dbProjects && dbProjects.length > 0) {
+  //       const mapped = dbProjects.map(p => ({
+  //         ...p,
+  //         desc: p.desc_text
+  //       }));
+  //       setProjects(mapped);
+  //     }
+  //     setDbLoading(false);
+  //   };
+  //   loadData();
+  // }, []);
 
   useEffect(() => {
     const handleScroll = () => {

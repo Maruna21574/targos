@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <title>Nový dopyt z webu | TARGOŠ</title>
+  <style>
+    body { background: #18181b; color: #222; font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    .container { max-width: 520px; margin: 32px auto; background: #fff; border-radius: 16px; box-shadow: 0 2px 16px #0002; border: 1px solid #eee; overflow: hidden; }
+    .header { background: #18181b; text-align: center; padding: 32px 24px 16px 24px; }
+    .header img { height: 56px; margin-bottom: 8px; }
+    .header h2 { color: #f97316; font-size: 26px; margin: 0 0 8px 0; letter-spacing: 2px; }
+    .header .subtitle { color: #fff; font-size: 14px; letter-spacing: 1px; margin-bottom: 0; }
+    .content { padding: 28px 24px 24px 24px; }
+    .content p { color: #222; font-size: 16px; margin-bottom: 18px; }
+    .info-table { width: 100%; font-size: 15px; color: #222; border-collapse: collapse; margin-bottom: 18px; }
+    .info-table td { padding: 7px 0; }
+    .info-table .label { font-weight: bold; color: #f97316; width: 140px; }
+    .footer { text-align: center; color: #aaa; font-size: 12px; background: #18181b; padding: 18px 0; border-top: 1px solid #eee; }
+    @media (max-width: 600px) { .container { margin: 0; border-radius: 0; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://www.targos.sk/images/logo_targos.png" alt="TARGOŠ logo" />
+      <h2>TARGOŠ STAVEBNÉ PRÁCE</h2>
+      <div class="subtitle">Nový dopyt z webu</div>
+    </div>
+    <div class="content">
+      <p>Bol prijatý nový dopyt cez webový formulár:</p>
+      <table class="info-table">
+        <tr><td class="label">Meno:</td><td>{{name}}</td></tr>
+        <tr><td class="label">E-mail:</td><td>{{email}}</td></tr>
+        <tr><td class="label">Telefón:</td><td>{{phone}}</td></tr>
+        <tr><td class="label">Typ projektu:</td><td>{{interest}}</td></tr>
+        <tr><td class="label">Správa:</td><td style="white-space:pre-line;">{{message}}</td></tr>
+      </table>
+      <p style="font-size:13px;color:#888;">Odpovedať môžete priamo na tento e-mail.</p>
+    </div>
+    <div class="footer">&copy; {{year}} TARGOŠ s.r.o. | <a href="https://www.targos.sk" style="color:#f97316;text-decoration:none;">www.targos.sk</a></div>
+  </div>
+</body>
+</html>
