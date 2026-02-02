@@ -27,7 +27,7 @@ const Contact: React.FC<ContactProps> = ({ prefilledMessage = '', setPrefilledMe
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://www.targos.sk/mail.php', {
+      const response = await fetch('https://api.targos.sk/mail.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
