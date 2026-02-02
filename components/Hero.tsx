@@ -52,10 +52,9 @@ const Hero: React.FC<HeroProps> = ({ setActivePage }) => {
             <span className="text-gradient-orange">VAŠE SNY.</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-gray-800 dark:text-gray-300 mb-12 leading-relaxed font-light max-w-xl animate-in fade-in slide-in-from-bottom duration-1000 delay-200">
+          <p className="text-xl md:text-2xl text-gray-800 dark:text-gray-300 mb-12 leading-relaxed font-light max-w-2xl animate-in fade-in slide-in-from-bottom duration-1000 delay-200">
             <span className="text-gray-900 font-semibold dark:text-gray-300">Kompletné rekonštrukcie, novostavby a technické inštalácie.</span> <br />
-            <span className="text-orange-700 font-bold dark:text-white">TARGOŠ</span>
-            <span className="text-gray-900 font-semibold dark:text-gray-300"> – Kvalita potvrdená časom.</span>
+            
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 animate-in fade-in slide-in-from-bottom duration-1000 delay-500">

@@ -59,7 +59,7 @@ const FAQ: React.FC<FAQProps> = ({ isHome }) => {
                   <span className={`text-2xl transition-transform duration-300 ${openIndex === i ? 'rotate-45 text-orange-500' : 'text-gray-400 dark:text-zinc-700'}`}>+</span>
                 </button>
                 <div className={`transition-all duration-500 ease-in-out ${openIndex === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-                  <div className="p-6 pt-0 text-gray-700 dark:text-white text-sm font-light leading-relaxed border-t border-gray-200 dark:border-zinc-800">
+                  <div className="p-6 pt-0 text-gray-700 dark:text-white text-sm font-light leading-relaxed border-gray-200 dark:border-zinc-800">
                     {f.a}
                   </div>
                 </div>
