@@ -69,9 +69,9 @@ const App: React.FC = () => {
   const [contactSubmitted, setContactSubmitted] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined') {
-      return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
+      return (localStorage.getItem('theme') as 'light' | 'dark') || 'dark';
     }
-    return 'light';
+    return 'dark';
   });
 
   useEffect(() => {
